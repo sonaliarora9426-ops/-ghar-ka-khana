@@ -149,10 +149,10 @@ textarea {
   resize: none;
 }
 
-.whatsapp {
+.place-order {
   width: 100%;
   padding: 15px;
-  background: #25D366;
+  background: #f47b20;
   color: white;
   border-radius: 12px;
   font-size: 17px;
@@ -238,8 +238,8 @@ Total: ₹<span id="total">0</span>
 
 <textarea id="customerAddress" placeholder="Delivery Address"></textarea>
 
-<button class="whatsapp" onclick="sendOrder()">
-📲 Place Order
+<button class="place-order" onclick="sendOrder()">
+🛒 Place Order
 </button>
 
 <button class="clear" onclick="clearCart()">
@@ -264,83 +264,246 @@ onclick="document.getElementById('cart').scrollIntoView({behavior:'smooth'})">
 
 <script>
 
-const SUPABASE_URL = "https://oxfuccrgitckvozmnyss.supabase.co";
+const SUPABASE_URL =
+"https://oxfuccrgitckvozmnyss.supabase.co";
 
-const SUPABASE_KEY = "sb_publishable_DwZtFpmfTwDnlAp6fYbjpA_upTa3khj";
+const SUPABASE_KEY =
+"sb_publishable_DwZtFpmfTwDnlAp6fYbjpA_upTa3khj";
 
-const supabaseClient = window.supabase.createClient(
+const supabaseClient =
+window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
 
+
 const menu = {
 
 mainCourse: [
-{name:"Matar Paneer",price:130,desc:"Homestyle peas & paneer curry"},
-{name:"Paneer Butter Masala",price:150,desc:"Creamy tomato paneer gravy"},
-{name:"Kadai Paneer",price:160,desc:"Paneer cooked with kadai masala"},
-{name:"Paneer Bhurji",price:140,desc:"Spiced scrambled paneer"},
-{name:"Shahi Paneer",price:150,desc:"Rich creamy paneer curry"},
-{name:"Rajma Chawal",price:120,desc:"Homestyle rajma with steamed rice"},
-{name:"Kadhi Chawal",price:120,desc:"Punjabi kadhi with rice"},
-{name:"Chole Chawal",price:120,desc:"Spicy chole with rice"}
+
+{
+name:"Matar Paneer",
+price:130,
+desc:"Homestyle peas & paneer curry"
+},
+
+{
+name:"Paneer Butter Masala",
+price:150,
+desc:"Creamy tomato paneer gravy"
+},
+
+{
+name:"Kadai Paneer",
+price:160,
+desc:"Paneer cooked with kadai masala"
+},
+
+{
+name:"Paneer Bhurji",
+price:140,
+desc:"Spiced scrambled paneer"
+},
+
+{
+name:"Shahi Paneer",
+price:150,
+desc:"Rich creamy paneer curry"
+},
+
+{
+name:"Rajma Chawal",
+price:120,
+desc:"Homestyle rajma with steamed rice"
+},
+
+{
+name:"Kadhi Chawal",
+price:120,
+desc:"Punjabi kadhi with rice"
+},
+
+{
+name:"Chole Chawal",
+price:120,
+desc:"Spicy chole with rice"
+}
+
 ],
+
 
 breads: [
-{name:"Aloo Parantha",price:25,desc:"Stuffed potato parantha"},
-{name:"Gobi Parantha",price:25,desc:"Stuffed cauliflower parantha"},
-{name:"Onion Parantha",price:25,desc:"Stuffed onion parantha"},
-{name:"Tawa Roti",price:6,desc:"Fresh homemade roti"}
+
+{
+name:"Aloo Parantha",
+price:25,
+desc:"Stuffed potato parantha"
+},
+
+{
+name:"Gobi Parantha",
+price:25,
+desc:"Stuffed cauliflower parantha"
+},
+
+{
+name:"Onion Parantha",
+price:25,
+desc:"Stuffed onion parantha"
+},
+
+{
+name:"Tawa Roti",
+price:6,
+desc:"Fresh homemade roti"
+}
+
 ],
+
 
 snacks: [
-{name:"White Pasta",price:120,desc:"Creamy white sauce pasta"},
-{name:"Tandoori Pasta",price:120,desc:"Smoky tandoori style pasta"},
-{name:"Mix Pasta",price:130,desc:"Mixed sauce pasta"},
-{name:"Veg Burger",price:40,desc:"Crispy veg burger"},
-{name:"Cheese Burger",price:50,desc:"Cheesy veg burger"},
-{name:"Corn Burger",price:50,desc:"Sweet corn veg burger"},
-{name:"Maggi",price:60,desc:"Classic masala Maggi"},
-{name:"Tandoori Maggi",price:70,desc:"Smoky spicy Maggi"},
-{name:"Tikki Wrap",price:60,desc:"Crispy aloo tikki wrap"},
-{name:"Paneer Wrap",price:70,desc:"Spicy paneer wrap"},
-{name:"Fries",price:80,desc:"Crispy golden fries"},
-{name:"Peri Peri Fries",price:100,desc:"Crispy fries with peri peri seasoning"}
+
+{
+name:"White Pasta",
+price:120,
+desc:"Creamy white sauce pasta"
+},
+
+{
+name:"Tandoori Pasta",
+price:120,
+desc:"Smoky tandoori style pasta"
+},
+
+{
+name:"Mix Pasta",
+price:130,
+desc:"Mixed sauce pasta"
+},
+
+{
+name:"Veg Burger",
+price:40,
+desc:"Crispy veg burger"
+},
+
+{
+name:"Cheese Burger",
+price:50,
+desc:"Cheesy veg burger"
+},
+
+{
+name:"Corn Burger",
+price:50,
+desc:"Sweet corn veg burger"
+},
+
+{
+name:"Maggi",
+price:60,
+desc:"Classic masala Maggi"
+},
+
+{
+name:"Tandoori Maggi",
+price:70,
+desc:"Smoky spicy Maggi"
+},
+
+{
+name:"Tikki Wrap",
+price:60,
+desc:"Crispy aloo tikki wrap"
+},
+
+{
+name:"Paneer Wrap",
+price:70,
+desc:"Spicy paneer wrap"
+},
+
+{
+name:"Fries",
+price:80,
+desc:"Crispy golden fries"
+},
+
+{
+name:"Peri Peri Fries",
+price:100,
+desc:"Crispy fries with peri peri seasoning"
+}
+
 ],
 
+
 chaat: [
-{name:"Papdi Chaat",price:70,desc:"Classic Indian chaat"},
-{name:"Corn Chaat",price:70,desc:"Fresh spicy corn chaat"},
-{name:"Macaroni Chaat",price:70,desc:"Fusion macaroni chaat"}
+
+{
+name:"Papdi Chaat",
+price:70,
+desc:"Classic Indian chaat"
+},
+
+{
+name:"Corn Chaat",
+price:70,
+desc:"Fresh spicy corn chaat"
+},
+
+{
+name:"Macaroni Chaat",
+price:70,
+desc:"Fusion macaroni chaat"
+}
+
 ]
 
 };
 
+
 let cart = [];
+
 
 function renderItems(items, elementId) {
 
-const container = document.getElementById(elementId);
+const container =
+document.getElementById(elementId);
 
 items.forEach(item => {
 
-const div = document.createElement("div");
+const div =
+document.createElement("div");
 
 div.className = "menu-item";
 
 div.innerHTML = `
+
 <div class="item-info">
-<div class="item-name">${item.name}</div>
-<div class="item-desc">${item.desc}</div>
-<div class="price">₹${item.price}</div>
+
+<div class="item-name">
+${item.name}
 </div>
 
-<button class="add-btn"
-onclick="addToCart('${item.name}', ${item.price})">
+<div class="item-desc">
+${item.desc}
+</div>
+
+<div class="price">
+₹${item.price}
+</div>
+
+</div>
+
+<button
+class="add-btn"
+onclick="addToCart('${item.name}',${item.price})">
 
 + Add
 
 </button>
+
 `;
 
 container.appendChild(div);
@@ -348,6 +511,7 @@ container.appendChild(div);
 });
 
 }
+
 
 renderItems(menu.mainCourse,"main-course");
 renderItems(menu.breads,"breads");
@@ -357,7 +521,8 @@ renderItems(menu.chaat,"chaat");
 
 function addToCart(name,price) {
 
-const existing = cart.find(item => item.name === name);
+const existing =
+cart.find(item => item.name === name);
 
 if(existing) {
 
@@ -366,9 +531,11 @@ existing.qty++;
 } else {
 
 cart.push({
+
 name:name,
 price:price,
 qty:1
+
 });
 
 }
@@ -380,7 +547,8 @@ updateCart();
 
 function changeQty(name,amount) {
 
-const item = cart.find(item => item.name === name);
+const item =
+cart.find(item => item.name === name);
 
 if(!item) return;
 
@@ -388,7 +556,8 @@ item.qty += amount;
 
 if(item.qty <= 0) {
 
-cart = cart.filter(i => i.name !== name);
+cart =
+cart.filter(i => i.name !== name);
 
 }
 
@@ -399,9 +568,12 @@ updateCart();
 
 function updateCart() {
 
-const container = document.getElementById("cart-items");
+const container =
+document.getElementById("cart-items");
 
-const totalElement = document.getElementById("total");
+const totalElement =
+document.getElementById("total");
+
 
 if(cart.length === 0) {
 
@@ -414,19 +586,25 @@ return;
 
 }
 
+
 let total = 0;
 
 container.innerHTML = "";
 
+
 cart.forEach(item => {
 
-const itemTotal = item.price * item.qty;
+const itemTotal =
+item.price * item.qty;
 
 total += itemTotal;
 
-const row = document.createElement("div");
+
+const row =
+document.createElement("div");
 
 row.className = "cart-row";
+
 
 row.innerHTML = `
 
@@ -440,21 +618,30 @@ row.innerHTML = `
 
 </div>
 
+
 <div class="qty">
 
-<button onclick="changeQty('${item.name}',-1)">−</button>
+<button
+onclick="changeQty('${item.name}',-1)">
+−
+</button>
 
 ${item.qty}
 
-<button onclick="changeQty('${item.name}',1)">+</button>
+<button
+onclick="changeQty('${item.name}',1)">
++
+</button>
 
 </div>
 
 `;
 
+
 container.appendChild(row);
 
 });
+
 
 totalElement.innerText = total;
 
@@ -480,24 +667,33 @@ return;
 
 }
 
+
 const name =
-document.getElementById("customerName").value.trim();
+document.getElementById("customerName")
+.value.trim();
 
 const phone =
-document.getElementById("customerPhone").value.trim();
+document.getElementById("customerPhone")
+.value.trim();
 
 const address =
-document.getElementById("customerAddress").value.trim();
+document.getElementById("customerAddress")
+.value.trim();
+
 
 if(!name || !phone || !address) {
 
-alert("Please fill your name, phone number and address.");
+alert(
+"Please fill your name, phone number and address."
+);
 
 return;
 
 }
 
+
 let total = 0;
+
 
 cart.forEach(item => {
 
@@ -506,7 +702,7 @@ total += item.price * item.qty;
 });
 
 
-const { data: order, error: orderError } =
+const { data, error } =
 await supabaseClient
 .from("orders")
 .insert({
@@ -519,59 +715,31 @@ delivery_address:address,
 
 total_amount:total,
 
+status:"pending",
+
 payment_method:"COD",
 
-payment_status:"pending",
-
-status:"pending"
+payment_status:"pending"
 
 })
 .select()
 .single();
 
 
-if(orderError) {
+if(error) {
 
-console.error(orderError);
+console.error("ORDER ERROR:",error);
 
-alert("Order save nahi hua. Please try again.");
-
-return;
-
-}
-
-
-const orderItems = cart.map(item => ({
-
-order_id:order.id,
-
-item_name:item.name,
-
-price:item.price,
-
-quantity:item.qty
-
-}));
-
-
-const { error: itemsError } =
-await supabaseClient
-.from("order_items")
-.insert(orderItems);
-
-
-if(itemsError) {
-
-console.error(itemsError);
-
-alert("Order items save nahi hue.");
+alert("Error: " + error.message);
 
 return;
 
 }
 
 
-alert("🎉 Order successfully placed!");
+alert(
+"🎉 Order successfully placed! Order ID: " + data.id
+);
 
 
 cart = [];
