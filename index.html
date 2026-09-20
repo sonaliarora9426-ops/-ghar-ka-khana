@@ -1,1 +1,460 @@
-    Ghar ka Khana app
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ghar Ka Khana | Homemade Food</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #fffaf3;
+  color: #292929;
+  padding-bottom: 90px;
+}
+
+header {
+  background: #f47b20;
+  color: white;
+  padding: 28px 20px;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 32px;
+  margin-bottom: 6px;
+}
+
+header p {
+  font-size: 15px;
+}
+
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 18px;
+}
+
+.section-title {
+  margin: 25px 0 12px;
+  font-size: 23px;
+  color: #333;
+}
+
+.menu-item {
+  background: white;
+  border-radius: 16px;
+  padding: 15px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-name {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.item-desc {
+  font-size: 12px;
+  color: #777;
+  margin-top: 4px;
+}
+
+.price {
+  font-weight: bold;
+  margin-top: 8px;
+  color: #f47b20;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+.add-btn {
+  background: #f47b20;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.add-btn:active {
+  transform: scale(.96);
+}
+
+.cart {
+  background: white;
+  border-radius: 18px;
+  padding: 18px;
+  margin-top: 30px;
+  box-shadow: 0 3px 15px rgba(0,0,0,.1);
+}
+
+.cart-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.qty button {
+  background: #f47b20;
+  color: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  margin: 0 5px;
+}
+
+.total {
+  font-size: 21px;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 15px;
+}
+
+.order-box {
+  margin-top: 20px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 13px;
+  margin: 7px 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+textarea {
+  height: 80px;
+  resize: none;
+}
+
+.whatsapp {
+  width: 100%;
+  padding: 15px;
+  background: #25D366;
+  color: white;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.clear {
+  background: #eee;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+.empty {
+  text-align: center;
+  color: #777;
+  padding: 15px;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 12px;
+  box-shadow: 0 -3px 15px rgba(0,0,0,.12);
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.cart-btn {
+  background: #f47b20;
+  color: white;
+  padding: 13px 28px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🍲 Ghar Ka Khana</h1>
+  <p>Homemade • Fresh • Delicious</p>
+</header>
+
+<div class="container">
+
+<h2 class="section-title">🍛 Main Course</h2>
+
+<div id="main-course"></div>
+
+<h2 class="section-title">🫓 Parathas & Roti</h2>
+
+<div id="breads"></div>
+
+<h2 class="section-title">🍔 Snacks</h2>
+
+<div id="snacks"></div>
+
+<h2 class="section-title">🥗 Chaat</h2>
+
+<div id="chaat"></div>
+
+<div class="cart" id="cart">
+  <h2>🛒 Your Cart</h2>
+  <div id="cart-items" class="empty">Your cart is empty</div>
+
+  <div class="total">
+    Total: ₹<span id="total">0</span>
+  </div>
+
+  <div class="order-box">
+    <input id="customerName" type="text" placeholder="Your Name">
+    <input id="customerPhone" type="tel" placeholder="Phone Number">
+    <textarea id="customerAddress" placeholder="Delivery Address"></textarea>
+
+    <button class="whatsapp" onclick="sendOrder()">
+      📲 Order on WhatsApp
+    </button>
+
+    <button class="clear" onclick="clearCart()">
+      Clear Cart
+    </button>
+  </div>
+</div>
+
+</div>
+
+<div class="bottom-nav">
+  <button class="cart-btn" onclick="document.getElementById('cart').scrollIntoView({behavior:'smooth'})">
+    🛒 View Cart
+  </button>
+</div>
+
+<script>
+
+const WHATSAPP_NUMBER = "YOUR_WHATSAPP_NUMBER";
+
+const menu = {
+
+mainCourse: [
+  {name:"Matar Paneer", price:130, desc:"Homestyle peas & paneer curry"},
+  {name:"Paneer Butter Masala", price:150, desc:"Creamy tomato paneer gravy"},
+  {name:"Kadai Paneer", price:160, desc:"Paneer cooked with kadai masala"},
+  {name:"Paneer Bhurji", price:140, desc:"Spiced scrambled paneer"},
+  {name:"Shahi Paneer", price:150, desc:"Rich creamy paneer curry"},
+  {name:"Rajma Chawal", price:120, desc:"Homestyle rajma with steamed rice"},
+  {name:"Kadhi Chawal", price:120, desc:"Punjabi kadhi with rice"},
+  {name:"Chole Chawal", price:120, desc:"Spicy chole with rice"}
+],
+
+breads: [
+  {name:"Aloo Parantha", price:25, desc:"Stuffed potato parantha"},
+  {name:"Gobi Parantha", price:25, desc:"Stuffed cauliflower parantha"},
+  {name:"Onion Parantha", price:25, desc:"Stuffed onion parantha"},
+  {name:"Tawa Roti", price:6, desc:"Fresh homemade roti"}
+],
+
+snacks: [
+  {name:"White Pasta", price:120, desc:"Creamy white sauce pasta"},
+  {name:"Tandoori Pasta", price:120, desc:"Smoky tandoori style pasta"},
+  {name:"Mix Pasta", price:130, desc:"Mixed sauce pasta"},
+  {name:"Veg Burger", price:40, desc:"Crispy veg burger"},
+  {name:"Cheese Burger", price:50, desc:"Cheesy veg burger"},
+  {name:"Corn Burger", price:50, desc:"Sweet corn veg burger"},
+  {name:"Maggi", price:60, desc:"Classic masala Maggi"},
+  {name:"Tandoori Maggi", price:70, desc:"Smoky spicy Maggi"},
+  {name:"Tikki Wrap", price:60, desc:"Crispy aloo tikki wrap"},
+  {name:"Paneer Wrap", price:70, desc:"Spicy paneer wrap"},
+  {name:"Fries", price:80, desc:"Crispy golden fries"},
+  {name:"Peri Peri Fries", price:100, desc:"Crispy fries with peri peri seasoning"}
+],
+
+chaat: [
+  {name:"Papdi Chaat", price:70, desc:"Classic Indian chaat"},
+  {name:"Corn Chaat", price:70, desc:"Fresh spicy corn chaat"},
+  {name:"Macaroni Chaat", price:70, desc:"Fusion macaroni chaat"}
+]
+
+};
+
+let cart = [];
+
+function renderItems(items, elementId) {
+  const container = document.getElementById(elementId);
+
+  items.forEach((item, index) => {
+    const div = document.createElement("div");
+    div.className = "menu-item";
+
+    div.innerHTML = `
+      <div class="item-info">
+        <div class="item-name">${item.name}</div>
+        <div class="item-desc">${item.desc}</div>
+        <div class="price">₹${item.price}</div>
+      </div>
+
+      <button class="add-btn" onclick="addToCart('${item.name}', ${item.price})">
+        + Add
+      </button>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+renderItems(menu.mainCourse, "main-course");
+renderItems(menu.breads, "breads");
+renderItems(menu.snacks, "snacks");
+renderItems(menu.chaat, "chaat");
+
+
+function addToCart(name, price) {
+
+  const existing = cart.find(item => item.name === name);
+
+  if(existing) {
+    existing.qty++;
+  } else {
+    cart.push({
+      name:name,
+      price:price,
+      qty:1
+    });
+  }
+
+  updateCart();
+}
+
+
+function changeQty(name, amount) {
+
+  const item = cart.find(item => item.name === name);
+
+  if(!item) return;
+
+  item.qty += amount;
+
+  if(item.qty <= 0) {
+    cart = cart.filter(i => i.name !== name);
+  }
+
+  updateCart();
+}
+
+
+function updateCart() {
+
+  const container = document.getElementById("cart-items");
+  const totalElement = document.getElementById("total");
+
+  if(cart.length === 0) {
+    container.innerHTML = '<div class="empty">Your cart is empty</div>';
+    totalElement.innerText = "0";
+    return;
+  }
+
+  let total = 0;
+
+  container.innerHTML = "";
+
+  cart.forEach(item => {
+
+    const itemTotal = item.price * item.qty;
+    total += itemTotal;
+
+    const row = document.createElement("div");
+    row.className = "cart-row";
+
+    row.innerHTML = `
+      <div>
+        <strong>${item.name}</strong><br>
+        ₹${item.price} × ${item.qty}
+      </div>
+
+      <div class="qty">
+        <button onclick="changeQty('${item.name}', -1)">−</button>
+        ${item.qty}
+        <button onclick="changeQty('${item.name}', 1)">+</button>
+      </div>
+    `;
+
+    container.appendChild(row);
+  });
+
+  totalElement.innerText = total;
+}
+
+
+function clearCart() {
+  cart = [];
+  updateCart();
+}
+
+
+function sendOrder() {
+
+  if(cart.length === 0) {
+    alert("Please add something to your cart first.");
+    return;
+  }
+
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+
+  if(!name || !phone || !address) {
+    alert("Please fill your name, phone number and address.");
+    return;
+  }
+
+  let message = "🍲 *Ghar Ka Khana - New Order*%0A%0A";
+
+  message += "*Customer:* " + encodeURIComponent(name) + "%0A";
+  message += "*Phone:* " + encodeURIComponent(phone) + "%0A";
+  message += "*Address:* " + encodeURIComponent(address) + "%0A%0A";
+
+  message += "*Order:*%0A";
+
+  let total = 0;
+
+  cart.forEach(item => {
+
+    const itemTotal = item.price * item.qty;
+    total += itemTotal;
+
+    message += encodeURIComponent(
+      item.name + " × " + item.qty + " = ₹" + itemTotal
+    ) + "%0A";
+  });
+
+  message += "%0A*Total: ₹" + total + "*";
+
+  const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + message;
+
+  window.open(url, "_blank");
+}
+
+</script>
+
+</body>
+</html>
