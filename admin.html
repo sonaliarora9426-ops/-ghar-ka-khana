@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <title>Ghar Ka Khana - Admin</title>
 
 <style>
@@ -17,6 +19,7 @@ body{
   font-family:Arial,sans-serif;
   background:#fff8f0;
   color:#222;
+  padding-bottom:30px;
 }
 
 header{
@@ -41,45 +44,61 @@ header p{
   padding:18px;
 }
 
+.box{
+  background:white;
+  margin-top:18px;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
 h2{
   margin-bottom:15px;
 }
 
-.dashboard{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
+.order{
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:15px;
+  margin-top:12px;
 }
 
-.card{
+.order-id{
+  font-size:18px;
+  font-weight:bold;
+  color:#f47b20;
+}
+
+.customer{
+  margin-top:10px;
+  line-height:1.6;
+}
+
+.amount{
+  font-size:18px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.status{
+  display:inline-block;
+  margin-top:10px;
+  padding:6px 10px;
+  border-radius:20px;
+  background:#fff0e5;
+  color:#f47b20;
+  font-size:13px;
+  font-weight:bold;
+}
+
+select{
+  width:100%;
+  padding:12px;
+  margin-top:12px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:15px;
   background:white;
-  padding:22px 10px;
-  border-radius:16px;
-  text-align:center;
-  box-shadow:0 3px 12px rgba(0,0,0,0.08);
-}
-
-.icon{
-  font-size:32px;
-  margin-bottom:8px;
-}
-
-.card h3{
-  font-size:17px;
-}
-
-.card p{
-  color:#777;
-  font-size:12px;
-  margin-top:5px;
-}
-
-.box{
-  background:white;
-  margin-top:20px;
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 3px 12px rgba(0,0,0,0.08);
 }
 
 button{
@@ -94,9 +113,29 @@ button{
   font-weight:bold;
 }
 
-.logout{
+.refresh{
   background:#333;
-  margin-top:25px;
+}
+
+.empty{
+  color:#777;
+  text-align:center;
+  padding:20px 5px;
+}
+
+.loading{
+  text-align:center;
+  padding:20px;
+  color:#777;
+}
+
+.error{
+  background:#ffe8e8;
+  color:#b00020;
+  padding:12px;
+  border-radius:10px;
+  margin-top:12px;
+  font-size:14px;
 }
 </style>
 </head>
@@ -110,80 +149,198 @@ button{
 
 <div class="container">
 
-  <div class="box">
-    <h2>📊 Dashboard</h2>
-    <p>Welcome to Ghar Ka Khana Admin Panel.</p>
-  </div>
-
-  <div class="dashboard">
-
-    <div class="card">
-      <div class="icon">🛒</div>
-      <h3>Orders</h3>
-      <p>Manage orders</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">🍽️</div>
-      <h3>Menu</h3>
-      <p>Manage food menu</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">👥</div>
-      <h3>Customers</h3>
-      <p>View customers</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">🚴</div>
-      <h3>Delivery</h3>
-      <p>Manage delivery boys</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">🎁</div>
-      <h3>Offers</h3>
-      <p>Manage offers</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">💰</div>
-      <h3>Sales</h3>
-      <p>View sales</p>
-    </div>
-
-  </div>
-
-  <div class="box">
-    <h2>🛒 Orders</h2>
-    <p>No new orders yet.</p>
-    <button onclick="alert('Orders will be connected to Supabase next.')">
-      View Orders
-    </button>
-  </div>
-
-  <div class="box">
-    <h2>🍽️ Menu</h2>
-    <p>Ghar Ka Khana menu management.</p>
-    <button onclick="alert('Menu management will be connected next.')">
-      Manage Menu
-    </button>
-  </div>
-
-  <div class="box">
-    <h2>🚴 Delivery</h2>
-    <p>Assign and track delivery boys.</p>
-    <button onclick="alert('Delivery tracking will be connected next.')">
-      Manage Delivery
-    </button>
-  </div>
-
-  <button class="logout" onclick="alert('Logout will be connected to Supabase next.')">
-    Logout
+<div class="box">
+  <h2>📊 Dashboard</h2>
+  <p>Live orders from Ghar Ka Khana</p>
+  <button class="refresh" onclick="loadOrders()">
+    🔄 Refresh Orders
   </button>
+</div>
+
+<div class="box">
+  <h2>🛒 Orders</h2>
+
+  <div id="orders">
+    <div class="loading">
+      Loading orders...
+    </div>
+  </div>
 
 </div>
+
+</div>
+
+<script>
+
+const SUPABASE_URL =
+"https://oxfuccrgitckvozmnyss.supabase.co";
+
+const SUPABASE_KEY =
+"sb_publishable_DwZtFpmfTwDnlAp6fYbjpA_upTa3khj";
+
+const supabaseClient =
+window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+async function loadOrders(){
+
+  const container =
+    document.getElementById("orders");
+
+  container.innerHTML =
+    '<div class="loading">Loading orders...</div>';
+
+
+  const { data, error } =
+    await supabaseClient
+      .from("orders")
+      .select("*")
+      .order("created_at", { ascending:false });
+
+
+  if(error){
+
+    console.error(error);
+
+    container.innerHTML =
+      `<div class="error">
+        ❌ Error loading orders:<br>
+        ${error.message}
+      </div>`;
+
+    return;
+  }
+
+
+  if(!data || data.length === 0){
+
+    container.innerHTML =
+      '<div class="empty">No orders yet.</div>';
+
+    return;
+  }
+
+
+  container.innerHTML = "";
+
+
+  data.forEach(order => {
+
+    const div =
+      document.createElement("div");
+
+    div.className = "order";
+
+
+    div.innerHTML = `
+
+      <div class="order-id">
+        🛒 Order #${order.id}
+      </div>
+
+      <div class="customer">
+
+        <b>👤 ${order.customer_name}</b><br>
+
+        📞 ${order.customer_phone}<br>
+
+        📍 ${order.delivery_address}
+
+      </div>
+
+      <div class="amount">
+        💰 ₹${order.total_amount}
+      </div>
+
+      <div class="status">
+        ${order.status || "pending"}
+      </div>
+
+      <select
+        onchange="updateStatus(${order.id}, this.value)"
+      >
+
+        <option value="pending"
+          ${order.status === "pending" ? "selected" : ""}>
+          Pending
+        </option>
+
+        <option value="preparing"
+          ${order.status === "preparing" ? "selected" : ""}>
+          Preparing
+        </option>
+
+        <option value="ready"
+          ${order.status === "ready" ? "selected" : ""}>
+          Ready
+        </option>
+
+        <option value="out_for_delivery"
+          ${order.status === "out_for_delivery" ? "selected" : ""}>
+          Out for Delivery
+        </option>
+
+        <option value="delivered"
+          ${order.status === "delivered" ? "selected" : ""}>
+          Delivered
+        </option>
+
+        <option value="cancelled"
+          ${order.status === "cancelled" ? "selected" : ""}>
+          Cancelled
+        </option>
+
+      </select>
+
+    `;
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+async function updateStatus(orderId,newStatus){
+
+  const { error } =
+    await supabaseClient
+      .from("orders")
+      .update({
+        status:newStatus
+      })
+      .eq("id",orderId);
+
+
+  if(error){
+
+    alert(
+      "❌ Status update failed: " +
+      error.message
+    );
+
+    return;
+  }
+
+
+  alert(
+    "✅ Order #" +
+    orderId +
+    " status updated!"
+  );
+
+
+  loadOrders();
+
+}
+
+
+loadOrders();
+
+</script>
 
 </body>
 </html>
