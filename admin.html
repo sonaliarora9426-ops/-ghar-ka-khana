@@ -71,7 +71,7 @@ h2{
 
 .customer{
   margin-top:10px;
-  line-height:1.6;
+  line-height:1.7;
 }
 
 .amount{
@@ -101,20 +101,47 @@ select{
   background:white;
 }
 
-button{
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:12px;
+}
+
+.action-btn{
+  display:block;
+  text-align:center;
+  text-decoration:none;
+  padding:12px 8px;
+  border-radius:10px;
+  background:#f47b20;
+  color:white;
+  font-size:14px;
+  font-weight:bold;
+}
+
+.delivered{
+  background:#238636;
+  color:white;
+  border:0;
+  width:100%;
+  padding:13px;
+  margin-top:10px;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:bold;
+}
+
+.refresh{
   width:100%;
   padding:13px;
   margin-top:12px;
   border:0;
   border-radius:10px;
-  background:#f47b20;
+  background:#333;
   color:white;
   font-size:16px;
   font-weight:bold;
-}
-
-.refresh{
-  background:#333;
 }
 
 .empty{
@@ -137,6 +164,15 @@ button{
   margin-top:12px;
   font-size:14px;
 }
+
+.delivery-note{
+  background:#fff4e8;
+  border-radius:12px;
+  padding:12px;
+  margin-bottom:15px;
+  font-size:14px;
+  line-height:1.5;
+}
 </style>
 </head>
 
@@ -144,20 +180,29 @@ button{
 
 <header>
   <h1>👑 Ghar Ka Khana</h1>
-  <p>Admin Panel</p>
+  <p>Admin Panel • Self Delivery</p>
 </header>
 
 <div class="container">
 
 <div class="box">
-  <h2>📊 Dashboard</h2>
-  <p>Live orders from Ghar Ka Khana</p>
+
+  <h2>🚴 My Deliveries</h2>
+
+  <div class="delivery-note">
+    Orders yahan se manage karo. Customer ko call kar sakte ho,
+    address Google Maps me open kar sakte ho aur delivery complete
+    hone par order ko Delivered mark kar sakte ho.
+  </div>
+
   <button class="refresh" onclick="loadOrders()">
     🔄 Refresh Orders
   </button>
+
 </div>
 
 <div class="box">
+
   <h2>🛒 Orders</h2>
 
   <div id="orders">
@@ -235,6 +280,17 @@ async function loadOrders(){
     div.className = "order";
 
 
+    const phone =
+      String(order.customer_phone || "");
+
+    const address =
+      String(order.delivery_address || "");
+
+
+    const encodedAddress =
+      encodeURIComponent(address);
+
+
     div.innerHTML = `
 
       <div class="order-id">
@@ -245,19 +301,20 @@ async function loadOrders(){
 
         <b>👤 ${order.customer_name}</b><br>
 
-        📞 ${order.customer_phone}<br>
+        📞 ${phone}<br>
 
-        📍 ${order.delivery_address}
+        📍 ${address}
 
       </div>
 
       <div class="amount">
-        💰 ₹${order.total_amount}
+        💰 COD: ₹${order.total_amount}
       </div>
 
       <div class="status">
         ${order.status || "pending"}
       </div>
+
 
       <select
         onchange="updateStatus(${order.id}, this.value)"
@@ -295,7 +352,36 @@ async function loadOrders(){
 
       </select>
 
+
+      <div class="actions">
+
+        <a
+          class="action-btn"
+          href="tel:${phone}">
+          📞 Call
+        </a>
+
+
+        <a
+          class="action-btn"
+          href="https://www.google.com/maps/search/?api=1&query=${encodedAddress}"
+          target="_blank">
+          🗺️ Navigate
+        </a>
+
+      </div>
+
+
+      <button
+        class="delivered"
+        onclick="markDelivered(${order.id})">
+
+        ✅ Mark Delivered
+
+      </button>
+
     `;
+
 
     container.appendChild(div);
 
@@ -326,10 +412,48 @@ async function updateStatus(orderId,newStatus){
   }
 
 
+  loadOrders();
+
+}
+
+
+async function markDelivered(orderId){
+
+  const confirmDelivery =
+    confirm(
+      "Kya ye order successfully deliver ho gaya?"
+    );
+
+
+  if(!confirmDelivery){
+    return;
+  }
+
+
+  const { error } =
+    await supabaseClient
+      .from("orders")
+      .update({
+        status:"delivered"
+      })
+      .eq("id",orderId);
+
+
+  if(error){
+
+    alert(
+      "❌ Delivery update failed: " +
+      error.message
+    );
+
+    return;
+  }
+
+
   alert(
     "✅ Order #" +
     orderId +
-    " status updated!"
+    " Delivered!"
   );
 
 
