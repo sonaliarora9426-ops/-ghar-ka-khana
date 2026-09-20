@@ -1,282 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>Ghar Ka Khana Admin</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<title>Ghar Ka Khana - Admin</title>
-
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+
+*{
+box-sizing:border-box;
+}
 
 body{
+margin:0;
 font-family:Arial,sans-serif;
-background:#fff8f0;
-color:#222;
-padding-bottom:30px
+background:#f5f5f5;
+padding:15px;
 }
 
-header{
-background:#f47b20;
-color:white;
-text-align:center;
-padding:25px 15px
+h1,h2{
+color:#8b0000;
 }
 
-header h1{font-size:28px}
-header p{margin-top:6px;font-size:14px}
-
-.container{
-max-width:700px;
-margin:auto;
-padding:18px
-}
-
-.box{
+.card{
 background:white;
-margin-top:18px;
-padding:20px;
-border-radius:16px;
-box-shadow:0 3px 12px rgba(0,0,0,.08)
+padding:18px;
+margin:15px 0;
+border-radius:12px;
+box-shadow:0 2px 8px #ddd;
 }
 
-h2{margin-bottom:15px}
+input,select,textarea{
+width:100%;
+padding:12px;
+margin:6px 0;
+border:1px solid #ccc;
+border-radius:8px;
+font-size:15px;
+}
 
 button{
+padding:10px 14px;
 border:0;
-border-radius:10px;
-padding:12px;
-font-size:15px;
+border-radius:8px;
+background:#8b0000;
+color:white;
 font-weight:bold;
-cursor:pointer
+margin:4px;
 }
 
-.refresh{
-width:100%;
-background:#333;
-color:white;
-margin-top:10px
+.green{
+background:green;
+}
+
+.gray{
+background:#555;
 }
 
 .order{
-border:1px solid #eee;
-border-radius:14px;
-padding:15px;
-margin-top:12px
-}
-
-.order-id{
-font-size:18px;
-font-weight:bold;
-color:#f47b20
-}
-
-.customer{
-margin-top:10px;
-line-height:1.7
-}
-
-.amount{
-font-size:18px;
-font-weight:bold;
-margin-top:10px
-}
-
-.status{
-display:inline-block;
-margin-top:10px;
-padding:6px 10px;
-border-radius:20px;
-background:#fff0e5;
-color:#f47b20;
-font-size:13px;
-font-weight:bold
-}
-
-select,input{
-width:100%;
-padding:12px;
-margin-top:8px;
 border:1px solid #ddd;
+padding:15px;
 border-radius:10px;
-font-size:15px;
-background:white
+margin:12px 0;
 }
 
-.actions{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin-top:12px
-}
-
-.action-btn{
-display:block;
-text-align:center;
-text-decoration:none;
-padding:12px 8px;
-border-radius:10px;
-background:#f47b20;
-color:white;
-font-size:14px;
-font-weight:bold
-}
-
-.delivered{
-background:#238636;
-color:white;
-width:100%;
-margin-top:10px
-}
-
-.add{
-width:100%;
-background:#f47b20;
-color:white;
-margin-top:10px
+.order-items{
+background:#fff8f0;
+padding:12px;
+border-radius:8px;
+margin:12px 0;
 }
 
 .menu-item{
-border:1px solid #eee;
-border-radius:14px;
-padding:15px;
-margin-top:12px
+border-bottom:1px solid #ddd;
+padding:13px 0;
 }
 
-.menu-name{
-font-size:18px;
-font-weight:bold
+.hidden{
+display:none;
 }
 
-.menu-price{
-color:#f47b20;
-font-weight:bold;
-margin-top:5px
+.login-box{
+max-width:450px;
+margin:50px auto;
 }
 
-.available{
-color:green;
-font-weight:bold;
-font-size:13px;
-margin-top:5px
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
 }
 
-.unavailable{
-color:red;
-font-weight:bold;
-font-size:13px;
-margin-top:5px
-}
-
-.menu-actions{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:8px;
-margin-top:10px
-}
-
-.edit{
-background:#f47b20;
-color:white
-}
-
-.delete{
-background:#d33;
-color:white
-}
-
-.save{
-background:#238636;
-color:white;
-width:100%;
-margin-top:10px
-}
-
-.cancel{
-background:#777;
-color:white;
-width:100%;
-margin-top:8px
-}
-
-.empty{
-color:#777;
-text-align:center;
-padding:20px 5px
-}
-
-.loading{
-text-align:center;
-padding:20px;
-color:#777
-}
-
-.error{
-background:#ffe8e8;
-color:#b00020;
-padding:12px;
-border-radius:10px;
-margin-top:12px;
-font-size:14px
-}
-
-.note{
-background:#fff4e8;
-padding:12px;
-border-radius:10px;
-font-size:14px;
-line-height:1.5;
-margin-bottom:12px
-}
 </style>
+
 </head>
 
 <body>
 
-<header>
-<h1>👑 Ghar Ka Khana</h1>
-<p>Admin Panel</p>
-</header>
 
-<div class="container">
+<!-- =========================
+     LOGIN
+========================= -->
 
-<!-- MENU EDITOR -->
+<div id="loginPage" class="login-box card">
 
-<div class="box">
+<h1>🍲 Ghar Ka Khana</h1>
 
-<h2>🍽️ Menu Editor</h2>
+<h2>Admin Login</h2>
 
-<div class="note">
-Yahan se aap food item ka naam, price, category aur availability manage kar sakti ho.
-</div>
+<input
+id="email"
+type="email"
+placeholder="Admin Email"
+>
 
-<button class="add" onclick="showAddForm()">
-➕ Add New Item
+<input
+id="password"
+type="password"
+placeholder="Password"
+>
+
+<button
+onclick="login()"
+style="width:100%;font-size:17px"
+>
+🔐 Login
 </button>
 
-<div id="menuForm"></div>
+<p id="loginMessage"></p>
 
-<div id="menuList">
-<div class="loading">Loading menu...</div>
 </div>
+
+
+<!-- =========================
+     ADMIN
+========================= -->
+
+<div id="adminPage" class="hidden">
+
+<div class="topbar">
+
+<h1>🍲 Ghar Ka Khana</h1>
+
+<button
+class="gray"
+onclick="logout()"
+>
+Logout
+</button>
 
 </div>
 
 
 <!-- ORDERS -->
 
-<div class="box">
+<div class="card">
 
-<h2>🛒 Orders</h2>
+<h2>📦 Orders</h2>
 
-<button class="refresh" onclick="loadOrders()">
+<button onclick="loadOrders()">
 🔄 Refresh Orders
 </button>
 
 <div id="orders">
-<div class="loading">Loading orders...</div>
+Loading...
+</div>
+
+</div>
+
+
+<!-- MENU -->
+
+<div class="card">
+
+<h2>🍽️ Menu Editor</h2>
+
+<button onclick="showAddForm()">
+➕ Add New Item
+</button>
+
+
+<div
+id="addForm"
+class="hidden"
+>
+
+<input
+id="newName"
+placeholder="Item Name"
+>
+
+<input
+id="newPrice"
+type="number"
+placeholder="Price"
+>
+
+<input
+id="newCategory"
+placeholder="Category"
+>
+
+<textarea
+id="newDescription"
+placeholder="Description"
+></textarea>
+
+<button onclick="addItem()">
+Save Item
+</button>
+
+</div>
+
+
+<div id="menuList">
+Loading menu...
 </div>
 
 </div>
@@ -286,11 +232,13 @@ Yahan se aap food item ka naam, price, category aur availability manage kar sakt
 
 <script>
 
+
 const SUPABASE_URL =
 "https://oxfuccrgitckvozmnyss.supabase.co";
 
 const SUPABASE_KEY =
 "sb_publishable_DwZtFpmfTwDnlAp6fYbjpA_upTa3khj";
+
 
 const supabaseClient =
 window.supabase.createClient(
@@ -299,570 +247,732 @@ SUPABASE_KEY
 );
 
 
-/* =========================
-   MENU
-========================= */
+// =================================
+// CHECK LOGIN
+// =================================
 
-async function loadMenu(){
+async function checkLogin(){
 
-const container =
-document.getElementById("menuList");
+const {
+data:{
+session
+}
+}=await supabaseClient.auth.getSession();
 
-container.innerHTML =
-'<div class="loading">Loading menu...</div>';
+if(session){
 
-const {data,error} =
-await supabaseClient
-.from("menu_items")
-.select("*")
-.order("id",{ascending:true});
+await checkAdmin(session.user.id);
+
+}else{
+
+showLogin();
+
+}
+
+}
+
+
+// =================================
+// ADMIN CHECK
+// =================================
+
+async function checkAdmin(userId){
+
+const {data,error}=await supabaseClient
+.from("profiles")
+.select("role,name")
+.eq("id",userId)
+.single();
+
+if(error || !data || data.role!=="admin"){
+
+await supabaseClient.auth.signOut();
+
+document.getElementById("loginMessage").innerText=
+"This account is not an admin.";
+
+showLogin();
+
+return;
+
+}
+
+document.getElementById("loginPage")
+.classList.add("hidden");
+
+document.getElementById("adminPage")
+.classList.remove("hidden");
+
+loadOrders();
+loadMenu();
+
+}
+
+
+// =================================
+// LOGIN
+// =================================
+
+async function login(){
+
+const email=
+document.getElementById("email")
+.value.trim();
+
+const password=
+document.getElementById("password")
+.value;
+
+
+if(!email || !password){
+
+document.getElementById("loginMessage")
+.innerText="Please enter email and password.";
+
+return;
+
+}
+
+
+const {data,error}=
+await supabaseClient.auth.signInWithPassword({
+
+email:email,
+password:password
+
+});
+
 
 if(error){
 
-container.innerHTML =
-`<div class="error">
-❌ Menu error:<br>${error.message}
-</div>`;
+document.getElementById("loginMessage")
+.innerText=error.message;
 
 return;
+
 }
 
-if(!data || data.length===0){
 
-container.innerHTML =
-'<div class="empty">No menu items found.</div>';
+await checkAdmin(data.user.id);
+
+}
+
+
+// =================================
+// LOGOUT
+// =================================
+
+async function logout(){
+
+await supabaseClient.auth.signOut();
+
+showLogin();
+
+}
+
+
+function showLogin(){
+
+document.getElementById("loginPage")
+.classList.remove("hidden");
+
+document.getElementById("adminPage")
+.classList.add("hidden");
+
+}
+
+
+// =================================
+// ORDERS
+// =================================
+
+async function loadOrders(){
+
+const box=
+document.getElementById("orders");
+
+box.innerHTML="Loading orders...";
+
+
+const {data:orders,error}=await supabaseClient
+.from("orders")
+.select("*")
+.order("created_at",{ascending:false});
+
+
+if(error){
+
+box.innerHTML=
+"Error: "+error.message;
 
 return;
+
 }
 
-container.innerHTML="";
 
-data.forEach(item=>{
+if(!orders || orders.length===0){
 
-const div =
-document.createElement("div");
+box.innerHTML=
+"No orders yet.";
 
-div.className="menu-item";
+return;
 
-const available =
-item.is_available !== false;
+}
 
-div.innerHTML=`
 
-<div class="menu-name">
-${item.name || ""}
-</div>
+box.innerHTML="";
 
-<div class="menu-price">
-₹${item.price || 0}
-</div>
 
-<div class="${available ? "available":"unavailable"}">
-${available ? "🟢 Available":"🔴 Sold Out"}
-</div>
+for(const order of orders){
 
-<div style="margin-top:5px;font-size:13px;color:#777">
-${item.category || ""}
-</div>
 
-<div class="menu-actions">
+const {data:items}=await supabaseClient
+.from("order_items")
+.select("*")
+.eq("order_id",order.id);
 
-<button class="edit"
-onclick="editItem(${item.id})">
-✏️ Edit
-</button>
 
-<button class="delete"
-onclick="deleteItem(${item.id})">
-🗑️ Delete
-</button>
+let itemsHTML="";
+
+
+if(items && items.length){
+
+items.forEach(item=>{
+
+itemsHTML+=`
+
+<div style="padding:5px 0">
+
+<b>${item.item_name}</b>
+
+× ${item.quantity}
+
+&nbsp; — &nbsp;
+
+₹${item.price}
 
 </div>
 
 `;
 
-container.appendChild(div);
+});
+
+}else{
+
+itemsHTML=
+"No item details found.";
+
+}
+
+
+const date=
+new Date(order.created_at)
+.toLocaleString("en-IN");
+
+
+const div=
+document.createElement("div");
+
+div.className="order";
+
+
+div.innerHTML=`
+
+<h3>🧾 Order #${order.id}</h3>
+
+<b>👤 Customer:</b>
+${order.customer_name}
+
+<br>
+
+<b>📞 Phone:</b>
+${order.customer_phone}
+
+<br>
+
+<b>📍 Address:</b>
+${order.delivery_address}
+
+<br>
+
+<b>🕐 Order Time:</b>
+${date}
+
+<br>
+
+<b>💰 Total:</b>
+₹${order.total_amount}
+
+<br>
+
+<b>💵 Payment:</b>
+Cash on Delivery
+
+<br>
+
+<div class="order-items">
+
+<b>🍽️ Order Details</b>
+
+<hr>
+
+${itemsHTML}
+
+</div>
+
+
+<label>
+<b>Status</b>
+</label>
+
+
+<select
+onchange="updateStatus(${order.id},this.value)"
+>
+
+<option value="pending"
+${order.status==="pending"?"selected":""}
+>
+Pending
+</option>
+
+<option value="preparing"
+${order.status==="preparing"?"selected":""}
+>
+Preparing
+</option>
+
+<option value="ready"
+${order.status==="ready"?"selected":""}
+>
+Ready
+</option>
+
+<option value="out_for_delivery"
+${order.status==="out_for_delivery"?"selected":""}
+>
+Out for Delivery
+</option>
+
+<option value="delivered"
+${order.status==="delivered"?"selected":""}
+>
+Delivered
+</option>
+
+<option value="cancelled"
+${order.status==="cancelled"?"selected":""}
+>
+Cancelled
+</option>
+
+</select>
+
+
+<br>
+
+
+<a href="tel:${order.customer_phone}">
+
+<button>
+📞 Call Customer
+</button>
+
+</a>
+
+
+<button
+onclick="navigate('${encodeURIComponent(order.delivery_address)}')"
+>
+🗺️ Navigate
+</button>
+
+
+<button
+class="green"
+onclick="markDelivered(${order.id})"
+>
+✅ Mark Delivered
+</button>
+
+`;
+
+
+box.appendChild(div);
+
+}
+
+}
+
+
+// =================================
+// UPDATE ORDER STATUS
+// =================================
+
+async function updateStatus(id,status){
+
+const {error}=await supabaseClient
+.from("orders")
+.update({
+status:status
+})
+.eq("id",id);
+
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+
+loadOrders();
+
+}
+
+
+// =================================
+// MARK DELIVERED
+// =================================
+
+async function markDelivered(id){
+
+await updateStatus(
+id,
+"delivered"
+);
+
+}
+
+
+// =================================
+// GOOGLE MAPS
+// =================================
+
+function navigate(address){
+
+window.open(
+"https://www.google.com/maps/search/?api=1&query="+address,
+"_blank"
+);
+
+}
+
+
+// =================================
+// MENU
+// =================================
+
+async function loadMenu(){
+
+const box=
+document.getElementById("menuList");
+
+box.innerHTML=
+"Loading menu...";
+
+
+const {data,error}=
+await supabaseClient
+.from("menu_items")
+.select("*")
+.order("category")
+.order("name");
+
+
+if(error){
+
+box.innerHTML=
+"Menu error: "+error.message;
+
+return;
+
+}
+
+
+box.innerHTML="";
+
+
+data.forEach(item=>{
+
+const div=
+document.createElement("div");
+
+div.className="menu-item";
+
+
+div.innerHTML=`
+
+<b>${item.name}</b>
+
+<br>
+
+₹${item.price}
+
+<br>
+
+Category:
+${item.category}
+
+<br>
+
+Description:
+${item.description || "-"}
+
+<br>
+
+Status:
+${item.is_available
+?"✅ Available"
+:"❌ Hidden"}
+
+<br>
+
+
+<button
+onclick="editItem(${item.id})"
+>
+✏️ Edit
+</button>
+
+
+<button
+class="gray"
+onclick="toggleItem(${item.id},${item.is_available})"
+>
+${item.is_available
+?"Hide"
+:"Show"}
+</button>
+
+
+<button
+class="gray"
+onclick="deleteItem(${item.id})"
+>
+🗑️ Delete
+</button>
+
+`;
+
+box.appendChild(div);
 
 });
 
 }
 
 
-/* SHOW ADD FORM */
+// =================================
+// ADD MENU ITEM
+// =================================
 
 function showAddForm(){
 
-document.getElementById("menuForm").innerHTML=`
-
-<div class="box" style="margin-top:15px;background:#fffaf5">
-
-<h3>➕ Add New Item</h3>
-
-<input id="newName"
-placeholder="Food name">
-
-<input id="newPrice"
-type="number"
-placeholder="Price">
-
-<input id="newCategory"
-placeholder="Category e.g. Main Course">
-
-<input id="newDescription"
-placeholder="Description">
-
-<button class="save"
-onclick="addItem()">
-💾 Save Item
-</button>
-
-<button class="cancel"
-onclick="closeForm()">
-Cancel
-</button>
-
-</div>
-
-`;
+document.getElementById("addForm")
+.classList.remove("hidden");
 
 }
 
-
-function closeForm(){
-
-document.getElementById("menuForm").innerHTML="";
-
-}
-
-
-/* ADD ITEM */
 
 async function addItem(){
 
-const name =
-document.getElementById("newName").value.trim();
+const name=
+document.getElementById("newName")
+.value.trim();
 
-const price =
-Number(document.getElementById("newPrice").value);
+const price=
+Number(
+document.getElementById("newPrice")
+.value
+);
 
-const category =
-document.getElementById("newCategory").value.trim();
+const category=
+document.getElementById("newCategory")
+.value.trim()
+||"Main Course";
 
-const description =
-document.getElementById("newDescription").value.trim();
+const description=
+document.getElementById("newDescription")
+.value.trim();
+
 
 if(!name || !price){
 
-alert("Food name aur price bharna zaroori hai.");
+alert(
+"Name and price required."
+);
 
 return;
+
 }
 
-const {error} =
+
+const {error}=
 await supabaseClient
 .from("menu_items")
 .insert({
 
 name:name,
 price:price,
-category:category || "Main Course",
+category:category,
 description:description,
 is_available:true
 
 });
 
+
 if(error){
 
-alert("❌ Add failed: "+error.message);
+alert(error.message);
 
 return;
+
 }
 
-alert("✅ Item added!");
 
-closeForm();
+document.getElementById("newName").value="";
+document.getElementById("newPrice").value="";
+document.getElementById("newCategory").value="";
+document.getElementById("newDescription").value="";
+
+
+document.getElementById("addForm")
+.classList.add("hidden");
+
 
 loadMenu();
 
 }
 
 
-/* EDIT ITEM */
+// =================================
+// EDIT MENU
+// =================================
 
 async function editItem(id){
 
-const {data,error} =
-await supabaseClient
-.from("menu_items")
-.select("*")
-.eq("id",id)
-.single();
+const name=
+prompt("Item name:");
 
-if(error){
-
-alert("❌ "+error.message);
-
-return;
-}
-
-document.getElementById("menuForm").innerHTML=`
-
-<div class="box" style="margin-top:15px;background:#fffaf5">
-
-<h3>✏️ Edit Item</h3>
-
-<input id="editName"
-value="${data.name || ""}"
-placeholder="Food name">
-
-<input id="editPrice"
-type="number"
-value="${data.price || 0}"
-placeholder="Price">
-
-<input id="editCategory"
-value="${data.category || ""}"
-placeholder="Category">
-
-<input id="editDescription"
-value="${data.description || ""}"
-placeholder="Description">
-
-<select id="editAvailable">
-
-<option value="true"
-${data.is_available !== false ? "selected":""}>
-🟢 Available
-</option>
-
-<option value="false"
-${data.is_available === false ? "selected":""}>
-🔴 Sold Out
-</option>
-
-</select>
-
-<button class="save"
-onclick="saveEdit(${id})">
-💾 Save Changes
-</button>
-
-<button class="cancel"
-onclick="closeForm()">
-Cancel
-</button>
-
-</div>
-
-`;
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-}
+if(name===null)return;
 
 
-/* SAVE EDIT */
+const price=
+prompt("Price:");
 
-async function saveEdit(id){
+if(price===null)return;
 
-const name =
-document.getElementById("editName").value.trim();
 
-const price =
-Number(document.getElementById("editPrice").value);
+const category=
+prompt("Category:");
 
-const category =
-document.getElementById("editCategory").value.trim();
+if(category===null)return;
 
-const description =
-document.getElementById("editDescription").value.trim();
 
-const available =
-document.getElementById("editAvailable").value === "true";
+const description=
+prompt("Description:");
 
-if(!name || !price){
+if(description===null)return;
 
-alert("Name aur price zaroor bharna hai.");
 
-return;
-}
-
-const {error} =
+const {error}=
 await supabaseClient
 .from("menu_items")
 .update({
 
 name:name,
-price:price,
+price:Number(price),
 category:category,
-description:description,
-is_available:available
+description:description
 
 })
 .eq("id",id);
 
+
 if(error){
 
-alert("❌ Update failed: "+error.message);
+alert(error.message);
 
 return;
+
 }
 
-alert("✅ Menu updated!");
-
-closeForm();
 
 loadMenu();
 
 }
 
 
-/* DELETE */
+// =================================
+// HIDE / SHOW
+// =================================
+
+async function toggleItem(id,current){
+
+const {error}=
+await supabaseClient
+.from("menu_items")
+.update({
+
+is_available:!current
+
+})
+.eq("id",id);
+
+
+if(error){
+
+alert(error.message);
+
+return;
+
+}
+
+
+loadMenu();
+
+}
+
+
+// =================================
+// DELETE
+// =================================
 
 async function deleteItem(id){
 
-const yes =
-confirm(
-"Kya aap is item ko delete karna chahti hain?"
-);
+if(!confirm(
+"Delete this menu item?"
+))return;
 
-if(!yes)return;
 
-const {error} =
+const {error}=
 await supabaseClient
 .from("menu_items")
 .delete()
 .eq("id",id);
 
+
 if(error){
 
-alert("❌ Delete failed: "+error.message);
+alert(error.message);
 
 return;
+
 }
 
-alert("✅ Item deleted!");
 
 loadMenu();
 
 }
 
 
-/* =========================
-   ORDERS
-========================= */
-
-async function loadOrders(){
-
-const container =
-document.getElementById("orders");
-
-container.innerHTML =
-'<div class="loading">Loading orders...</div>';
-
-const {data,error} =
-await supabaseClient
-.from("orders")
-.select("*")
-.order("created_at",{ascending:false});
-
-if(error){
-
-container.innerHTML =
-`<div class="error">
-❌ Order error:<br>${error.message}
-</div>`;
-
-return;
-}
-
-if(!data || data.length===0){
-
-container.innerHTML =
-'<div class="empty">No orders yet.</div>';
-
-return;
-}
-
-container.innerHTML="";
-
-data.forEach(order=>{
-
-const div =
-document.createElement("div");
-
-div.className="order";
-
-const phone =
-String(order.customer_phone || "");
-
-const address =
-String(order.delivery_address || "");
-
-const encodedAddress =
-encodeURIComponent(address);
-
-div.innerHTML=`
-
-<div class="order-id">
-🛒 Order #${order.id}
-</div>
-
-<div class="customer">
-
-<b>👤 ${order.customer_name}</b><br>
-
-📞 ${phone}<br>
-
-📍 ${address}
-
-</div>
-
-<div class="amount">
-💰 COD: ₹${order.total_amount}
-</div>
-
-<div class="status">
-${order.status || "pending"}
-</div>
-
-<select
-onchange="updateStatus(${order.id},this.value)">
-
-<option value="pending"
-${order.status==="pending"?"selected":""}>
-Pending
-</option>
-
-<option value="preparing"
-${order.status==="preparing"?"selected":""}>
-Preparing
-</option>
-
-<option value="ready"
-${order.status==="ready"?"selected":""}>
-Ready
-</option>
-
-<option value="out_for_delivery"
-${order.status==="out_for_delivery"?"selected":""}>
-Out for Delivery
-</option>
-
-<option value="delivered"
-${order.status==="delivered"?"selected":""}>
-Delivered
-</option>
-
-<option value="cancelled"
-${order.status==="cancelled"?"selected":""}>
-Cancelled
-</option>
-
-</select>
-
-<div class="actions">
-
-<a
-class="action-btn"
-href="tel:${phone}">
-📞 Call
-</a>
-
-<a
-class="action-btn"
-href="https://www.google.com/maps/search/?api=1&query=${encodedAddress}"
-target="_blank">
-🗺️ Navigate
-</a>
-
-</div>
-
-<button
-class="delivered"
-onclick="markDelivered(${order.id})">
-
-✅ Mark Delivered
-
-</button>
-
-`;
-
-container.appendChild(div);
-
-});
-
-}
-
-
-async function updateStatus(orderId,newStatus){
-
-const {error} =
-await supabaseClient
-.from("orders")
-.update({
-status:newStatus
-})
-.eq("id",orderId);
-
-if(error){
-
-alert(
-"❌ Status update failed: "+
-error.message
-);
-
-return;
-}
-
-loadOrders();
-
-}
-
-
-async function markDelivered(orderId){
-
-const yes =
-confirm(
-"Kya ye order successfully deliver ho gaya?"
-);
-
-if(!yes)return;
-
-const {error} =
-await supabaseClient
-.from("orders")
-.update({
-status:"delivered"
-})
-.eq("id",orderId);
-
-if(error){
-
-alert(
-"❌ Delivery update failed: "+
-error.message
-);
-
-return;
-}
-
-alert(
-"✅ Order #"+orderId+" Delivered!"
-);
-
-loadOrders();
-
-}
-
-
-/* LOAD */
-
-loadMenu();
-loadOrders();
+// =================================
+// START
+// =================================
+
+checkLogin();
 
 </script>
 
