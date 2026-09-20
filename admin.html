@@ -9,169 +9,226 @@
 <title>Ghar Ka Khana - Admin</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-  font-family:Arial,sans-serif;
-  background:#fff8f0;
-  color:#222;
-  padding-bottom:30px;
+font-family:Arial,sans-serif;
+background:#fff8f0;
+color:#222;
+padding-bottom:30px
 }
 
 header{
-  background:#f47b20;
-  color:white;
-  text-align:center;
-  padding:25px 15px;
+background:#f47b20;
+color:white;
+text-align:center;
+padding:25px 15px
 }
 
-header h1{
-  font-size:28px;
-}
-
-header p{
-  margin-top:6px;
-  font-size:14px;
-}
+header h1{font-size:28px}
+header p{margin-top:6px;font-size:14px}
 
 .container{
-  max-width:700px;
-  margin:auto;
-  padding:18px;
+max-width:700px;
+margin:auto;
+padding:18px
 }
 
 .box{
-  background:white;
-  margin-top:18px;
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
+background:white;
+margin-top:18px;
+padding:20px;
+border-radius:16px;
+box-shadow:0 3px 12px rgba(0,0,0,.08)
 }
 
-h2{
-  margin-bottom:15px;
-}
+h2{margin-bottom:15px}
 
-.order{
-  border:1px solid #eee;
-  border-radius:14px;
-  padding:15px;
-  margin-top:12px;
-}
-
-.order-id{
-  font-size:18px;
-  font-weight:bold;
-  color:#f47b20;
-}
-
-.customer{
-  margin-top:10px;
-  line-height:1.7;
-}
-
-.amount{
-  font-size:18px;
-  font-weight:bold;
-  margin-top:10px;
-}
-
-.status{
-  display:inline-block;
-  margin-top:10px;
-  padding:6px 10px;
-  border-radius:20px;
-  background:#fff0e5;
-  color:#f47b20;
-  font-size:13px;
-  font-weight:bold;
-}
-
-select{
-  width:100%;
-  padding:12px;
-  margin-top:12px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  font-size:15px;
-  background:white;
-}
-
-.actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-top:12px;
-}
-
-.action-btn{
-  display:block;
-  text-align:center;
-  text-decoration:none;
-  padding:12px 8px;
-  border-radius:10px;
-  background:#f47b20;
-  color:white;
-  font-size:14px;
-  font-weight:bold;
-}
-
-.delivered{
-  background:#238636;
-  color:white;
-  border:0;
-  width:100%;
-  padding:13px;
-  margin-top:10px;
-  border-radius:10px;
-  font-size:15px;
-  font-weight:bold;
+button{
+border:0;
+border-radius:10px;
+padding:12px;
+font-size:15px;
+font-weight:bold;
+cursor:pointer
 }
 
 .refresh{
-  width:100%;
-  padding:13px;
-  margin-top:12px;
-  border:0;
-  border-radius:10px;
-  background:#333;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
+width:100%;
+background:#333;
+color:white;
+margin-top:10px
+}
+
+.order{
+border:1px solid #eee;
+border-radius:14px;
+padding:15px;
+margin-top:12px
+}
+
+.order-id{
+font-size:18px;
+font-weight:bold;
+color:#f47b20
+}
+
+.customer{
+margin-top:10px;
+line-height:1.7
+}
+
+.amount{
+font-size:18px;
+font-weight:bold;
+margin-top:10px
+}
+
+.status{
+display:inline-block;
+margin-top:10px;
+padding:6px 10px;
+border-radius:20px;
+background:#fff0e5;
+color:#f47b20;
+font-size:13px;
+font-weight:bold
+}
+
+select,input{
+width:100%;
+padding:12px;
+margin-top:8px;
+border:1px solid #ddd;
+border-radius:10px;
+font-size:15px;
+background:white
+}
+
+.actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-top:12px
+}
+
+.action-btn{
+display:block;
+text-align:center;
+text-decoration:none;
+padding:12px 8px;
+border-radius:10px;
+background:#f47b20;
+color:white;
+font-size:14px;
+font-weight:bold
+}
+
+.delivered{
+background:#238636;
+color:white;
+width:100%;
+margin-top:10px
+}
+
+.add{
+width:100%;
+background:#f47b20;
+color:white;
+margin-top:10px
+}
+
+.menu-item{
+border:1px solid #eee;
+border-radius:14px;
+padding:15px;
+margin-top:12px
+}
+
+.menu-name{
+font-size:18px;
+font-weight:bold
+}
+
+.menu-price{
+color:#f47b20;
+font-weight:bold;
+margin-top:5px
+}
+
+.available{
+color:green;
+font-weight:bold;
+font-size:13px;
+margin-top:5px
+}
+
+.unavailable{
+color:red;
+font-weight:bold;
+font-size:13px;
+margin-top:5px
+}
+
+.menu-actions{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+margin-top:10px
+}
+
+.edit{
+background:#f47b20;
+color:white
+}
+
+.delete{
+background:#d33;
+color:white
+}
+
+.save{
+background:#238636;
+color:white;
+width:100%;
+margin-top:10px
+}
+
+.cancel{
+background:#777;
+color:white;
+width:100%;
+margin-top:8px
 }
 
 .empty{
-  color:#777;
-  text-align:center;
-  padding:20px 5px;
+color:#777;
+text-align:center;
+padding:20px 5px
 }
 
 .loading{
-  text-align:center;
-  padding:20px;
-  color:#777;
+text-align:center;
+padding:20px;
+color:#777
 }
 
 .error{
-  background:#ffe8e8;
-  color:#b00020;
-  padding:12px;
-  border-radius:10px;
-  margin-top:12px;
-  font-size:14px;
+background:#ffe8e8;
+color:#b00020;
+padding:12px;
+border-radius:10px;
+margin-top:12px;
+font-size:14px
 }
 
-.delivery-note{
-  background:#fff4e8;
-  border-radius:12px;
-  padding:12px;
-  margin-bottom:15px;
-  font-size:14px;
-  line-height:1.5;
+.note{
+background:#fff4e8;
+padding:12px;
+border-radius:10px;
+font-size:14px;
+line-height:1.5;
+margin-bottom:12px
 }
 </style>
 </head>
@@ -179,41 +236,53 @@ select{
 <body>
 
 <header>
-  <h1>👑 Ghar Ka Khana</h1>
-  <p>Admin Panel • Self Delivery</p>
+<h1>👑 Ghar Ka Khana</h1>
+<p>Admin Panel</p>
 </header>
 
 <div class="container">
 
-<div class="box">
-
-  <h2>🚴 My Deliveries</h2>
-
-  <div class="delivery-note">
-    Orders yahan se manage karo. Customer ko call kar sakte ho,
-    address Google Maps me open kar sakte ho aur delivery complete
-    hone par order ko Delivered mark kar sakte ho.
-  </div>
-
-  <button class="refresh" onclick="loadOrders()">
-    🔄 Refresh Orders
-  </button>
-
-</div>
+<!-- MENU EDITOR -->
 
 <div class="box">
 
-  <h2>🛒 Orders</h2>
+<h2>🍽️ Menu Editor</h2>
 
-  <div id="orders">
-    <div class="loading">
-      Loading orders...
-    </div>
-  </div>
+<div class="note">
+Yahan se aap food item ka naam, price, category aur availability manage kar sakti ho.
+</div>
 
+<button class="add" onclick="showAddForm()">
+➕ Add New Item
+</button>
+
+<div id="menuForm"></div>
+
+<div id="menuList">
+<div class="loading">Loading menu...</div>
 </div>
 
 </div>
+
+
+<!-- ORDERS -->
+
+<div class="box">
+
+<h2>🛒 Orders</h2>
+
+<button class="refresh" onclick="loadOrders()">
+🔄 Refresh Orders
+</button>
+
+<div id="orders">
+<div class="loading">Loading orders...</div>
+</div>
+
+</div>
+
+</div>
+
 
 <script>
 
@@ -225,243 +294,574 @@ const SUPABASE_KEY =
 
 const supabaseClient =
 window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
 
+/* =========================
+   MENU
+========================= */
+
+async function loadMenu(){
+
+const container =
+document.getElementById("menuList");
+
+container.innerHTML =
+'<div class="loading">Loading menu...</div>';
+
+const {data,error} =
+await supabaseClient
+.from("menu_items")
+.select("*")
+.order("id",{ascending:true});
+
+if(error){
+
+container.innerHTML =
+`<div class="error">
+❌ Menu error:<br>${error.message}
+</div>`;
+
+return;
+}
+
+if(!data || data.length===0){
+
+container.innerHTML =
+'<div class="empty">No menu items found.</div>';
+
+return;
+}
+
+container.innerHTML="";
+
+data.forEach(item=>{
+
+const div =
+document.createElement("div");
+
+div.className="menu-item";
+
+const available =
+item.is_available !== false;
+
+div.innerHTML=`
+
+<div class="menu-name">
+${item.name || ""}
+</div>
+
+<div class="menu-price">
+₹${item.price || 0}
+</div>
+
+<div class="${available ? "available":"unavailable"}">
+${available ? "🟢 Available":"🔴 Sold Out"}
+</div>
+
+<div style="margin-top:5px;font-size:13px;color:#777">
+${item.category || ""}
+</div>
+
+<div class="menu-actions">
+
+<button class="edit"
+onclick="editItem(${item.id})">
+✏️ Edit
+</button>
+
+<button class="delete"
+onclick="deleteItem(${item.id})">
+🗑️ Delete
+</button>
+
+</div>
+
+`;
+
+container.appendChild(div);
+
+});
+
+}
+
+
+/* SHOW ADD FORM */
+
+function showAddForm(){
+
+document.getElementById("menuForm").innerHTML=`
+
+<div class="box" style="margin-top:15px;background:#fffaf5">
+
+<h3>➕ Add New Item</h3>
+
+<input id="newName"
+placeholder="Food name">
+
+<input id="newPrice"
+type="number"
+placeholder="Price">
+
+<input id="newCategory"
+placeholder="Category e.g. Main Course">
+
+<input id="newDescription"
+placeholder="Description">
+
+<button class="save"
+onclick="addItem()">
+💾 Save Item
+</button>
+
+<button class="cancel"
+onclick="closeForm()">
+Cancel
+</button>
+
+</div>
+
+`;
+
+}
+
+
+function closeForm(){
+
+document.getElementById("menuForm").innerHTML="";
+
+}
+
+
+/* ADD ITEM */
+
+async function addItem(){
+
+const name =
+document.getElementById("newName").value.trim();
+
+const price =
+Number(document.getElementById("newPrice").value);
+
+const category =
+document.getElementById("newCategory").value.trim();
+
+const description =
+document.getElementById("newDescription").value.trim();
+
+if(!name || !price){
+
+alert("Food name aur price bharna zaroori hai.");
+
+return;
+}
+
+const {error} =
+await supabaseClient
+.from("menu_items")
+.insert({
+
+name:name,
+price:price,
+category:category || "Main Course",
+description:description,
+is_available:true
+
+});
+
+if(error){
+
+alert("❌ Add failed: "+error.message);
+
+return;
+}
+
+alert("✅ Item added!");
+
+closeForm();
+
+loadMenu();
+
+}
+
+
+/* EDIT ITEM */
+
+async function editItem(id){
+
+const {data,error} =
+await supabaseClient
+.from("menu_items")
+.select("*")
+.eq("id",id)
+.single();
+
+if(error){
+
+alert("❌ "+error.message);
+
+return;
+}
+
+document.getElementById("menuForm").innerHTML=`
+
+<div class="box" style="margin-top:15px;background:#fffaf5">
+
+<h3>✏️ Edit Item</h3>
+
+<input id="editName"
+value="${data.name || ""}"
+placeholder="Food name">
+
+<input id="editPrice"
+type="number"
+value="${data.price || 0}"
+placeholder="Price">
+
+<input id="editCategory"
+value="${data.category || ""}"
+placeholder="Category">
+
+<input id="editDescription"
+value="${data.description || ""}"
+placeholder="Description">
+
+<select id="editAvailable">
+
+<option value="true"
+${data.is_available !== false ? "selected":""}>
+🟢 Available
+</option>
+
+<option value="false"
+${data.is_available === false ? "selected":""}>
+🔴 Sold Out
+</option>
+
+</select>
+
+<button class="save"
+onclick="saveEdit(${id})">
+💾 Save Changes
+</button>
+
+<button class="cancel"
+onclick="closeForm()">
+Cancel
+</button>
+
+</div>
+
+`;
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* SAVE EDIT */
+
+async function saveEdit(id){
+
+const name =
+document.getElementById("editName").value.trim();
+
+const price =
+Number(document.getElementById("editPrice").value);
+
+const category =
+document.getElementById("editCategory").value.trim();
+
+const description =
+document.getElementById("editDescription").value.trim();
+
+const available =
+document.getElementById("editAvailable").value === "true";
+
+if(!name || !price){
+
+alert("Name aur price zaroor bharna hai.");
+
+return;
+}
+
+const {error} =
+await supabaseClient
+.from("menu_items")
+.update({
+
+name:name,
+price:price,
+category:category,
+description:description,
+is_available:available
+
+})
+.eq("id",id);
+
+if(error){
+
+alert("❌ Update failed: "+error.message);
+
+return;
+}
+
+alert("✅ Menu updated!");
+
+closeForm();
+
+loadMenu();
+
+}
+
+
+/* DELETE */
+
+async function deleteItem(id){
+
+const yes =
+confirm(
+"Kya aap is item ko delete karna chahti hain?"
+);
+
+if(!yes)return;
+
+const {error} =
+await supabaseClient
+.from("menu_items")
+.delete()
+.eq("id",id);
+
+if(error){
+
+alert("❌ Delete failed: "+error.message);
+
+return;
+}
+
+alert("✅ Item deleted!");
+
+loadMenu();
+
+}
+
+
+/* =========================
+   ORDERS
+========================= */
+
 async function loadOrders(){
 
-  const container =
-    document.getElementById("orders");
+const container =
+document.getElementById("orders");
 
-  container.innerHTML =
-    '<div class="loading">Loading orders...</div>';
+container.innerHTML =
+'<div class="loading">Loading orders...</div>';
 
+const {data,error} =
+await supabaseClient
+.from("orders")
+.select("*")
+.order("created_at",{ascending:false});
 
-  const { data, error } =
-    await supabaseClient
-      .from("orders")
-      .select("*")
-      .order("created_at", { ascending:false });
+if(error){
 
+container.innerHTML =
+`<div class="error">
+❌ Order error:<br>${error.message}
+</div>`;
 
-  if(error){
+return;
+}
 
-    console.error(error);
+if(!data || data.length===0){
 
-    container.innerHTML =
-      `<div class="error">
-        ❌ Error loading orders:<br>
-        ${error.message}
-      </div>`;
+container.innerHTML =
+'<div class="empty">No orders yet.</div>';
 
-    return;
-  }
+return;
+}
 
+container.innerHTML="";
 
-  if(!data || data.length === 0){
+data.forEach(order=>{
 
-    container.innerHTML =
-      '<div class="empty">No orders yet.</div>';
+const div =
+document.createElement("div");
 
-    return;
-  }
+div.className="order";
 
+const phone =
+String(order.customer_phone || "");
 
-  container.innerHTML = "";
+const address =
+String(order.delivery_address || "");
 
+const encodedAddress =
+encodeURIComponent(address);
 
-  data.forEach(order => {
+div.innerHTML=`
 
-    const div =
-      document.createElement("div");
+<div class="order-id">
+🛒 Order #${order.id}
+</div>
 
-    div.className = "order";
+<div class="customer">
 
+<b>👤 ${order.customer_name}</b><br>
 
-    const phone =
-      String(order.customer_phone || "");
+📞 ${phone}<br>
 
-    const address =
-      String(order.delivery_address || "");
+📍 ${address}
 
+</div>
 
-    const encodedAddress =
-      encodeURIComponent(address);
+<div class="amount">
+💰 COD: ₹${order.total_amount}
+</div>
 
+<div class="status">
+${order.status || "pending"}
+</div>
 
-    div.innerHTML = `
+<select
+onchange="updateStatus(${order.id},this.value)">
 
-      <div class="order-id">
-        🛒 Order #${order.id}
-      </div>
+<option value="pending"
+${order.status==="pending"?"selected":""}>
+Pending
+</option>
 
-      <div class="customer">
+<option value="preparing"
+${order.status==="preparing"?"selected":""}>
+Preparing
+</option>
 
-        <b>👤 ${order.customer_name}</b><br>
+<option value="ready"
+${order.status==="ready"?"selected":""}>
+Ready
+</option>
 
-        📞 ${phone}<br>
+<option value="out_for_delivery"
+${order.status==="out_for_delivery"?"selected":""}>
+Out for Delivery
+</option>
 
-        📍 ${address}
+<option value="delivered"
+${order.status==="delivered"?"selected":""}>
+Delivered
+</option>
 
-      </div>
+<option value="cancelled"
+${order.status==="cancelled"?"selected":""}>
+Cancelled
+</option>
 
-      <div class="amount">
-        💰 COD: ₹${order.total_amount}
-      </div>
+</select>
 
-      <div class="status">
-        ${order.status || "pending"}
-      </div>
+<div class="actions">
 
+<a
+class="action-btn"
+href="tel:${phone}">
+📞 Call
+</a>
 
-      <select
-        onchange="updateStatus(${order.id}, this.value)"
-      >
+<a
+class="action-btn"
+href="https://www.google.com/maps/search/?api=1&query=${encodedAddress}"
+target="_blank">
+🗺️ Navigate
+</a>
 
-        <option value="pending"
-          ${order.status === "pending" ? "selected" : ""}>
-          Pending
-        </option>
+</div>
 
-        <option value="preparing"
-          ${order.status === "preparing" ? "selected" : ""}>
-          Preparing
-        </option>
+<button
+class="delivered"
+onclick="markDelivered(${order.id})">
 
-        <option value="ready"
-          ${order.status === "ready" ? "selected" : ""}>
-          Ready
-        </option>
+✅ Mark Delivered
 
-        <option value="out_for_delivery"
-          ${order.status === "out_for_delivery" ? "selected" : ""}>
-          Out for Delivery
-        </option>
+</button>
 
-        <option value="delivered"
-          ${order.status === "delivered" ? "selected" : ""}>
-          Delivered
-        </option>
+`;
 
-        <option value="cancelled"
-          ${order.status === "cancelled" ? "selected" : ""}>
-          Cancelled
-        </option>
+container.appendChild(div);
 
-      </select>
-
-
-      <div class="actions">
-
-        <a
-          class="action-btn"
-          href="tel:${phone}">
-          📞 Call
-        </a>
-
-
-        <a
-          class="action-btn"
-          href="https://www.google.com/maps/search/?api=1&query=${encodedAddress}"
-          target="_blank">
-          🗺️ Navigate
-        </a>
-
-      </div>
-
-
-      <button
-        class="delivered"
-        onclick="markDelivered(${order.id})">
-
-        ✅ Mark Delivered
-
-      </button>
-
-    `;
-
-
-    container.appendChild(div);
-
-  });
+});
 
 }
 
 
 async function updateStatus(orderId,newStatus){
 
-  const { error } =
-    await supabaseClient
-      .from("orders")
-      .update({
-        status:newStatus
-      })
-      .eq("id",orderId);
+const {error} =
+await supabaseClient
+.from("orders")
+.update({
+status:newStatus
+})
+.eq("id",orderId);
 
+if(error){
 
-  if(error){
+alert(
+"❌ Status update failed: "+
+error.message
+);
 
-    alert(
-      "❌ Status update failed: " +
-      error.message
-    );
+return;
+}
 
-    return;
-  }
-
-
-  loadOrders();
+loadOrders();
 
 }
 
 
 async function markDelivered(orderId){
 
-  const confirmDelivery =
-    confirm(
-      "Kya ye order successfully deliver ho gaya?"
-    );
+const yes =
+confirm(
+"Kya ye order successfully deliver ho gaya?"
+);
 
+if(!yes)return;
 
-  if(!confirmDelivery){
-    return;
-  }
+const {error} =
+await supabaseClient
+.from("orders")
+.update({
+status:"delivered"
+})
+.eq("id",orderId);
 
+if(error){
 
-  const { error } =
-    await supabaseClient
-      .from("orders")
-      .update({
-        status:"delivered"
-      })
-      .eq("id",orderId);
+alert(
+"❌ Delivery update failed: "+
+error.message
+);
 
+return;
+}
 
-  if(error){
+alert(
+"✅ Order #"+orderId+" Delivered!"
+);
 
-    alert(
-      "❌ Delivery update failed: " +
-      error.message
-    );
-
-    return;
-  }
-
-
-  alert(
-    "✅ Order #" +
-    orderId +
-    " Delivered!"
-  );
-
-
-  loadOrders();
+loadOrders();
 
 }
 
 
+/* LOAD */
+
+loadMenu();
 loadOrders();
 
 </script>
