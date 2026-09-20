@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+jo<!DOCTYPE html>
 <html lang="en">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><head>
 <meta charset="UTF-8">
@@ -252,8 +252,14 @@ textarea {
 
 <script>
 
-const WHATSAPP_NUMBER = "YOUR_WHATSAPP_NUMBER";
+const const WHATSAPP_NUMBER = "YOUR_WHATSAPP_NUMBER";
+const SUPABASE_URL = "https://oxfuccrgitckvozmnyss.supabase.co";
+const SUPABASE_KEY = "sb_publishable_DwZtFpmfTwDnlAp6fYbjpA_upTa3khj";
 
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 const menu = {
 
 mainCourse: [
@@ -411,7 +417,75 @@ function clearCart() {
 }
 
 
-function sendOrder() {
+function async function sendOrder() {
+  if (cart.length === 0) {
+    alert("Please add something to your cart first.");
+    return;
+  }
+
+  const name = document.getElementById("customerName").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const address = document.getElementById("customerAddress").value.trim();
+
+  if (!name || !phone || !address) {
+    alert("Please fill your name, phone number and address.");
+    return;
+  }
+
+  let total = 0;
+
+  cart.forEach(item => {
+    total += item.price * item.qty;
+  });
+
+  const { data: order, error: orderError } =
+    await supabaseClient
+      .from("orders")
+      .insert({
+        customer_name: name,
+        customer_phone: phone,
+        delivery_address: address,
+        total_amount: total,
+        payment_method: "COD",
+        payment_status: "pending",
+        status: "pending"
+      })
+      .select()
+      .single();
+
+  if (orderError) {
+    console.error(orderError);
+    alert("Order save nahi hua. Please try again.");
+    return;
+  }
+
+  const orderItems = cart.map(item => ({
+    order_id: order.id,
+    item_name: item.name,
+    price: item.price,
+    quantity: item.qty
+  }));
+
+  const { error: itemsError } =
+    await supabaseClient
+      .from("order_items")
+      .insert(orderItems);
+
+  if (itemsError) {
+    console.error(itemsError);
+    alert("Order items save nahi hue.");
+    return;
+  }
+
+  alert("🎉 Order successfully placed!");
+
+  cart = [];
+  updateCart();
+
+  document.getElementById("customerName").value = "";
+  document.getElementById("customerPhone").value = "";
+  document.getElementById("customerAddress").value = "";
+}
 
   if(cart.length === 0) {
     alert("Please add something to your cart first.");
