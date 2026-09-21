@@ -2,761 +2,556 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ghar Ka Khana Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ghar Ka Khana - Admin</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-background:#f5f6f8;
-color:#111;
-padding-bottom:90px
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f5f5f5;
+  color:#222;
 }
 
-.hidden{display:none!important}
-
-.app{
-max-width:720px;
-margin:auto
+header{
+  background:#e23744;
+  color:white;
+  padding:18px;
+  text-align:center;
 }
 
-.top{
-position:sticky;
-top:0;
-z-index:5;
-background:#fff;
-padding:15px;
-border-bottom:1px solid #ddd
+header h1{
+  margin:0;
+  font-size:22px;
 }
 
-.brand{
-font-size:22px;
-font-weight:800
-}
-
-.muted{
-color:#777;
-font-size:13px
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:15px;
 }
 
 .card{
-background:#fff;
-margin:12px;
-padding:16px;
-border-radius:18px;
-box-shadow:0 2px 12px #00000010
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px
-}
-
-.stat{
-border:1px solid #eee;
-border-radius:15px;
-padding:15px
-}
-
-.stat b{
-display:block;
-font-size:25px;
-margin-top:5px
-}
-
-.title{
-font-size:19px;
-font-weight:800;
-margin-bottom:12px
-}
-
-.row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:8px
-}
-
-.btn{
-border:0;
-border-radius:11px;
-padding:10px 13px;
-font-weight:700;
-font-size:14px;
-cursor:pointer
-}
-
-.black{background:#111;color:white}
-.gray{background:#eee;color:#111}
-.red{background:#ffe5e5;color:#a00000}
-.green{background:#e4f8ea;color:#08752e}
-
-.input{
-width:100%;
-padding:12px;
-border:1px solid #ddd;
-border-radius:11px;
-margin:6px 0 10px;
-font-size:15px;
-background:#fff
-}
-
-textarea.input{
-min-height:80px
-}
-
-.nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:#fff;
-border-top:1px solid #ddd;
-z-index:10
-}
-
-.navin{
-max-width:720px;
-margin:auto;
-display:grid;
-grid-template-columns:repeat(5,1fr)
-}
-
-.nav button{
-border:0;
-background:#fff;
-padding:8px 2px;
-color:#777;
-font-size:11px
-}
-
-.nav button b{
-display:block;
-font-size:20px;
-margin-bottom:2px
-}
-
-.nav button.active{
-color:#111;
-font-weight:800
-}
-
-.section{display:none}
-.section.active{display:block}
-
-.item{
-border:1px solid #eee;
-border-radius:14px;
-padding:12px;
-margin:9px 0
-}
-
-.pill{
-font-size:11px;
-padding:5px 9px;
-border-radius:20px;
-background:#eee
-}
-
-.on{
-background:#e5f8eb;
-color:#08752e
-}
-
-.off{
-background:#ffe5e5;
-color:#a00000
-}
-
-.actions{
-display:flex;
-gap:7px;
-flex-wrap:wrap;
-margin-top:10px
-}
-
-.quick{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:9px
-}
-
-.quick button{
-border:0;
-background:#f3f3f3;
-border-radius:14px;
-padding:13px 5px;
-font-size:13px
-}
-
-.quick b{
-display:block;
-margin-top:5px
-}
-
-.empty{
-text-align:center;
-padding:25px;
-color:#888
+  background:white;
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:15px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
 .login{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-background:#f3f4f6
+  max-width:400px;
+  margin:60px auto;
 }
 
-.loginbox{
-background:#fff;
-width:min(400px,100%);
-padding:28px;
-border-radius:22px
+input,select,textarea{
+  width:100%;
+  padding:12px;
+  margin:7px 0;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:15px;
 }
 
-.logo{
-text-align:center;
-font-size:50px
+button{
+  border:0;
+  border-radius:8px;
+  padding:11px 15px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.primary{
+  background:#e23744;
+  color:white;
+}
+
+.green{
+  background:#168a45;
+  color:white;
+}
+
+.gray{
+  background:#eee;
+}
+
+.danger{
+  background:#d62828;
+  color:white;
+}
+
+.nav{
+  display:flex;
+  overflow-x:auto;
+  gap:8px;
+  margin-bottom:15px;
+}
+
+.nav button{
+  background:white;
+  white-space:nowrap;
+  border:1px solid #ddd;
+}
+
+.nav button.active{
+  background:#e23744;
+  color:white;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.order{
+  border:1px solid #eee;
+  border-radius:12px;
+  padding:14px;
+  margin-bottom:12px;
+}
+
+.order h3{
+  margin:0 0 8px;
+}
+
+.status{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  background:#fff3cd;
+  font-size:12px;
+  margin-bottom:8px;
+}
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  padding:9px 0;
+  border-bottom:1px solid #eee;
+}
+
+.menu-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #eee;
+  padding:12px 0;
+  gap:10px;
+}
+
+.menu-info{
+  flex:1;
+}
+
+.menu-actions{
+  display:flex;
+  gap:5px;
+}
+
+.small{
+  font-size:13px;
+  color:#666;
+}
+
+.price{
+  font-weight:bold;
+}
+
+.stat{
+  font-size:25px;
+  font-weight:bold;
+  margin-top:5px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+@media(max-width:600px){
+  .grid{
+    grid-template-columns:1fr 1fr;
+  }
 }
 
 .modal{
-position:fixed;
-inset:0;
-background:#0008;
-z-index:20;
-display:flex;
-align-items:flex-end
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.5);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  z-index:99;
 }
 
-.sheet{
-background:#fff;
-width:100%;
-max-width:720px;
-margin:auto;
-border-radius:22px 22px 0 0;
-padding:20px;
-max-height:90vh;
-overflow:auto
+.modal-box{
+  background:white;
+  width:100%;
+  max-width:500px;
+  max-height:90vh;
+  overflow:auto;
+  border-radius:15px;
+  padding:18px;
 }
 
-.order-items{
-margin-top:8px;
-background:#fafafa;
-padding:10px;
-border-radius:10px
+.top-actions{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+<header>
+  <h1>🍱 Ghar Ka Khana</h1>
+  <div class="small" style="color:white;">Restaurant Admin Panel</div>
+</header>
 
-<div id="login" class="login">
+<div id="loginPage" class="container">
+  <div class="card login">
+    <h2>Admin Login</h2>
+    <p class="small">Enter your 4-digit PIN</p>
 
-<div class="loginbox">
+    <input
+      id="pin"
+      type="password"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="Enter PIN"
+    >
 
-<div class="logo">🍱</div>
-
-<h1 style="text-align:center">
-Ghar Ka Khana
-</h1>
-
-<p class="muted" style="text-align:center">
-Restaurant Admin
-</p>
-
-<input
-id="pin"
-class="input"
-type="password"
-inputmode="numeric"
-maxlength="4"
-placeholder="Enter 4-digit PIN"
->
-
-<button
-class="btn black"
-style="width:100%"
-onclick="login()"
->
-Login
-</button>
-
-<p id="msg" class="muted" style="text-align:center"></p>
-
-</div>
+    <button class="primary" style="width:100%;" onclick="login()">
+      Login
+    </button>
+  </div>
 </div>
 
+<div id="app" class="container" style="display:none;">
 
-<!-- APP -->
+  <div class="top-actions card">
+    <div>
+      <b>Ghar Ka Khana</b>
+      <div class="small">Admin Dashboard</div>
+    </div>
 
-<div id="app" class="app hidden">
+    <button class="danger" onclick="logout()">Logout</button>
+  </div>
 
-<div class="top">
+  <div class="nav">
 
-<div class="row">
+    <button class="active" onclick="showSection('orders',this)">
+      📦 Orders
+    </button>
 
-<div>
-<div class="brand">🍱 Ghar Ka Khana</div>
-<div class="muted">Independent Restaurant App</div>
-</div>
+    <button onclick="showSection('hub',this)">
+      🏠 Hub
+    </button>
 
-<button class="btn gray" onclick="logout()">
-Logout
-</button>
+    <button onclick="showSection('growth',this)">
+      📈 Growth
+    </button>
 
-</div>
-</div>
+    <button onclick="showSection('menu',this)">
+      🍽️ Menu
+    </button>
 
+    <button onclick="showSection('finance',this)">
+      💰 Finance
+    </button>
 
-<!-- HUB -->
+    <button onclick="showSection('inventory',this)">
+      📦 Inventory
+    </button>
 
-<section id="hub" class="section active">
+    <button onclick="showSection('settings',this)">
+      ⚙️ Settings
+    </button>
 
-<div class="card">
+  </div>
 
-<div class="row">
 
-<b>🟢 Restaurant LIVE</b>
+  <!-- ORDERS -->
 
-<span class="pill on">
-ONLINE
-</span>
+  <div id="orders" class="section active">
 
-</div>
+    <div class="card">
+      <div class="top-actions">
+        <h2>Orders</h2>
 
-<div class="muted" style="margin-top:6px">
-Your own restaurant management system
-</div>
+        <button class="gray" onclick="loadOrders()">
+          🔄 Refresh
+        </button>
+      </div>
 
-</div>
+      <div id="ordersList">
+        Loading orders...
+      </div>
+    </div>
 
+  </div>
 
-<div class="grid">
 
-<div class="stat">
-<span class="muted">Today's Sales</span>
-<b id="sales">₹0</b>
-</div>
+  <!-- HUB -->
 
-<div class="stat">
-<span class="muted">Today's Orders</span>
-<b id="ordersToday">0</b>
-</div>
+  <div id="hub" class="section">
 
-<div class="stat">
-<span class="muted">Pending</span>
-<b id="pending">0</b>
-</div>
+    <div class="card">
+      <h2>🏠 Hub</h2>
 
-<div class="stat">
-<span class="muted">Delivered</span>
-<b id="delivered">0</b>
-</div>
+      <div class="grid">
 
-</div>
+        <div class="card">
+          <div class="small">Today's Orders</div>
+          <div id="todayOrders" class="stat">0</div>
+        </div>
 
+        <div class="card">
+          <div class="small">Today's Sales</div>
+          <div id="todaySales" class="stat">₹0</div>
+        </div>
 
-<div class="card">
+        <div class="card">
+          <div class="small">Pending Orders</div>
+          <div id="pendingOrders" class="stat">0</div>
+        </div>
 
-<div class="title">
-Quick Links
-</div>
+        <div class="card">
+          <div class="small">Menu Items</div>
+          <div id="menuCount" class="stat">0</div>
+        </div>
 
-<div class="quick">
+      </div>
+    </div>
 
-<button onclick="go('orders')">
-📦
-<b>Orders</b>
-</button>
+  </div>
 
-<button onclick="go('menu')">
-🍽️
-<b>Menu</b>
-</button>
 
-<button onclick="go('growth')">
-📈
-<b>Growth</b>
-</button>
+  <!-- GROWTH -->
 
-<button onclick="go('finance')">
-₹
-<b>Finance</b>
-</button>
+  <div id="growth" class="section">
 
-<button onclick="go('inventory')">
-📦
-<b>Inventory</b>
-</button>
+    <div class="card">
+      <h2>📈 Growth</h2>
 
-<button onclick="go('settings')">
-⚙️
-<b>Settings</b>
-</button>
+      <div class="grid">
 
-</div>
-</div>
+        <div class="card">
+          <div class="small">Total Orders</div>
+          <div id="growthOrders" class="stat">0</div>
+        </div>
 
+        <div class="card">
+          <div class="small">Total Sales</div>
+          <div id="growthSales" class="stat">₹0</div>
+        </div>
 
-<div class="card">
+      </div>
 
-<div class="title">
-Recent Orders
-</div>
+      <p class="small">
+        Keep your menu updated and maintain good food quality to grow
+        repeat customers.
+      </p>
+    </div>
 
-<div id="recent"></div>
+  </div>
 
-</div>
 
-</section>
+  <!-- MENU -->
 
+  <div id="menu" class="section">
 
-<!-- ORDERS -->
+    <div class="card">
 
-<section id="orders" class="section">
+      <div class="top-actions">
 
-<div class="card">
+        <h2>🍽️ Menu</h2>
 
-<div class="row">
+        <button class="primary" onclick="openAddMenu()">
+          + Add Item
+        </button>
 
-<div class="title">
-Orders
-</div>
+      </div>
 
-<button class="btn gray" onclick="loadOrders();">
-↻
-</button>
+      <div id="menuList">
+        Loading menu...
+      </div>
 
-</div>
+    </div>
 
-<div id="orderList"></div>
+  </div>
 
-</div>
 
-</section>
+  <!-- FINANCE -->
 
+  <div id="finance" class="section">
 
-<!-- MENU -->
+    <div class="card">
 
-<section id="menu" class="section">
+      <h2>💰 Finance</h2>
 
-<div class="card">
+      <div class="grid">
 
-<div class="row">
+        <div class="card">
+          <div class="small">Total Sales</div>
+          <div id="financeSales" class="stat">₹0</div>
+        </div>
 
-<div>
-<div class="title" style="margin:0">
-🍽️ Menu Management
-</div>
+        <div class="card">
+          <div class="small">Total Orders</div>
+          <div id="financeOrders" class="stat">0</div>
+        </div>
 
-<div class="muted">
-Add, edit and manage your restaurant menu
-</div>
-</div>
+      </div>
 
-<button class="btn black" onclick="openMenu()">
-＋ Add
-</button>
+    </div>
 
-</div>
+  </div>
 
 
-<input
-id="search"
-class="input"
-placeholder="🔍 Search menu item..."
-oninput="renderMenu()"
->
+  <!-- INVENTORY -->
 
-<div id="menuList"></div>
+  <div id="inventory" class="section">
 
-</div>
+    <div class="card">
 
-</section>
+      <h2>📦 Inventory</h2>
 
+      <p class="small">
+        Add your daily stock information here.
+      </p>
 
-<!-- GROWTH -->
+      <input id="stockPaneer" placeholder="Paneer stock">
 
-<section id="growth" class="section">
+      <input id="stockAtta" placeholder="Atta stock">
 
-<div class="card">
+      <input id="stockOil" placeholder="Oil stock">
 
-<div class="title">
-📈 Business Insights
-</div>
+      <input id="stockVegetables" placeholder="Vegetables stock">
 
-<div class="grid">
+      <button class="primary" onclick="saveInventory()">
+        Save Inventory
+      </button>
 
-<div class="stat">
-<span class="muted">Total Sales</span>
-<b id="totalSales">₹0</b>
-</div>
+      <p id="inventoryMsg"></p>
 
-<div class="stat">
-<span class="muted">Average Order</span>
-<b id="avg">₹0</b>
-</div>
+    </div>
 
-<div class="stat">
-<span class="muted">Menu Items</span>
-<b id="mc">0</b>
-</div>
+  </div>
 
-<div class="stat">
-<span class="muted">Available</span>
-<b id="ac">0</b>
-</div>
 
-</div>
+  <!-- SETTINGS -->
 
-</div>
+  <div id="settings" class="section">
 
-</section>
+    <div class="card">
 
+      <h2>⚙️ Settings</h2>
 
-<!-- FINANCE -->
+      <p>
+        <b>Restaurant:</b> Ghar Ka Khana
+      </p>
 
-<section id="finance" class="section">
+      <p>
+        <b>Location:</b> Moga, Punjab
+      </p>
 
-<div class="card">
+      <p>
+        <b>Business:</b> Homemade Vegetarian Food
+      </p>
 
-<div class="title">
-₹ Finance
-</div>
+      <hr>
 
-<div class="grid">
+      <button class="danger" onclick="logout()">
+        Logout
+      </button>
 
-<div class="stat">
-<span class="muted">Revenue</span>
-<b id="rev">₹0</b>
-</div>
+    </div>
 
-<div class="stat">
-<span class="muted">Expenses</span>
-<b id="exp">₹0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Profit</span>
-<b id="profit">₹0</b>
-</div>
-
-<div class="stat">
-<span class="muted">COD Revenue</span>
-<b id="cod">₹0</b>
-</div>
-
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-Expenses
-</div>
-
-<div id="expenseList"></div>
-
-<button class="btn black" onclick="addExpense()">
-＋ Add Expense
-</button>
-
-</div>
-
-</section>
-
-
-<!-- INVENTORY -->
-
-<section id="inventory" class="section">
-
-<div class="card">
-
-<div class="title">
-📦 Inventory
-</div>
-
-<div id="inventoryList"></div>
-
-<button class="btn black" onclick="addInventory()">
-＋ Add Stock
-</button>
-
-</div>
-
-</section>
-
-
-<!-- SETTINGS -->
-
-<section id="settings" class="section">
-
-<div class="card">
-
-<div class="title">
-⚙️ Settings
-</div>
-
-<input
-id="sname"
-class="input"
-value="Ghar Ka Khana"
-placeholder="Restaurant name"
->
-
-<input
-id="sphone"
-class="input"
-value="9877663522"
-placeholder="Phone"
->
-
-<textarea
-id="saddress"
-class="input"
-placeholder="Restaurant address"
-></textarea>
-
-<input
-id="shours"
-class="input"
-value="10 AM - 10 PM"
-placeholder="Opening hours"
->
-
-<button class="btn black" onclick="saveSettings()">
-Save Settings
-</button>
-
-</div>
-
-
-<div class="card">
-
-<b>About</b>
-
-<p class="muted">
-Independent Ghar Ka Khana app.
-No Zomato or Swiggy integration.
-</p>
-
-</div>
-
-</section>
+  </div>
 
 </div>
 
 
 <!-- MENU MODAL -->
 
-<div id="modal" class="modal hidden">
+<div id="menuModal" class="modal">
 
-<div class="sheet">
+  <div class="modal-box">
 
-<h2 id="mtitle">
-Add Menu Item
-</h2>
+    <div class="top-actions">
 
-<input id="mid" type="hidden">
+      <h2 id="modalTitle">Add Menu Item</h2>
 
-<input
-id="mname"
-class="input"
-placeholder="Item name"
->
+      <button class="gray" onclick="closeMenuModal()">
+        ✕
+      </button>
 
-<input
-id="mprice"
-class="input"
-type="number"
-placeholder="Price ₹"
->
+    </div>
 
-<select id="mcat" class="input">
+    <input type="hidden" id="editMenuId">
 
-<option>Main Course</option>
-<option>Parathas & Roti</option>
-<option>Snacks</option>
-<option>Chaat</option>
-<option>Breakfast</option>
-<option>Lunch</option>
-<option>Dinner</option>
-<option>Drinks</option>
-<option>Combo</option>
+    <label>Item Name</label>
 
-</select>
+    <input id="menuName" placeholder="Example: Shahi Paneer">
 
-<textarea
-id="mdesc"
-class="input"
-placeholder="Description"
-></textarea>
+    <label>Price</label>
 
-<label>
-<input id="mavail" type="checkbox" checked>
-Available
-</label>
+    <input id="menuPrice" type="number" placeholder="150">
 
-<div class="actions">
+    <label>Category</label>
 
-<button class="btn black" onclick="saveMenu()">
-Save
-</button>
+    <select id="menuCategory">
 
-<button class="btn gray" onclick="closeModal()">
-Cancel
-</button>
+      <option>Main Course</option>
+      <option>Parathas & Roti</option>
+      <option>Snacks</option>
+      <option>Chaat</option>
+      <option>Drinks</option>
+      <option>Combos</option>
 
-</div>
+    </select>
 
-</div>
-</div>
+    <label>Description</label>
 
+    <textarea
+      id="menuDescription"
+      rows="3"
+      placeholder="Short description"
+    ></textarea>
 
-<!-- NAV -->
+    <button
+      class="primary"
+      style="width:100%;margin-top:10px;"
+      onclick="saveMenuItem()"
+    >
+      Save Item
+    </button>
 
-<div class="nav">
+    <button
+      class="gray"
+      style="width:100%;margin-top:8px;"
+      onclick="closeMenuModal()"
+    >
+      Cancel
+    </button>
 
-<div class="navin">
+  </div>
 
-<button id="n-orders" onclick="go('orders')">
-📦
-<b>Orders</b>
-</button>
-
-<button id="n-hub" class="active" onclick="go('hub')">
-🏠
-<b>Hub</b>
-</button>
-
-<button id="n-growth" onclick="go('growth')">
-📈
-<b>Growth</b>
-</button>
-
-<button id="n-menu" onclick="go('menu')">
-🍽️
-<b>Menu</b>
-</button>
-
-<button id="n-finance" onclick="go('finance')">
-₹
-<b>Finance</b>
-</button>
-
-</div>
 </div>
 
 
@@ -768,82 +563,69 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_DwZtFpmfTwDnlAp6fYbjpA_upTa3khj";
 
-const db =
+const supabaseClient =
 supabase.createClient(
-SUPABASE_URL,
-SUPABASE_KEY
+  SUPABASE_URL,
+  SUPABASE_KEY
 );
 
+const ADMIN_PIN = "7869";
 
-let pin="";
-let orders=[];
-let menu=[];
-
-let data={
-expenses:[],
-inventory:[],
-settings:{}
-};
-
-
-const $=id=>
-document.getElementById(id);
-
-
-function money(n){
-
-return "₹"+
-Number(n||0).toLocaleString("en-IN");
-
-}
-
-
-function esc(x){
-
-return String(x??"")
-.replace(
-/[&<>"']/g,
-m=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-}[m])
-);
-
-}
+let orders = [];
+let menuItems = [];
 
 
 /* LOGIN */
 
 async function login(){
 
-pin=$("pin").value.trim();
+  const pin =
+    document.getElementById("pin").value.trim();
 
-if(pin!=="7869"){
+  if(pin !== ADMIN_PIN){
 
-$("msg").textContent=
-"Wrong PIN";
+    alert("Wrong PIN");
 
-return;
+    return;
+  }
 
-}
+  try{
 
-sessionStorage.setItem(
-"gkpin",
-pin
-);
+    const { data,error } =
+      await supabaseClient.rpc(
+        "admin_login",
+        { pin: pin }
+      );
 
-$("login").classList.add(
-"hidden"
-);
+    if(error){
 
-$("app").classList.remove(
-"hidden"
-);
+      console.error(error);
 
-await loadAll();
+      alert("Login error: " + error.message);
+
+      return;
+    }
+
+    if(data === false){
+
+      alert("Wrong PIN");
+
+      return;
+    }
+
+  }catch(e){
+
+    console.error(e);
+
+  }
+
+  localStorage.setItem("gharAdminLoggedIn","true");
+
+  document.getElementById("loginPage").style.display="none";
+
+  document.getElementById("app").style.display="block";
+
+  loadAll();
 
 }
 
@@ -852,26 +634,63 @@ await loadAll();
 
 function logout(){
 
-sessionStorage.removeItem(
-"gkpin"
-);
+  localStorage.removeItem("gharAdminLoggedIn");
 
-location.reload();
+  location.reload();
 
 }
 
 
-/* LOAD EVERYTHING */
+/* AUTO LOGIN */
+
+window.addEventListener("load",()=>{
+
+  if(
+    localStorage.getItem("gharAdminLoggedIn")
+    === "true"
+  ){
+
+    document.getElementById("loginPage").style.display="none";
+
+    document.getElementById("app").style.display="block";
+
+    loadAll();
+
+  }
+
+});
+
+
+/* NAVIGATION */
+
+function showSection(id,button){
+
+  document
+    .querySelectorAll(".section")
+    .forEach(x=>x.classList.remove("active"));
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(x=>x.classList.remove("active"));
+
+  document
+    .getElementById(id)
+    .classList.add("active");
+
+  button.classList.add("active");
+
+}
+
+
+/* LOAD ALL */
 
 async function loadAll(){
 
-await Promise.all([
-loadOrders(),
-loadMenu(),
-loadData()
-]);
+  await loadOrders();
 
-refresh();
+  await loadMenu();
+
+  updateDashboard();
 
 }
 
@@ -880,34 +699,270 @@ refresh();
 
 async function loadOrders(){
 
-const r=
-await db.rpc(
-"admin_get_orders",
-{pin:pin}
-);
+  const box =
+    document.getElementById("ordersList");
 
-if(r.error){
+  box.innerHTML="Loading orders...";
 
-console.error(r.error);
+  const {data,error} =
+    await supabaseClient.rpc(
+      "admin_get_orders",
+      {pin:ADMIN_PIN}
+    );
 
-alert(
-"Orders load nahi hue: "+
-r.error.message
-);
+  if(error){
 
-return;
+    console.error(error);
+
+    box.innerHTML =
+      `<p style="color:red;">
+        ${escapeHtml(error.message)}
+      </p>`;
+
+    return;
+  }
+
+  orders = data || [];
+
+  renderOrders();
+
+  updateDashboard();
 
 }
 
-orders=
-Array.isArray(r.data)
-?r.data
-:[];
 
-renderOrders();
-renderHub();
-renderGrowth();
-renderFinance();
+function renderOrders(){
+
+  const box =
+    document.getElementById("ordersList");
+
+  if(!orders.length){
+
+    box.innerHTML =
+      "<p>No orders found.</p>";
+
+    return;
+  }
+
+  box.innerHTML =
+    orders.map(order=>{
+
+      const date =
+        new Date(order.created_at);
+
+      return `
+
+      <div class="order">
+
+        <h3>
+          Order #${order.id}
+        </h3>
+
+        <span class="status">
+          ${escapeHtml(order.status || "pending")}
+        </span>
+
+        <p>
+          <b>Customer:</b>
+          ${escapeHtml(order.customer_name)}
+        </p>
+
+        <p>
+          <b>Phone:</b>
+          ${escapeHtml(order.customer_phone)}
+        </p>
+
+        <p>
+          <b>Address:</b>
+          ${escapeHtml(order.delivery_address)}
+        </p>
+
+        <p>
+          <b>Date:</b>
+          ${date.toLocaleString("en-IN")}
+        </p>
+
+        <div id="items-${order.id}">
+          Loading items...
+        </div>
+
+        <hr>
+
+        <p>
+          <b>Total: ₹${Number(order.total_amount || 0).toFixed(0)}</b>
+        </p>
+
+        <p>
+          <b>Payment:</b>
+          ${escapeHtml(order.payment_method || "COD")}
+        </p>
+
+        <div style="display:flex;gap:7px;flex-wrap:wrap;">
+
+          <button
+            class="green"
+            onclick="markDelivered(${order.id})"
+          >
+            ✓ Delivered
+          </button>
+
+          <button
+            class="gray"
+            onclick="updateOrderStatus(${order.id},'preparing')"
+          >
+            Preparing
+          </button>
+
+          <button
+            class="gray"
+            onclick="updateOrderStatus(${order.id},'ready')"
+          >
+            Ready
+          </button>
+
+          <button
+            class="danger"
+            onclick="updateOrderStatus(${order.id},'cancelled')"
+          >
+            Cancel
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+  orders.forEach(
+    order=>loadOrderItems(order.id)
+  );
+
+}
+
+
+async function loadOrderItems(orderId){
+
+  const box =
+    document.getElementById("items-"+orderId);
+
+  if(!box)return;
+
+  const {data,error} =
+    await supabaseClient
+      .from("order_items")
+      .select("*")
+      .eq("order_id",orderId);
+
+  if(error){
+
+    box.innerHTML =
+      "<p class='small'>Could not load items.</p>";
+
+    return;
+  }
+
+  if(!data || !data.length){
+
+    box.innerHTML =
+      "<p class='small'>No item details</p>";
+
+    return;
+  }
+
+  box.innerHTML =
+    data.map(item=>`
+
+      <div class="item">
+
+        <div>
+
+          <b>
+            ${escapeHtml(item.item_name)}
+          </b>
+
+          <div class="small">
+
+            Qty:
+            ${item.quantity}
+
+            ${
+              item.description
+              ?
+              "<br>"+escapeHtml(item.description)
+              :
+              ""
+            }
+
+          </div>
+
+        </div>
+
+        <div>
+          ₹${Number(item.price || 0) *
+             Number(item.quantity || 1)}
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+
+/* DELIVERED */
+
+async function markDelivered(id){
+
+  if(!confirm("Mark this order as delivered?"))
+    return;
+
+  const {data,error} =
+    await supabaseClient.rpc(
+      "admin_mark_delivered",
+      {
+        pin:ADMIN_PIN,
+        order_id:id
+      }
+    );
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+  }
+
+  alert("Order marked as delivered.");
+
+  loadOrders();
+
+}
+
+
+/* UPDATE STATUS */
+
+async function updateOrderStatus(id,status){
+
+  const {data,error} =
+    await supabaseClient.rpc(
+      "admin_update_order_status",
+      {
+        pin:ADMIN_PIN,
+        p_order_id:id,
+        p_status:status
+      }
+    );
+
+  if(error){
+
+    alert(error.message);
+
+    return;
+  }
+
+  loadOrders();
 
 }
 
@@ -916,680 +971,297 @@ renderFinance();
 
 async function loadMenu(){
 
-const r=
-await db.rpc(
-"admin_get_menu",
-{pin:pin}
-);
+  const box =
+    document.getElementById("menuList");
 
-if(r.error){
+  box.innerHTML="Loading menu...";
 
-console.error(r.error);
+  const {data,error} =
+    await supabaseClient.rpc(
+      "admin_get_menu",
+      {pin:ADMIN_PIN}
+    );
 
-menu=[];
+  if(error){
 
-alert(
-"Menu load nahi hua: "+
-r.error.message
-);
+    console.error(error);
 
-return;
+    box.innerHTML =
+      `<p style="color:red;">
+        ${escapeHtml(error.message)}
+      </p>`;
 
-}
+    return;
+  }
 
-menu=
-Array.isArray(r.data)
-?r.data
-:[];
+  menuItems = data || [];
 
-renderMenu();
-renderGrowth();
+  renderMenu();
 
-}
-
-
-/* DATA */
-
-async function loadData(){
-
-const r=
-await db.rpc(
-"admin_get_data",
-{pin:pin}
-);
-
-if(!r.error && r.data){
-
-data=r.data;
+  document.getElementById("menuCount").innerText =
+    menuItems.length;
 
 }
 
-if(!data.expenses)
-data.expenses=[];
-
-if(!data.inventory)
-data.inventory=[];
-
-if(!data.settings)
-data.settings={};
-
-$("sname").value=
-data.settings.name||
-"Ghar Ka Khana";
-
-$("sphone").value=
-data.settings.phone||
-"9877663522";
-
-$("saddress").value=
-data.settings.address||"";
-
-$("shours").value=
-data.settings.hours||
-"10 AM - 10 PM";
-
-}
-
-
-/* SAVE DATA */
-
-async function saveData(){
-
-const r=
-await db.rpc(
-"admin_save_data",
-{
-pin:pin,
-payload:data
-}
-);
-
-if(r.error){
-
-alert(
-"Save nahi hua: "+
-r.error.message
-);
-
-return false;
-
-}
-
-return true;
-
-}
-
-
-/* NAVIGATION */
-
-function go(id){
-
-document
-.querySelectorAll(".section")
-.forEach(
-x=>x.classList.remove("active")
-);
-
-$(id).classList.add("active");
-
-document
-.querySelectorAll(".nav button")
-.forEach(
-x=>x.classList.remove("active")
-);
-
-const n=$("n-"+id);
-
-if(n)n.classList.add("active");
-
-if(id==="orders")
-renderOrders();
-
-if(id==="menu")
-renderMenu();
-
-if(id==="growth")
-renderGrowth();
-
-if(id==="finance")
-renderFinance();
-
-if(id==="inventory")
-renderInventory();
-
-window.scrollTo(0,0);
-
-}
-
-
-/* REFRESH */
-
-function refresh(){
-
-renderHub();
-renderOrders();
-renderMenu();
-renderGrowth();
-renderFinance();
-renderInventory();
-
-}
-
-
-/* HUB */
-
-function renderHub(){
-
-const today=
-new Date().toDateString();
-
-const todayOrders=
-orders.filter(o=>
-new Date(o.created_at)
-.toDateString()===today
-);
-
-const sales=
-todayOrders.reduce(
-(s,o)=>
-s+Number(o.total_amount||0),
-0
-);
-
-$("sales").textContent=
-money(sales);
-
-$("ordersToday").textContent=
-todayOrders.length;
-
-$("pending").textContent=
-orders.filter(o=>
-[
-"pending",
-"preparing",
-"ready",
-"out_for_delivery"
-].includes(o.status)
-).length;
-
-$("delivered").textContent=
-orders.filter(
-o=>o.status==="delivered"
-).length;
-
-
-$("recent").innerHTML=
-
-orders.slice(0,5)
-.map(o=>`
-
-<div class="item">
-
-<div class="row">
-
-<b>
-#${o.id} •
-${esc(o.customer_name)}
-</b>
-
-<span class="pill">
-${esc(o.status)}
-</span>
-
-</div>
-
-<div class="muted">
-${money(o.total_amount)}
-•
-${esc(o.payment_method||"COD")}
-</div>
-
-</div>
-
-`)
-.join("")
-
-||
-
-'<div class="empty">
-No orders
-</div>';
-
-}
-
-
-/* ORDERS */
-
-function renderOrders(){
-
-$("orderList").innerHTML=
-
-orders.map(o=>`
-
-<div class="item">
-
-<div class="row">
-
-<b>
-#${o.id} •
-${esc(o.customer_name)}
-</b>
-
-<span class="pill">
-${esc(o.status)}
-</span>
-
-</div>
-
-<div class="muted">
-
-📞
-<a href="tel:${esc(o.customer_phone)}">
-${esc(o.customer_phone)}
-</a>
-
-<br>
-
-📍 ${esc(o.delivery_address)}
-
-</div>
-
-<p>
-<b>${money(o.total_amount)}</b>
-•
-${esc(o.payment_method||"COD")}
-</p>
-
-<div class="order-items">
-
-<b>Items:</b><br>
-
-${
-(o.items||[])
-.map(i=>
-`${esc(i.item_name)}
-× ${i.quantity}
-•
-₹${i.price}`
-)
-.join("<br>")
-||
-"No item details"
-}
-
-</div>
-
-<div class="actions">
-
-<a
-class="btn gray"
-href="tel:${esc(o.customer_phone)}">
-📞 Call
-</a>
-
-<button
-class="btn black"
-onclick="nextStatus(${o.id},'preparing')">
-Preparing
-</button>
-
-<button
-class="btn black"
-onclick="nextStatus(${o.id},'ready')">
-Ready
-</button>
-
-<button
-class="btn black"
-onclick="nextStatus(${o.id},'out_for_delivery')">
-Out
-</button>
-
-<button
-class="btn green"
-onclick="nextStatus(${o.id},'delivered')">
-Delivered
-</button>
-
-<button
-class="btn red"
-onclick="nextStatus(${o.id},'cancelled')">
-Cancel
-</button>
-
-</div>
-
-</div>
-
-`)
-.join("")
-
-||
-
-'<div class="empty">
-No orders yet
-</div>';
-
-}
-
-
-/* STATUS */
-
-async function nextStatus(
-id,
-status
-){
-
-const r=
-await db.rpc(
-"admin_update_order_status",
-{
-pin:pin,
-p_order_id:id,
-p_status:status
-}
-);
-
-if(r.error){
-
-alert(r.error.message);
-
-return;
-
-}
-
-await loadOrders();
-
-refresh();
-
-}
-
-
-/* MENU */
 
 function renderMenu(){
 
-const q=
-($("search")?.value||"")
-.toLowerCase();
+  const box =
+    document.getElementById("menuList");
 
-const list=
-menu.filter(x=>
-String(x.name||"")
-.toLowerCase()
-.includes(q)
-);
+  if(!menuItems.length){
 
-$("menuList").innerHTML=
+    box.innerHTML =
+      "<p>No menu items found.</p>";
 
-list.map(x=>`
+    return;
+  }
 
-<div class="item">
+  box.innerHTML =
+    menuItems.map(item=>`
 
-<div class="row">
+      <div class="menu-row">
 
-<div>
+        <div class="menu-info">
 
-<b>
-${esc(x.name)}
-</b>
+          <b>
+            ${escapeHtml(item.name)}
+          </b>
 
-<div class="muted">
-${esc(x.category||"Main Course")}
-</div>
+          <div class="price">
+            ₹${Number(item.price).toFixed(0)}
+          </div>
 
-</div>
+          <div class="small">
+            ${escapeHtml(item.category || "")}
+          </div>
 
-<b>
-${money(x.price)}
-</b>
+          <div class="small">
+            ${escapeHtml(item.description || "")}
+          </div>
 
-</div>
+          <div class="small">
 
-<div class="muted"
-style="margin-top:6px">
+            ${
+              item.is_available
+              ? "🟢 Available"
+              : "🔴 Unavailable"
+            }
 
-${esc(x.description||"")}
+          </div>
 
-</div>
+        </div>
 
-<div class="actions">
+        <div class="menu-actions">
 
-<span class="pill ${
-x.is_available?"on":"off"
-}">
+          <button
+            class="gray"
+            onclick="editMenu(${item.id})"
+          >
+            Edit
+          </button>
 
-${
-x.is_available
-?"✅ Available"
-:"❌ Out of stock"
-}
+          <button
+            class="gray"
+            onclick="toggleMenu(${item.id},${item.is_available})"
+          >
+            ${item.is_available ? "Off" : "On"}
+          </button>
 
-</span>
+          <button
+            class="danger"
+            onclick="deleteMenu(${item.id})"
+          >
+            Delete
+          </button>
 
-<button
-class="btn gray"
-onclick="editMenu(${x.id})">
-✏️ Edit
-</button>
+        </div>
 
-<button
-class="btn gray"
-onclick="toggleMenu(${x.id},${!x.is_available})">
+      </div>
 
-${
-x.is_available
-?"Hide"
-:"Show"
-}
-
-</button>
-
-<button
-class="btn red"
-onclick="deleteMenu(${x.id})">
-🗑️ Delete
-</button>
-
-</div>
-
-</div>
-
-`)
-.join("")
-
-||
-
-'<div class="empty">
-No menu items found
-</div>';
+    `).join("");
 
 }
 
 
-/* OPEN MENU */
+/* ADD MENU */
 
-function openMenu(x){
+function openAddMenu(){
 
-$("modal")
-.classList.remove("hidden");
+  document.getElementById("modalTitle")
+    .innerText="Add Menu Item";
 
-$("mtitle").textContent=
-x
-?"Edit Menu Item"
-:"Add Menu Item";
+  document.getElementById("editMenuId")
+    .value="";
 
-$("mid").value=
-x?.id||"";
+  document.getElementById("menuName")
+    .value="";
 
-$("mname").value=
-x?.name||"";
+  document.getElementById("menuPrice")
+    .value="";
 
-$("mprice").value=
-x?.price||"";
+  document.getElementById("menuCategory")
+    .value="Main Course";
 
-$("mcat").value=
-x?.category||
-"Main Course";
+  document.getElementById("menuDescription")
+    .value="";
 
-$("mdesc").value=
-x?.description||"";
-
-$("mavail").checked=
-x
-?!!x.is_available
-:true;
+  document.getElementById("menuModal")
+    .style.display="flex";
 
 }
 
 
-/* EDIT */
+/* EDIT MENU */
 
 function editMenu(id){
 
-const item=
-menu.find(x=>x.id===id);
+  const item =
+    menuItems.find(x=>Number(x.id)===Number(id));
 
-if(item)
-openMenu(item);
+  if(!item)return;
+
+  document.getElementById("modalTitle")
+    .innerText="Edit Menu Item";
+
+  document.getElementById("editMenuId")
+    .value=item.id;
+
+  document.getElementById("menuName")
+    .value=item.name || "";
+
+  document.getElementById("menuPrice")
+    .value=item.price || "";
+
+  document.getElementById("menuCategory")
+    .value=item.category || "Main Course";
+
+  document.getElementById("menuDescription")
+    .value=item.description || "";
+
+  document.getElementById("menuModal")
+    .style.display="flex";
 
 }
 
 
-/* CLOSE */
+/* CLOSE MODAL */
 
-function closeModal(){
+function closeMenuModal(){
 
-$("modal")
-.classList.add("hidden");
+  document.getElementById("menuModal")
+    .style.display="none";
 
 }
 
 
 /* SAVE MENU */
 
-async function saveMenu(){
+async function saveMenuItem(){
 
-const id=
-$("mid").value;
+  const id =
+    document.getElementById("editMenuId").value;
 
-const name=
-$("mname").value.trim();
+  const name =
+    document.getElementById("menuName").value.trim();
 
-const price=
-Number($("mprice").value);
+  const price =
+    Number(document.getElementById("menuPrice").value);
 
-const category=
-$("mcat").value;
+  const category =
+    document.getElementById("menuCategory").value;
 
-const description=
-$("mdesc").value.trim();
+  const description =
+    document.getElementById("menuDescription").value.trim();
 
-const available=
-$("mavail").checked;
+  if(!name){
 
+    alert("Enter item name.");
 
-if(!name){
+    return;
+  }
 
-alert("Item name required");
+  if(!price || price < 0){
 
-return;
+    alert("Enter valid price.");
 
-}
+    return;
+  }
 
-if(!price || price<1){
+  let result;
 
-alert("Enter valid price");
+  if(id){
 
-return;
+    result =
+      await supabaseClient.rpc(
+        "admin_update_menu_item",
+        {
+          pin:ADMIN_PIN,
+          p_id:Number(id),
+          p_name:name,
+          p_price:price,
+          p_category:category,
+          p_description:description
+        }
+      );
 
-}
+  }else{
 
+    result =
+      await supabaseClient.rpc(
+        "admin_add_menu_item",
+        {
+          pin:ADMIN_PIN,
+          p_name:name,
+          p_price:price,
+          p_category:category,
+          p_description:description,
+          p_is_available:true
+        }
+      );
 
-let r;
+  }
 
+  if(result.error){
 
-if(id){
+    console.error(result.error);
 
-r=
-await db.rpc(
-"admin_update_menu_item",
-{
-pin:pin,
-p_id:Number(id),
-p_name:name,
-p_price:price,
-p_category:category,
-p_description:description,
-p_is_available:available
-}
-);
+    alert(result.error.message);
 
-}else{
+    return;
+  }
 
-r=
-await db.rpc(
-"admin_add_menu_item",
-{
-pin:pin,
-name:name,
-price:price,
-category:category,
-description:description,
-is_available:available
-}
-);
+  closeMenuModal();
 
-}
+  await loadMenu();
 
-
-if(r.error){
-
-alert(
-"Menu save nahi hua: "+
-r.error.message
-);
-
-return;
-
-}
-
-
-closeModal();
-
-await loadMenu();
-
-refresh();
+  alert(id ? "Item updated." : "Item added.");
 
 }
 
 
 /* TOGGLE MENU */
 
-async function toggleMenu(
-id,
-available
-){
+async function toggleMenu(id,current){
 
-const r=
-await db.rpc(
-"admin_toggle_menu_item",
-{
-pin:pin,
-p_id:id,
-p_is_available:available
-}
-);
+  const {data,error} =
+    await supabaseClient.rpc(
+      "admin_toggle_menu_item",
+      {
+        pin:ADMIN_PIN,
+        p_id:id,
+        p_is_available:!current
+      }
+    );
 
-if(r.error){
+  if(error){
 
-alert(r.error.message);
+    alert(error.message);
 
-return;
+    return;
+  }
 
-}
-
-await loadMenu();
+  loadMenu();
 
 }
 
@@ -1598,370 +1270,187 @@ await loadMenu();
 
 async function deleteMenu(id){
 
-if(!confirm(
-"Is menu item ko delete karna hai?"
-))
-return;
+  if(!confirm("Delete this menu item?"))
+    return;
 
+  const {data,error} =
+    await supabaseClient.rpc(
+      "admin_delete_menu_item",
+      {
+        pin:ADMIN_PIN,
+        p_id:id
+      }
+    );
 
-const r=
-await db.rpc(
-"admin_delete_menu_item",
-{
-pin:pin,
-p_id:id
-}
-);
+  if(error){
 
-if(r.error){
+    alert(error.message);
 
-alert(r.error.message);
+    return;
+  }
 
-return;
-
-}
-
-await loadMenu();
+  loadMenu();
 
 }
 
 
-/* GROWTH */
+/* DASHBOARD */
 
-function renderGrowth(){
+function updateDashboard(){
 
-const total=
-orders.reduce(
-(s,o)=>
-s+Number(o.total_amount||0),
-0
-);
+  const today =
+    new Date().toDateString();
 
-const avg=
-orders.length
-?total/orders.length
-:0;
+  const todayOrders =
+    orders.filter(
+      x=>new Date(x.created_at).toDateString()===today
+    );
 
-$("totalSales").textContent=
-money(total);
+  const todaySales =
+    todayOrders.reduce(
+      (sum,x)=>sum+Number(x.total_amount||0),
+      0
+    );
 
-$("avg").textContent=
-money(avg);
+  const pending =
+    orders.filter(
+      x=>
+        x.status !== "delivered" &&
+        x.status !== "cancelled"
+    ).length;
 
-$("mc").textContent=
-menu.length;
+  const totalSales =
+    orders.reduce(
+      (sum,x)=>sum+Number(x.total_amount||0),
+      0
+    );
 
-$("ac").textContent=
-menu.filter(
-x=>x.is_available
-).length;
+  const setText=(id,value)=>{
 
-}
+    const el=document.getElementById(id);
 
+    if(el)el.innerText=value;
 
-/* FINANCE */
+  };
 
-function renderFinance(){
+  setText("todayOrders",todayOrders.length);
 
-const revenue=
-orders
-.filter(o=>o.status!=="cancelled")
-.reduce(
-(s,o)=>
-s+Number(o.total_amount||0),
-0
-);
+  setText(
+    "todaySales",
+    "₹"+todaySales.toFixed(0)
+  );
 
-const expenses=
-(data.expenses||[])
-.reduce(
-(s,e)=>
-s+Number(e.amount||0),
-0
-);
+  setText(
+    "pendingOrders",
+    pending
+  );
 
-const profit=
-revenue-expenses;
+  setText(
+    "growthOrders",
+    orders.length
+  );
 
-const cod=
-orders
-.filter(o=>
-(o.payment_method||"COD")
-==="COD" &&
-o.status!=="cancelled"
-)
-.reduce(
-(s,o)=>
-s+Number(o.total_amount||0),
-0
-);
+  setText(
+    "growthSales",
+    "₹"+totalSales.toFixed(0)
+  );
 
-$("rev").textContent=
-money(revenue);
+  setText(
+    "financeOrders",
+    orders.length
+  );
 
-$("exp").textContent=
-money(expenses);
+  setText(
+    "financeSales",
+    "₹"+totalSales.toFixed(0)
+  );
 
-$("profit").textContent=
-money(profit);
-
-$("cod").textContent=
-money(cod);
-
-
-$("expenseList").innerHTML=
-
-(data.expenses||[])
-.map((e,i)=>`
-
-<div class="item">
-
-<div class="row">
-
-<div>
-
-<b>
-${esc(e.name)}
-</b>
-
-<div class="muted">
-${esc(e.date||"")}
-</div>
-
-</div>
-
-<b>
-${money(e.amount)}
-</b>
-
-</div>
-
-<button
-class="btn red"
-style="margin-top:8px"
-onclick="removeExpense(${i})">
-Delete
-</button>
-
-</div>
-
-`)
-.join("")
-
-||
-
-'<div class="empty">
-No expenses added
-</div>';
-
-}
-
-
-/* ADD EXPENSE */
-
-async function addExpense(){
-
-const name=
-prompt("Expense name:");
-
-if(!name)
-return;
-
-const amount=
-Number(
-prompt("Amount ₹:")
-);
-
-if(!amount || amount<1)
-return;
-
-if(!data.expenses)
-data.expenses=[];
-
-data.expenses.push({
-
-name:name,
-
-amount:amount,
-
-date:new Date()
-.toLocaleDateString("en-IN")
-
-});
-
-await saveData();
-
-renderFinance();
-
-}
-
-
-/* REMOVE EXPENSE */
-
-async function removeExpense(i){
-
-data.expenses.splice(i,1);
-
-await saveData();
-
-renderFinance();
+  setText(
+    "menuCount",
+    menuItems.length
+  );
 
 }
 
 
 /* INVENTORY */
 
-function renderInventory(){
+function saveInventory(){
 
-$("inventoryList").innerHTML=
+  const data={
+    paneer:
+      document.getElementById("stockPaneer").value,
 
-(data.inventory||[])
-.map((x,i)=>`
+    atta:
+      document.getElementById("stockAtta").value,
 
-<div class="item">
+    oil:
+      document.getElementById("stockOil").value,
 
-<div class="row">
+    vegetables:
+      document.getElementById("stockVegetables").value
+  };
 
-<div>
+  localStorage.setItem(
+    "gharInventory",
+    JSON.stringify(data)
+  );
 
-<b>
-${esc(x.name)}
-</b>
-
-<div class="muted">
-${esc(x.unit||"")}
-</div>
-
-</div>
-
-<b>
-${esc(x.qty)}
-</b>
-
-</div>
-
-<button
-class="btn red"
-style="margin-top:8px"
-onclick="removeInventory(${i})">
-Delete
-</button>
-
-</div>
-
-`)
-.join("")
-
-||
-
-'<div class="empty">
-No inventory added
-</div>';
+  document.getElementById("inventoryMsg")
+    .innerText="✅ Inventory saved.";
 
 }
 
 
-/* ADD INVENTORY */
+/* LOAD INVENTORY */
 
-async function addInventory(){
+function loadInventory(){
 
-const name=
-prompt("Stock item name:");
+  const raw =
+    localStorage.getItem("gharInventory");
 
-if(!name)
-return;
+  if(!raw)return;
 
-const qty=
-prompt("Quantity:");
+  try{
 
-if(qty===null)
-return;
+    const data=JSON.parse(raw);
 
-const unit=
-prompt(
-"Unit e.g. kg, packet, piece:"
-);
+    document.getElementById("stockPaneer").value =
+      data.paneer || "";
 
-if(!data.inventory)
-data.inventory=[];
+    document.getElementById("stockAtta").value =
+      data.atta || "";
 
-data.inventory.push({
+    document.getElementById("stockOil").value =
+      data.oil || "";
 
-name:name,
+    document.getElementById("stockVegetables").value =
+      data.vegetables || "";
 
-qty:qty,
+  }catch(e){
 
-unit:unit||""
+    console.log(e);
 
-});
-
-await saveData();
-
-renderInventory();
+  }
 
 }
 
 
-/* REMOVE INVENTORY */
+/* ESCAPE HTML */
 
-async function removeInventory(i){
+function escapeHtml(value){
 
-data.inventory.splice(i,1);
-
-await saveData();
-
-renderInventory();
-
-}
-
-
-/* SETTINGS */
-
-async function saveSettings(){
-
-data.settings={
-
-name:
-$("sname").value.trim(),
-
-phone:
-$("sphone").value.trim(),
-
-address:
-$("saddress").value.trim(),
-
-hours:
-$("shours").value.trim()
-
-};
-
-const ok=
-await saveData();
-
-if(ok)
-alert("Settings saved successfully.");
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
 
-/* START */
-
-const savedPin=
-sessionStorage.getItem("gkpin");
-
-if(savedPin==="7869"){
-
-pin=savedPin;
-
-$("login")
-.classList.add("hidden");
-
-$("app")
-.classList.remove("hidden");
-
-loadAll();
-
-}
+loadInventory();
 
 </script>
 
