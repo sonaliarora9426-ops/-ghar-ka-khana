@@ -969,4 +969,496 @@ name:
 document.getElementById("sName").value,
 
 phone:
-document.getElementById("sPhone
+document.getElementById("sPhone").value,
+
+address:
+document.getElementById("sAddress").value,
+
+open:
+document.getElementById("sOpen").value,
+
+close:
+document.getElementById("sClose").value
+
+};
+
+saveData();
+
+alert("✅ Settings saved");
+
+}
+
+
+function refreshAll(){
+
+renderPayouts();
+renderBank();
+renderInventory();
+renderExpenses();
+renderOffers();
+renderReports();
+
+}
+
+
+function renderPayouts(){
+
+let html="";
+
+DATA.payouts
+.slice()
+.reverse()
+.forEach((x,i)=>{
+
+html+=`
+
+<div class="card">
+
+<b>${x.platform}</b>
+
+<br>
+${x.date}
+
+<br>
+
+Gross: ₹${x.gross}
+
+<br>
+Fees: ₹${x.fees}
+
+<br>
+Refund: ₹${x.refund}
+
+<br>
+<b>Net: ₹${x.net}</b>
+
+<br>
+
+<span class="badge">${x.status}</span>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("payoutList").innerHTML =
+html || "No payouts yet.";
+
+}
+
+
+function renderBank(){
+
+let html="";
+
+DATA.transactions
+.slice()
+.reverse()
+.forEach(x=>{
+
+html+=`
+
+<div class="card">
+
+<b>${x.type}</b>
+
+<br>
+
+${x.date}
+
+<br>
+
+₹${x.amount}
+
+<br>
+
+${escapeHTML(x.description)}
+
+</div>
+
+`;
+
+});
+
+document.getElementById("bankList").innerHTML =
+html || "No transactions yet.";
+
+}
+
+
+function renderInventory(){
+
+let html="";
+
+DATA.inventory.forEach(x=>{
+
+let low =
+Number(x.qty)<=2;
+
+html+=`
+
+<div class="card">
+
+<h3>📦 ${escapeHTML(x.name)}</h3>
+
+Quantity:
+<b>${x.qty} ${escapeHTML(x.unit)}</b>
+
+<br>
+
+Purchase price:
+₹${x.price}
+
+${low?
+'<p class="error">⚠️ LOW STOCK</p>':
+''}
+
+</div>
+
+`;
+
+});
+
+document.getElementById("inventoryList").innerHTML =
+html || "No inventory added.";
+
+}
+
+
+function renderExpenses(){
+
+let html="";
+
+DATA.expenses
+.slice()
+.reverse()
+.forEach(x=>{
+
+html+=`
+
+<div class="card">
+
+<b>${escapeHTML(x.category)}</b>
+
+<br>
+
+${x.date}
+
+<br>
+
+₹${x.amount}
+
+<br>
+
+${escapeHTML(x.note)}
+
+</div>
+
+`;
+
+});
+
+document.getElementById("expenseList").innerHTML =
+html || "No expenses yet.";
+
+}
+
+
+function renderOffers(){
+
+let html="";
+
+DATA.offers.forEach(x=>{
+
+html+=`
+
+<div class="card">
+
+<h3>🎁 ${escapeHTML(x.name)}</h3>
+
+Discount:
+<b>${x.discount}%</b>
+
+<br>
+
+Minimum order:
+₹${x.minimum}
+
+</div>
+
+`;
+
+});
+
+document.getElementById("offerList").innerHTML =
+html || "No offers.";
+
+}
+
+
+function renderReports(){
+
+let payouts =
+DATA.payouts.reduce(
+(a,x)=>a+Number(x.net||0),0
+);
+
+let expenses =
+DATA.expenses.reduce(
+(a,x)=>a+Number(x.amount||0),0
+);
+
+let inventory =
+DATA.inventory.reduce(
+(a,x)=>
+a+
+(Number(x.qty||0)*Number(x.price||0)),
+0
+);
+
+document.getElementById("reportPayout").innerText =
+"₹"+payouts;
+
+document.getElementById("reportExpense").innerText =
+"₹"+expenses;
+
+document.getElementById("reportNet").innerText =
+"₹"+(payouts-expenses);
+
+document.getElementById("reportInventory").innerText =
+"₹"+inventory;
+
+document.getElementById("todaySales").innerText =
+"₹"+payouts;
+
+document.getElementById("todayExpenses").innerText =
+"₹"+expenses;
+
+document.getElementById("todayNet").innerText =
+"₹"+(payouts-expenses);
+
+}
+
+
+async function loadOrders(){
+
+const box =
+document.getElementById("ordersBox");
+
+box.innerHTML="⏳ Loading...";
+
+const {data,error} =
+await db.rpc(
+"admin_get_orders",
+{pin:adminPin}
+);
+
+if(error){
+
+box.innerHTML=
+"<p class='error'>❌ "+error.message+"</p>";
+
+return;
+
+}
+
+document.getElementById("orderCount").innerText =
+data ? data.length : 0;
+
+if(!data || data.length===0){
+
+box.innerHTML="No orders yet.";
+
+return;
+
+}
+
+box.innerHTML="";
+
+data.forEach(order=>{
+
+let items="";
+
+(order.items||[])
+.forEach(item=>{
+
+items+=`
+
+<div class="item">
+
+🍽️ ${escapeHTML(item.item_name)}
+
+ × ${item.quantity}
+
+ — ₹${item.price}
+
+</div>
+
+`;
+
+});
+
+const div=
+document.createElement("div");
+
+div.className="order";
+
+div.innerHTML=`
+
+<h2>🧾 Order #${order.id}</h2>
+
+<p>👤 <b>
+${escapeHTML(order.customer_name)}
+</b></p>
+
+<p>📞
+${escapeHTML(order.customer_phone)}
+</p>
+
+<p>📍
+${escapeHTML(order.delivery_address)}
+</p>
+
+<p>💰 <b>
+₹${order.total_amount}
+</b></p>
+
+<p>💳
+${escapeHTML(order.payment_method||"COD")}
+</p>
+
+<p>📌 Status:
+<b>${escapeHTML(order.status||"pending")}</b>
+</p>
+
+<hr>
+
+<h3>🍽️ Items</h3>
+
+${items||"No item details"}
+
+<br>
+
+<button
+class="green"
+onclick="markDelivered(${order.id})">
+✅ Mark Delivered
+</button>
+
+<button
+class="blue"
+onclick="callCustomer('${encodeURIComponent(order.customer_phone)}')">
+📞 Call Customer
+</button>
+
+<button
+onclick="navigate('${encodeURIComponent(order.delivery_address)}')">
+🗺️ Navigate
+</button>
+
+`;
+
+box.appendChild(div);
+
+});
+
+}
+
+
+async function markDelivered(id){
+
+const {error}=
+await db.rpc(
+"admin_mark_delivered",
+{
+pin:adminPin,
+order_id:id
+}
+);
+
+if(error){
+
+alert(error.message);
+return;
+
+}
+
+loadOrders();
+
+}
+
+
+function callCustomer(phone){
+
+window.location.href=
+"tel:"+decodeURIComponent(phone);
+
+}
+
+
+function navigate(address){
+
+window.open(
+"https://www.google.com/maps/search/?api=1&query="+
+address,
+"_blank"
+);
+
+}
+
+
+function logout(){
+
+sessionStorage.removeItem(
+"gk_admin_pin"
+);
+
+location.reload();
+
+}
+
+
+function escapeHTML(value){
+
+return String(value??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+const saved =
+sessionStorage.getItem(
+"gk_admin_pin"
+);
+
+if(saved==="7869"){
+
+adminPin=saved;
+
+loadData().then(()=>{
+
+document
+.getElementById("loginScreen")
+.classList.add("hidden");
+
+document
+.getElementById("dashboard")
+.classList.remove("hidden");
+
+loadOrders();
+
+refreshAll();
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
