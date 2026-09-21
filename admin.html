@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Ghar Ka Khana - Admin</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
-
 body{
   margin:0;
-  font-family:Arial,sans-serif;
+  font-family:Arial;
   background:#f5f5f5;
-  color:#222;
 }
 
 .header{
@@ -31,21 +28,21 @@ body{
   padding:15px;
 }
 
-.card{
+.card,.order{
   background:white;
-  padding:20px;
+  padding:18px;
   margin:15px 0;
   border-radius:15px;
   box-shadow:0 2px 10px #ddd;
 }
 
-input,button,select{
+input,button{
   width:100%;
-  padding:13px;
+  padding:14px;
   margin:7px 0;
   border-radius:8px;
   border:1px solid #ccc;
-  font-size:16px;
+  font-size:17px;
 }
 
 button{
@@ -58,23 +55,16 @@ button{
 .green{background:#16833b}
 .blue{background:#1769aa}
 .red{background:#c62828}
-.gray{background:#555}
 
-.order{
-  border:1px solid #ddd;
-  border-radius:12px;
-  padding:15px;
-  margin:12px 0;
-  background:#fff;
-}
+.hidden{display:none}
 
 .item{
-  padding:7px 0;
+  padding:8px 0;
   border-bottom:1px solid #eee;
 }
 
 .error{
-  color:#d00;
+  color:red;
   font-weight:bold;
 }
 
@@ -82,105 +72,73 @@ button{
   color:green;
   font-weight:bold;
 }
-
-.hidden{
-  display:none;
-}
-
-.small{
-  color:#666;
-  font-size:13px;
-}
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+<div id="login">
 
-<div id="loginScreen">
+<div class="header">
+<h1>🍲 Ghar Ka Khana</h1>
+<p>Admin Panel</p>
+</div>
 
-  <div class="header">
-    <h1>🍲 Ghar Ka Khana</h1>
-    <p>Admin Login</p>
-  </div>
+<div class="container">
 
-  <div class="container">
+<div class="card">
 
-    <div class="card">
+<h2>🔐 Admin Login</h2>
 
-      <h2>🔐 Login</h2>
+<input
+id="pin"
+type="password"
+inputmode="numeric"
+maxlength="4"
+placeholder="Enter 4 Digit PIN">
 
-      <input
-        type="email"
-        id="email"
-        value="sonaliarora9426@gmail.com"
-        placeholder="Admin Email"
-      >
+<button onclick="login()">
+Login
+</button>
 
-      <input
-        type="password"
-        id="password"
-        placeholder="Password"
-      >
-
-      <button onclick="login()">
-        Login
-      </button>
-
-      <p id="loginMessage"></p>
-
-    </div>
-
-  </div>
+<p id="msg"></p>
 
 </div>
 
-
-<!-- ADMIN PANEL -->
-
-<div id="adminScreen" class="hidden">
-
-  <div class="header">
-    <h1>🍲 Ghar Ka Khana</h1>
-    <p>Admin Dashboard</p>
-  </div>
-
-  <div class="container">
-
-    <div class="card">
-
-      <button onclick="loadOrders()">
-        🔄 Refresh Orders
-      </button>
-
-      <button class="gray" onclick="logout()">
-        🔒 Logout
-      </button>
-
-    </div>
+</div>
+</div>
 
 
-    <div class="card">
+<div id="dashboard" class="hidden">
 
-      <h2>📦 Orders</h2>
+<div class="header">
+<h1>🍲 Ghar Ka Khana</h1>
+<p>Admin Dashboard</p>
+</div>
 
-      <div id="orders">
-        Loading...
-      </div>
+<div class="container">
 
-    </div>
+<div class="card">
 
-  </div>
+<button onclick="loadOrders()">
+🔄 Refresh Orders
+</button>
 
+<button class="red" onclick="logout()">
+🔒 Logout
+</button>
+
+</div>
+
+<div id="orders">
+Loading...
+</div>
+
+</div>
 </div>
 
 
 <script>
-
-/* =========================
-   SUPABASE
-========================= */
 
 const SUPABASE_URL =
 "https://oxfuccrgitckvozmnyss.supabase.co";
@@ -188,484 +146,285 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_DwZtFpmfTwDnlAp6fYbjpA_upTa3khj";
 
-const supabaseClient =
+const db =
 supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
+let adminPin = "";
 
-/* =========================
-   START
-========================= */
-
-checkLogin();
-
-
-/* =========================
-   CHECK LOGIN
-========================= */
-
-async function checkLogin(){
-
-  const {
-    data,
-    error
-  } = await supabaseClient.auth.getSession();
-
-  if(error){
-
-    showLogin();
-
-    return;
-
-  }
-
-  if(data.session){
-
-    const user =
-      data.session.user;
-
-    const {
-      data:profile,
-      error:profileError
-    } = await supabaseClient
-      .from("profiles")
-      .select("role,name")
-      .eq("id",user.id)
-      .single();
-
-    if(
-      !profileError &&
-      profile &&
-      profile.role === "admin"
-    ){
-
-      showAdmin();
-
-    }else{
-
-      await supabaseClient.auth.signOut();
-
-      showLogin();
-
-      document.getElementById(
-        "loginMessage"
-      ).innerText =
-        "❌ This account is not an admin.";
-
-    }
-
-  }else{
-
-    showLogin();
-
-  }
-
-}
-
-
-/* =========================
-   LOGIN
-========================= */
 
 async function login(){
 
-  const email =
-    document.getElementById("email").value.trim();
+const pin =
+document.getElementById("pin").value;
 
-  const password =
-    document.getElementById("password").value;
+const msg =
+document.getElementById("msg");
 
-  const message =
-    document.getElementById("loginMessage");
+if(pin.length !== 4){
 
-  message.className="";
-  message.innerText="Logging in...";
-
-  const {
-    data,
-    error
-  } = await supabaseClient.auth
-    .signInWithPassword({
-      email:email,
-      password:password
-    });
-
-  if(error){
-
-    message.className="error";
-
-    message.innerText =
-      "❌ " + error.message;
-
-    return;
-
-  }
-
-  const user =
-    data.user;
-
-  const {
-    data:profile,
-    error:profileError
-  } = await supabaseClient
-    .from("profiles")
-    .select("role,name")
-    .eq("id",user.id)
-    .single();
-
-  if(
-    profileError ||
-    !profile ||
-    profile.role !== "admin"
-  ){
-
-    await supabaseClient.auth.signOut();
-
-    message.className="error";
-
-    message.innerText =
-      "❌ Admin profile/role not found.";
-
-    return;
-
-  }
-
-  showAdmin();
+msg.className="error";
+msg.innerText="❌ 4 digit PIN enter karo";
+return;
 
 }
 
+msg.innerText="Checking...";
 
-/* =========================
-   SHOW ADMIN
-========================= */
+const {data,error} =
+await db.rpc(
+"admin_login",
+{pin:pin}
+);
 
-function showAdmin(){
+if(error){
 
-  document
-    .getElementById("loginScreen")
-    .classList.add("hidden");
+console.error(error);
 
-  document
-    .getElementById("adminScreen")
-    .classList.remove("hidden");
+msg.className="error";
+msg.innerText="❌ "+error.message;
 
-  loadOrders();
+return;
+}
+
+if(data !== true){
+
+msg.className="error";
+msg.innerText="❌ Wrong PIN";
+
+return;
+}
+
+adminPin=pin;
+
+sessionStorage.setItem(
+"admin_pin",
+pin
+);
+
+document
+.getElementById("login")
+.classList.add("hidden");
+
+document
+.getElementById("dashboard")
+.classList.remove("hidden");
+
+loadOrders();
 
 }
 
-
-/* =========================
-   SHOW LOGIN
-========================= */
-
-function showLogin(){
-
-  document
-    .getElementById("loginScreen")
-    .classList.remove("hidden");
-
-  document
-    .getElementById("adminScreen")
-    .classList.add("hidden");
-
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-async function logout(){
-
-  await supabaseClient.auth.signOut();
-
-  location.reload();
-
-}
-
-
-/* =========================
-   LOAD ORDERS
-========================= */
 
 async function loadOrders(){
 
-  const box =
-    document.getElementById("orders");
+const box =
+document.getElementById("orders");
 
-  box.innerHTML =
-    "⏳ Loading orders...";
+box.innerHTML=
+"<div class='card'>⏳ Loading orders...</div>";
 
+const {data,error} =
+await db.rpc(
+"admin_get_orders",
+{pin:adminPin}
+);
 
-  const {
-    data:orders,
-    error
-  } = await supabaseClient
-    .from("orders")
-    .select("*")
-    .order("created_at",{ascending:false});
+if(error){
 
+box.innerHTML=
+"<div class='card error'>❌ "+
+error.message+
+"</div>";
 
-  if(error){
+return;
+}
 
-    console.error(error);
+if(!data || data.length===0){
 
-    box.innerHTML = `
-      <p class="error">
-        ❌ Orders load nahi ho rahe.
-      </p>
-      <p class="small">
-        ${error.message}
-      </p>
-    `;
+box.innerHTML=
+"<div class='card'>📦 No orders yet.</div>";
 
-    return;
+return;
+}
 
-  }
+box.innerHTML="";
 
+data.forEach(order=>{
 
-  if(!orders || orders.length === 0){
+let items="";
 
-    box.innerHTML =
-      "<p>No orders yet.</p>";
+(order.items || []).forEach(item=>{
 
-    return;
+items += `
+<div class="item">
+🍽️ ${escapeHTML(item.item_name)}
+ × ${item.quantity}
+ — ₹${item.price}
+</div>
+`;
 
-  }
+});
 
+const div =
+document.createElement("div");
 
-  box.innerHTML="";
+div.className="order";
 
+div.innerHTML=`
 
-  for(const order of orders){
+<h2>🧾 Order #${order.id}</h2>
 
-    const div =
-      document.createElement("div");
+<p>👤 <b>${escapeHTML(order.customer_name)}</b></p>
 
-    div.className="order";
+<p>📞 ${escapeHTML(order.customer_phone)}</p>
 
+<p>📍 ${escapeHTML(order.delivery_address)}</p>
 
-    div.innerHTML = `
+<p>💰 <b>₹${order.total_amount}</b></p>
 
-      <h3>🧾 Order #${order.id}</h3>
+<p>💳 ${escapeHTML(order.payment_method || "COD")}</p>
 
-      <p>
-        👤 <b>${escapeHTML(order.customer_name)}</b>
-      </p>
+<p>📌 Status:
+<b>${escapeHTML(order.status || "pending")}</b>
+</p>
 
-      <p>
-        📞 ${escapeHTML(order.customer_phone)}
-      </p>
+<hr>
 
-      <p>
-        📍 ${escapeHTML(order.delivery_address)}
-      </p>
+<h3>🍽️ Items</h3>
 
-      <p>
-        💰 <b>₹${order.total_amount}</b>
-      </p>
+${items || "No item details"}
 
-      <p>
-        💳 ${escapeHTML(
-          order.payment_method || "COD"
-        )}
-      </p>
+<br>
 
-      <p>
-        📌 Status:
-        <b>${escapeHTML(
-          order.status || "pending"
-        )}</b>
-      </p>
+<button class="green"
+onclick="markDelivered(${order.id})">
+✅ Mark Delivered
+</button>
 
-      <hr>
+<button class="blue"
+onclick="callCustomer('${encodeURIComponent(order.customer_phone)}')">
+📞 Call Customer
+</button>
 
-      <b>🍽️ Order Items</b>
+<button
+onclick="navigate('${encodeURIComponent(order.delivery_address)}')">
+🗺️ Navigate
+</button>
 
-      <div id="items-${order.id}">
-        Loading items...
-      </div>
+`;
 
-      <button
-        class="green"
-        onclick="markDelivered(${order.id})">
-        ✅ Mark Delivered
-      </button>
+box.appendChild(div);
 
-      <button
-        class="blue"
-        onclick="callCustomer('${encodeURIComponent(order.customer_phone)}')">
-        📞 Call Customer
-      </button>
-
-      <button
-        onclick="navigate('${encodeURIComponent(order.delivery_address)}')">
-        🗺️ Navigate
-      </button>
-
-    `;
-
-
-    box.appendChild(div);
-
-    loadItems(order.id);
-
-  }
+});
 
 }
 
-
-/* =========================
-   LOAD ORDER ITEMS
-========================= */
-
-async function loadItems(orderId){
-
-  const box =
-    document.getElementById(
-      "items-" + orderId
-    );
-
-
-  const {
-    data:items,
-    error
-  } = await supabaseClient
-    .from("order_items")
-    .select("*")
-    .eq("order_id",orderId);
-
-
-  if(error){
-
-    box.innerHTML =
-      "<p>Items unavailable.</p>";
-
-    return;
-
-  }
-
-
-  if(!items || items.length === 0){
-
-    box.innerHTML =
-      "<p>No item details.</p>";
-
-    return;
-
-  }
-
-
-  box.innerHTML="";
-
-
-  items.forEach(item=>{
-
-    const div =
-      document.createElement("div");
-
-    div.className="item";
-
-    div.innerHTML = `
-      ${escapeHTML(item.item_name || "Item")}
-      × ${item.quantity || 1}
-      — ₹${item.price || 0}
-    `;
-
-    box.appendChild(div);
-
-  });
-
-}
-
-
-/* =========================
-   MARK DELIVERED
-========================= */
 
 async function markDelivered(id){
 
-  const {
-    error
-  } = await supabaseClient
-    .from("orders")
-    .update({
-      status:"delivered"
-    })
-    .eq("id",id);
+const {data,error} =
+await db.rpc(
+"admin_mark_delivered",
+{
+pin:adminPin,
+order_id:id
+}
+);
 
+if(error){
 
-  if(error){
-
-    alert(
-      "❌ " + error.message
-    );
-
-    return;
-
-  }
-
-
-  alert(
-    "✅ Order marked as delivered!"
-  );
-
-  loadOrders();
+alert("❌ "+error.message);
+return;
 
 }
 
+alert("✅ Order delivered!");
 
-/* =========================
-   CALL
-========================= */
+loadOrders();
+
+}
+
 
 function callCustomer(phone){
 
-  window.location.href =
-    "tel:" +
-    decodeURIComponent(phone);
+window.location.href=
+"tel:"+decodeURIComponent(phone);
 
 }
 
-
-/* =========================
-   MAPS
-========================= */
 
 function navigate(address){
 
-  window.open(
-    "https://www.google.com/maps/search/?api=1&query=" +
-    address,
-    "_blank"
-  );
+window.open(
+"https://www.google.com/maps/search/?api=1&query="+
+address,
+"_blank"
+);
 
 }
 
 
-/* =========================
-   HTML SECURITY
-========================= */
+function logout(){
+
+adminPin="";
+
+sessionStorage.removeItem(
+"admin_pin"
+);
+
+location.reload();
+
+}
+
 
 function escapeHTML(value){
 
-  if(
-    value === null ||
-    value === undefined
-  ){
+if(value===null ||
+value===undefined){
 
-    return "";
+return "";
 
-  }
+}
 
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+const savedPin =
+sessionStorage.getItem("admin_pin");
+
+if(savedPin){
+
+adminPin=savedPin;
+
+db.rpc(
+"admin_login",
+{pin:adminPin}
+).then(({data})=>{
+
+if(data===true){
+
+document
+.getElementById("login")
+.classList.add("hidden");
+
+document
+.getElementById("dashboard")
+.classList.remove("hidden");
+
+loadOrders();
+
+}
+
+});
 
 }
 
