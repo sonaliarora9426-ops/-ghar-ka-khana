@@ -2,227 +2,205 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Ghar Ka Khana - Admin</title>
+<title>Ghar Ka Khana Admin</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#f5f5f5;
-  color:#222;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f6f6f6;
+color:#222
 }
 
 header{
-  background:#e23744;
-  color:white;
-  padding:18px;
-  text-align:center;
+background:#e23744;
+color:#fff;
+padding:18px;
+text-align:center
 }
 
 header h1{
-  margin:0;
-  font-size:23px;
+margin:0;
+font-size:23px
 }
 
 .container{
-  max-width:950px;
-  margin:auto;
-  padding:15px;
+max-width:900px;
+margin:auto;
+padding:15px
 }
 
 .card{
-  background:white;
-  border-radius:14px;
-  padding:16px;
-  margin-bottom:15px;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
+background:#fff;
+border-radius:14px;
+padding:16px;
+margin-bottom:15px;
+box-shadow:0 2px 8px #00000012
 }
 
 .login{
-  max-width:400px;
-  margin:60px auto;
+max-width:400px;
+margin:60px auto
 }
 
-input,
-select,
-textarea{
-  width:100%;
-  padding:12px;
-  margin:7px 0;
-  border:1px solid #ddd;
-  border-radius:8px;
-  font-size:15px;
+input,select,textarea{
+width:100%;
+padding:12px;
+margin:6px 0;
+border:1px solid #ddd;
+border-radius:9px;
+font-size:15px
 }
 
 button{
-  border:0;
-  border-radius:8px;
-  padding:11px 15px;
-  font-size:14px;
-  cursor:pointer;
+border:0;
+border-radius:8px;
+padding:10px 14px;
+font-size:14px
 }
 
 .primary{
-  background:#e23744;
-  color:white;
+background:#e23744;
+color:#fff
 }
 
 .green{
-  background:#168a45;
-  color:white;
+background:#168a45;
+color:#fff
 }
 
 .gray{
-  background:#eee;
-  color:#222;
+background:#eee
 }
 
-.danger{
-  background:#d62828;
-  color:white;
+.red{
+background:#d62828;
+color:#fff
 }
 
 .nav{
-  display:flex;
-  gap:8px;
-  overflow-x:auto;
-  margin-bottom:15px;
-  padding-bottom:3px;
+display:flex;
+gap:7px;
+overflow-x:auto;
+margin-bottom:15px
 }
 
 .nav button{
-  background:white;
-  border:1px solid #ddd;
-  white-space:nowrap;
+background:#fff;
+white-space:nowrap;
+border:1px solid #ddd
 }
 
 .nav button.active{
-  background:#e23744;
-  color:white;
+background:#e23744;
+color:#fff
 }
 
 .section{
-  display:none;
+display:none
 }
 
 .section.active{
-  display:block;
+display:block
 }
 
 .top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px
 }
 
 .order{
-  border:1px solid #eee;
-  border-radius:12px;
-  padding:14px;
-  margin-bottom:12px;
+border:1px solid #eee;
+border-radius:12px;
+padding:14px;
+margin-bottom:12px
 }
 
 .order h3{
-  margin:0 0 8px;
+margin:0 0 7px
 }
 
 .status{
-  display:inline-block;
-  padding:5px 10px;
-  background:#fff3cd;
-  border-radius:20px;
-  font-size:12px;
+display:inline-block;
+background:#fff1c7;
+padding:5px 9px;
+border-radius:20px;
+font-size:12px
 }
 
-.item{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:9px 0;
-  border-bottom:1px solid #eee;
+.order-item{
+display:flex;
+justify-content:space-between;
+padding:9px 0;
+border-bottom:1px solid #eee
 }
 
-.small{
-  font-size:13px;
-  color:#666;
+.item-desc{
+font-size:12px;
+color:#777;
+margin-top:3px
+}
+
+.total{
+font-size:18px;
+font-weight:bold;
+text-align:right;
+margin-top:10px
 }
 
 .grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px
 }
 
 .stat{
-  font-size:25px;
-  font-weight:bold;
-  margin-top:5px;
+font-size:25px;
+font-weight:bold
 }
 
 .menu-row{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:13px 0;
-  border-bottom:1px solid #eee;
+display:flex;
+justify-content:space-between;
+gap:10px;
+padding:13px 0;
+border-bottom:1px solid #eee
 }
 
 .menu-info{
-  flex:1;
-}
-
-.menu-actions{
-  display:flex;
-  gap:5px;
-  flex-wrap:wrap;
-  align-items:flex-start;
-}
-
-.price{
-  font-weight:bold;
-  margin-top:4px;
+flex:1
 }
 
 .modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.55);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-  z-index:100;
+display:none;
+position:fixed;
+inset:0;
+background:#0008;
+align-items:center;
+justify-content:center;
+padding:15px
 }
 
 .modal-box{
-  background:white;
-  width:100%;
-  max-width:500px;
-  max-height:90vh;
-  overflow:auto;
-  border-radius:15px;
-  padding:18px;
+background:#fff;
+padding:18px;
+border-radius:15px;
+width:100%;
+max-width:480px
 }
 
 @media(max-width:600px){
-
-  .grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .menu-row{
-    flex-direction:column;
-  }
-
+.menu-row{
+flex-direction:column
+}
 }
 </style>
 </head>
@@ -230,10 +208,8 @@ button{
 <body>
 
 <header>
-  <h1>🍱 Ghar Ka Khana</h1>
-  <div style="font-size:13px;margin-top:4px;">
-    Restaurant Admin Panel
-  </div>
+<h1>🍱 Ghar Ka Khana</h1>
+<div>Restaurant Partner</div>
 </header>
 
 
@@ -241,1844 +217,1120 @@ button{
 
 <div id="loginPage" class="container">
 
-  <div class="card login">
+<div class="card login">
 
-    <h2>Admin Login</h2>
+<h2>Admin Login</h2>
 
-    <p class="small">
-      Enter your 4-digit admin PIN
-    </p>
+<input
+id="pin"
+type="password"
+inputmode="numeric"
+maxlength="4"
+placeholder="Enter PIN"
+>
 
-    <input
-      id="pin"
-      type="password"
-      inputmode="numeric"
-      maxlength="4"
-      placeholder="Enter PIN"
-    >
+<button
+class="primary"
+style="width:100%"
+onclick="login()"
+>
+Login
+</button>
 
-    <button
-      class="primary"
-      style="width:100%;"
-      onclick="login()"
-    >
-      Login
-    </button>
+</div>
+</div>
 
-  </div>
+
+<!-- APP -->
+
+<div id="app" class="container" style="display:none">
+
+<div class="card top">
+
+<div>
+<b>Ghar Ka Khana</b>
+<div style="font-size:12px;color:#777">
+Restaurant Dashboard
+</div>
+</div>
+
+<button class="red" onclick="logout()">
+Logout
+</button>
 
 </div>
 
 
-<!-- ADMIN APP -->
+<!-- NAV -->
 
-<div id="app" class="container" style="display:none;">
+<div class="nav">
 
-  <div class="card top">
+<button
+class="active"
+onclick="show('orders',this)"
+>
+Orders
+</button>
 
-    <div>
-      <b>Ghar Ka Khana</b>
+<button onclick="show('hub',this)">
+Hub
+</button>
 
-      <div class="small">
-        Admin Dashboard
-      </div>
-    </div>
+<button onclick="show('growth',this)">
+Growth
+</button>
 
-    <button
-      class="danger"
-      onclick="logout()"
-    >
-      Logout
-    </button>
+<button onclick="show('menu',this)">
+Menu
+</button>
 
-  </div>
+<button onclick="show('finance',this)">
+Finance
+</button>
 
+</div>
 
-  <!-- NAV -->
 
-  <div class="nav">
+<!-- ORDERS -->
 
-    <button
-      class="active"
-      onclick="showSection('orders',this)"
-    >
-      📦 Orders
-    </button>
+<div id="orders" class="section active">
 
-    <button
-      onclick="showSection('hub',this)"
-    >
-      🏠 Hub
-    </button>
+<div class="card">
 
-    <button
-      onclick="showSection('growth',this)"
-    >
-      📈 Growth
-    </button>
+<div class="top">
 
-    <button
-      onclick="showSection('menu',this)"
-    >
-      🍽️ Menu
-    </button>
+<h2>📦 Orders</h2>
 
-    <button
-      onclick="showSection('finance',this)"
-    >
-      💰 Finance
-    </button>
+<button
+class="gray"
+onclick="loadOrders()"
+>
+Refresh
+</button>
 
-    <button
-      onclick="showSection('inventory',this)"
-    >
-      📦 Inventory
-    </button>
+</div>
 
-    <button
-      onclick="showSection('settings',this)"
-    >
-      ⚙️ Settings
-    </button>
+<div id="ordersList">
+Loading...
+</div>
 
-  </div>
+</div>
+</div>
 
 
-  <!-- ORDERS -->
+<!-- HUB -->
 
-  <div id="orders" class="section active">
+<div id="hub" class="section">
 
-    <div class="card">
+<div class="card">
 
-      <div class="top">
+<h2>🏠 Hub</h2>
 
-        <h2>📦 Orders</h2>
+<div class="grid">
 
-        <button
-          class="gray"
-          onclick="loadOrders()"
-        >
-          🔄 Refresh
-        </button>
+<div class="card">
+<div style="font-size:12px;color:#777">
+Today's Orders
+</div>
+<div id="todayOrders" class="stat">
+0
+</div>
+</div>
 
-      </div>
+<div class="card">
+<div style="font-size:12px;color:#777">
+Today's Sales
+</div>
+<div id="todaySales" class="stat">
+₹0
+</div>
+</div>
 
-      <div id="ordersList">
-        Loading orders...
-      </div>
+<div class="card">
+<div style="font-size:12px;color:#777">
+Pending
+</div>
+<div id="pending" class="stat">
+0
+</div>
+</div>
 
-    </div>
+<div class="card">
+<div style="font-size:12px;color:#777">
+Menu Items
+</div>
+<div id="menuCount" class="stat">
+0
+</div>
+</div>
 
-  </div>
+</div>
+</div>
+</div>
 
 
-  <!-- HUB -->
+<!-- GROWTH -->
 
-  <div id="hub" class="section">
+<div id="growth" class="section">
 
-    <div class="card">
+<div class="card">
 
-      <h2>🏠 Hub</h2>
+<h2>📈 Growth</h2>
 
-      <div class="grid">
+<div class="grid">
 
-        <div class="card">
-          <div class="small">
-            Today's Orders
-          </div>
+<div class="card">
+<div>Total Orders</div>
+<div id="growthOrders" class="stat">0</div>
+</div>
 
-          <div
-            id="todayOrders"
-            class="stat"
-          >
-            0
-          </div>
-        </div>
+<div class="card">
+<div>Total Sales</div>
+<div id="growthSales" class="stat">₹0</div>
+</div>
 
+</div>
 
-        <div class="card">
-          <div class="small">
-            Today's Sales
-          </div>
+</div>
+</div>
 
-          <div
-            id="todaySales"
-            class="stat"
-          >
-            ₹0
-          </div>
-        </div>
 
+<!-- MENU -->
 
-        <div class="card">
-          <div class="small">
-            Pending Orders
-          </div>
+<div id="menu" class="section">
 
-          <div
-            id="pendingOrders"
-            class="stat"
-          >
-            0
-          </div>
-        </div>
+<div class="card">
 
+<div class="top">
 
-        <div class="card">
-          <div class="small">
-            Menu Items
-          </div>
+<h2>🍽️ Menu</h2>
 
-          <div
-            id="menuCount"
-            class="stat"
-          >
-            0
-          </div>
-        </div>
+<button
+class="primary"
+onclick="openAdd()"
+>
++ Add Item
+</button>
 
-      </div>
+</div>
 
-    </div>
+<div id="menuList">
+Loading...
+</div>
 
-  </div>
+</div>
+</div>
 
 
-  <!-- GROWTH -->
+<!-- FINANCE -->
 
-  <div id="growth" class="section">
+<div id="finance" class="section">
 
-    <div class="card">
+<div class="card">
 
-      <h2>📈 Growth</h2>
+<h2>💰 Finance</h2>
 
-      <div class="grid">
+<div class="grid">
 
-        <div class="card">
+<div class="card">
+<div>Total Orders</div>
+<div id="financeOrders" class="stat">
+0
+</div>
+</div>
 
-          <div class="small">
-            Total Orders
-          </div>
+<div class="card">
+<div>Total Sales</div>
+<div id="financeSales" class="stat">
+₹0
+</div>
+</div>
 
-          <div
-            id="growthOrders"
-            class="stat"
-          >
-            0
-          </div>
+</div>
 
-        </div>
-
-
-        <div class="card">
-
-          <div class="small">
-            Total Sales
-          </div>
-
-          <div
-            id="growthSales"
-            class="stat"
-          >
-            ₹0
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- MENU -->
-
-  <div id="menu" class="section">
-
-    <div class="card">
-
-      <div class="top">
-
-        <h2>🍽️ Menu</h2>
-
-        <button
-          class="primary"
-          onclick="openAddMenu()"
-        >
-          + Add Item
-        </button>
-
-      </div>
-
-      <div id="menuList">
-        Loading menu...
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- FINANCE -->
-
-  <div id="finance" class="section">
-
-    <div class="card">
-
-      <h2>💰 Finance</h2>
-
-      <div class="grid">
-
-        <div class="card">
-
-          <div class="small">
-            Total Sales
-          </div>
-
-          <div
-            id="financeSales"
-            class="stat"
-          >
-            ₹0
-          </div>
-
-        </div>
-
-
-        <div class="card">
-
-          <div class="small">
-            Total Orders
-          </div>
-
-          <div
-            id="financeOrders"
-            class="stat"
-          >
-            0
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- INVENTORY -->
-
-  <div id="inventory" class="section">
-
-    <div class="card">
-
-      <h2>📦 Inventory</h2>
-
-      <input
-        id="stockPaneer"
-        placeholder="Paneer stock"
-      >
-
-      <input
-        id="stockAtta"
-        placeholder="Atta stock"
-      >
-
-      <input
-        id="stockOil"
-        placeholder="Oil stock"
-      >
-
-      <input
-        id="stockVegetables"
-        placeholder="Vegetables stock"
-      >
-
-      <button
-        class="primary"
-        onclick="saveInventory()"
-      >
-        Save Inventory
-      </button>
-
-      <p id="inventoryMsg"></p>
-
-    </div>
-
-  </div>
-
-
-  <!-- SETTINGS -->
-
-  <div id="settings" class="section">
-
-    <div class="card">
-
-      <h2>⚙️ Settings</h2>
-
-      <p>
-        <b>Restaurant:</b>
-        Ghar Ka Khana
-      </p>
-
-      <p>
-        <b>Location:</b>
-        Moga, Punjab
-      </p>
-
-      <p>
-        <b>Food:</b>
-        Homemade Vegetarian Food
-      </p>
-
-      <button
-        class="danger"
-        onclick="logout()"
-      >
-        Logout
-      </button>
-
-    </div>
-
-  </div>
+</div>
+</div>
 
 </div>
 
 
 <!-- MENU MODAL -->
 
-<div
-  id="menuModal"
-  class="modal"
+<div id="modal" class="modal">
+
+<div class="modal-box">
+
+<div class="top">
+
+<h2 id="modalTitle">
+Add Menu Item
+</h2>
+
+<button
+class="gray"
+onclick="closeModal()"
+>
+✕
+</button>
+
+</div>
+
+<input
+type="hidden"
+id="menuId"
 >
 
-  <div class="modal-box">
+<input
+id="menuName"
+placeholder="Item Name"
+>
 
-    <div class="top">
+<input
+id="menuPrice"
+type="number"
+placeholder="Price"
+>
 
-      <h2 id="modalTitle">
-        Add Menu Item
-      </h2>
+<select id="menuCategory">
 
-      <button
-        class="gray"
-        onclick="closeMenuModal()"
-      >
-        ✕
-      </button>
+<option>Main Course</option>
+<option>Parathas & Roti</option>
+<option>Snacks</option>
+<option>Chaat</option>
+<option>Drinks</option>
+<option>Combos</option>
 
-    </div>
+</select>
 
+<textarea
+id="menuDescription"
+placeholder="Description"
+></textarea>
 
-    <input
-      type="hidden"
-      id="editMenuId"
-    >
+<button
+class="primary"
+style="width:100%"
+onclick="saveMenu()"
+>
+Save
+</button>
 
-
-    <label>Item Name</label>
-
-    <input
-      id="menuName"
-      placeholder="Example: Shahi Paneer"
-    >
-
-
-    <label>Price</label>
-
-    <input
-      id="menuPrice"
-      type="number"
-      placeholder="150"
-    >
-
-
-    <label>Category</label>
-
-    <select id="menuCategory">
-
-      <option>
-        Main Course
-      </option>
-
-      <option>
-        Parathas & Roti
-      </option>
-
-      <option>
-        Snacks
-      </option>
-
-      <option>
-        Chaat
-      </option>
-
-      <option>
-        Drinks
-      </option>
-
-      <option>
-        Combos
-      </option>
-
-    </select>
-
-
-    <label>Description</label>
-
-    <textarea
-      id="menuDescription"
-      rows="3"
-      placeholder="Short description"
-    ></textarea>
-
-
-    <button
-      class="primary"
-      style="width:100%;margin-top:10px;"
-      onclick="saveMenuItem()"
-    >
-      Save Item
-    </button>
-
-
-    <button
-      class="gray"
-      style="width:100%;margin-top:8px;"
-      onclick="closeMenuModal()"
-    >
-      Cancel
-    </button>
-
-  </div>
-
+</div>
 </div>
 
 
 <script>
 
-/* =========================
-   SUPABASE
-========================= */
-
-const SUPABASE_URL =
+const URL=
 "https://oxfuccrgitckvozmnyss.supabase.co";
 
-const SUPABASE_KEY =
+const KEY=
 "sb_publishable_DwZtFpmfTwDnlAp6fYbjpA_upTa3khj";
 
-const supabaseClient =
-supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+const db=
+supabase.createClient(URL,KEY);
+
+const PIN="7869";
+
+let orders=[];
+let menuItems=[];
 
 
-/* =========================
-   ADMIN PIN
-========================= */
-
-const ADMIN_PIN = "7869";
-
-
-let orders = [];
-let menuItems = [];
-
-
-/* =========================
-   LOGIN
-========================= */
+/* LOGIN */
 
 function login(){
 
-  const pin =
-    document
-      .getElementById("pin")
-      .value
-      .trim();
+const pin=
+document.getElementById("pin").value.trim();
 
+if(pin!=="7869"){
+alert("Wrong PIN");
+return;
+}
 
-  if(pin !== ADMIN_PIN){
+localStorage.setItem(
+"gharAdminLoggedIn",
+"true"
+);
 
-    alert("Wrong PIN");
+document.getElementById(
+"loginPage"
+).style.display="none";
 
-    return;
-  }
+document.getElementById(
+"app"
+).style.display="block";
 
-
-  localStorage.setItem(
-    "gharAdminLoggedIn",
-    "true"
-  );
-
-
-  document
-    .getElementById("loginPage")
-    .style.display = "none";
-
-
-  document
-    .getElementById("app")
-    .style.display = "block";
-
-
-  loadAll();
+loadAll();
 
 }
 
 
-/* =========================
-   LOGOUT
-========================= */
+/* AUTO LOGIN */
+
+window.onload=function(){
+
+if(
+localStorage.getItem(
+"gharAdminLoggedIn"
+)==="true"
+){
+
+document.getElementById(
+"loginPage"
+).style.display="none";
+
+document.getElementById(
+"app"
+).style.display="block";
+
+loadAll();
+
+}
+
+};
+
+
+/* LOGOUT */
 
 function logout(){
 
-  localStorage.removeItem(
-    "gharAdminLoggedIn"
-  );
-
-  location.reload();
-
-}
-
-
-/* =========================
-   AUTO LOGIN
-========================= */
-
-window.addEventListener(
-  "load",
-  function(){
-
-    if(
-      localStorage.getItem(
-        "gharAdminLoggedIn"
-      ) === "true"
-    ){
-
-      document
-        .getElementById("loginPage")
-        .style.display = "none";
-
-
-      document
-        .getElementById("app")
-        .style.display = "block";
-
-
-      loadAll();
-
-    }
-
-
-    loadInventory();
-
-  }
+localStorage.removeItem(
+"gharAdminLoggedIn"
 );
 
-
-/* =========================
-   NAVIGATION
-========================= */
-
-function showSection(
-  id,
-  button
-){
-
-  document
-    .querySelectorAll(".section")
-    .forEach(
-      function(section){
-        section.classList.remove(
-          "active"
-        );
-      }
-    );
-
-
-  document
-    .querySelectorAll(".nav button")
-    .forEach(
-      function(btn){
-        btn.classList.remove(
-          "active"
-        );
-      }
-    );
-
-
-  document
-    .getElementById(id)
-    .classList.add("active");
-
-
-  button.classList.add("active");
+location.reload();
 
 }
 
 
-/* =========================
-   LOAD ALL
-========================= */
+/* NAV */
+
+function show(id,btn){
+
+document
+.querySelectorAll(".section")
+.forEach(x=>x.classList.remove("active"));
+
+document
+.querySelectorAll(".nav button")
+.forEach(x=>x.classList.remove("active"));
+
+document
+.getElementById(id)
+.classList.add("active");
+
+btn.classList.add("active");
+
+}
+
+
+/* LOAD */
 
 async function loadAll(){
 
-  await loadOrders();
+await loadOrders();
 
-  await loadMenu();
-
-  updateDashboard();
+await loadMenu();
 
 }
 
 
-/* =========================
-   ORDERS
-========================= */
+/* ORDERS */
 
 async function loadOrders(){
 
-  const box =
-    document.getElementById(
-      "ordersList"
-    );
+const box=
+document.getElementById("ordersList");
 
-  box.innerHTML =
-    "Loading orders...";
+box.innerHTML="Loading orders...";
 
+const r=
+await db.rpc(
+"admin_get_orders",
+{pin:PIN}
+);
 
-  const result =
-    await supabaseClient.rpc(
-      "admin_get_orders",
-      {
-        pin:ADMIN_PIN
-      }
-    );
+if(r.error){
 
+box.innerHTML=
+"<p style='color:red'>"+
+r.error.message+
+"</p>";
 
-  if(result.error){
+return;
+}
 
-    console.error(result.error);
+orders=r.data||[];
 
-    box.innerHTML =
-      "<p style='color:red;'>"+
-      escapeHtml(
-        result.error.message
-      )+
-      "</p>";
+renderOrders();
 
-    return;
-  }
-
-
-  orders =
-    result.data || [];
-
-
-  renderOrders();
-
-  updateDashboard();
+updateStats();
 
 }
 
+
+/* RENDER ORDERS */
 
 function renderOrders(){
 
-  const box =
-    document.getElementById(
-      "ordersList"
-    );
+const box=
+document.getElementById("ordersList");
 
+if(!orders.length){
 
-  if(!orders.length){
+box.innerHTML=
+"<p>No orders yet.</p>";
 
-    box.innerHTML =
-      "<p>No orders found.</p>";
+return;
+}
 
-    return;
-  }
+box.innerHTML=
+orders.map(o=>`
 
+<div class="order">
 
-  box.innerHTML =
-    orders.map(
-      function(order){
+<h3>Order #${o.id}</h3>
 
-        const date =
-          new Date(
-            order.created_at
-          );
+<span class="status">
+${safe(o.status||"pending")}
+</span>
 
+<p>
+<b>Customer:</b>
+${safe(o.customer_name)}
+</p>
 
-        return `
+<p>
+<b>Phone:</b>
+${safe(o.customer_phone)}
+</p>
 
-        <div class="order">
+<p>
+<b>Address:</b>
+${safe(o.delivery_address)}
+</p>
 
-          <h3>
-            Order #${order.id}
-          </h3>
+<div id="items-${o.id}">
+Loading item details...
+</div>
 
-          <span class="status">
-            ${escapeHtml(
-              order.status || "pending"
-            )}
-          </span>
+<div class="total">
+Total: ₹${Number(
+o.total_amount||0
+).toFixed(0)}
+</div>
 
-          <p>
-            <b>Customer:</b>
-            ${escapeHtml(
-              order.customer_name
-            )}
-          </p>
+<br>
 
-          <p>
-            <b>Phone:</b>
-            ${escapeHtml(
-              order.customer_phone
-            )}
-          </p>
+<button
+class="green"
+onclick="delivered(${o.id})"
+>
+✓ Delivered
+</button>
 
-          <p>
-            <b>Address:</b>
-            ${escapeHtml(
-              order.delivery_address
-            )}
-          </p>
+<button
+class="gray"
+onclick="status(${o.id},'preparing')"
+>
+Preparing
+</button>
 
-          <p>
-            <b>Date:</b>
-            ${date.toLocaleString(
-              "en-IN"
-            )}
-          </p>
+<button
+class="gray"
+onclick="status(${o.id},'ready')"
+>
+Ready
+</button>
 
-          <div id="items-${order.id}">
-            Loading items...
-          </div>
+<button
+class="red"
+onclick="status(${o.id},'cancelled')"
+>
+Cancel
+</button>
 
-          <hr>
+</div>
 
-          <p>
-            <b>
-              Total:
-              ₹${Number(
-                order.total_amount || 0
-              ).toFixed(0)}
-            </b>
-          </p>
+`).join("");
 
-          <p>
-            <b>Payment:</b>
-            ${escapeHtml(
-              order.payment_method || "COD"
-            )}
-          </p>
-
-          <div
-            style="
-              display:flex;
-              gap:7px;
-              flex-wrap:wrap;
-            "
-          >
-
-            <button
-              class="green"
-              onclick="
-                markDelivered(${order.id})
-              "
-            >
-              ✓ Delivered
-            </button>
-
-            <button
-              class="gray"
-              onclick="
-                updateOrderStatus(
-                  ${order.id},
-                  'preparing'
-                )
-              "
-            >
-              Preparing
-            </button>
-
-            <button
-              class="gray"
-              onclick="
-                updateOrderStatus(
-                  ${order.id},
-                  'ready'
-                )
-              "
-            >
-              Ready
-            </button>
-
-            <button
-              class="danger"
-              onclick="
-                updateOrderStatus(
-                  ${order.id},
-                  'cancelled'
-                )
-              "
-            >
-              Cancel
-            </button>
-
-          </div>
-
-        </div>
-
-        `;
-
-      }
-    ).join("");
-
-
-  orders.forEach(
-    function(order){
-      loadOrderItems(order.id);
-    }
-  );
+orders.forEach(
+o=>loadItems(o.id)
+);
 
 }
 
 
-/* =========================
-   ORDER ITEMS
-========================= */
+/* ITEM DETAILS */
 
-async function loadOrderItems(
-  orderId
-){
+async function loadItems(orderId){
 
-  const box =
-    document.getElementById(
-      "items-"+orderId
-    );
+const box=
+document.getElementById(
+"items-"+orderId
+);
 
+const r=
+await db.rpc(
+"admin_get_order_items",
+{
+pin:PIN,
+p_order_id:orderId
+}
+);
 
-  if(!box)return;
+if(r.error){
 
+box.innerHTML=
+"<p style='color:#d00;font-size:13px'>"+
+"Item details error: "+
+safe(r.error.message)+
+"</p>";
 
-  const result =
-    await supabaseClient
-      .from("order_items")
-      .select("*")
-      .eq(
-        "order_id",
-        orderId
-      );
+return;
+}
 
+let items=r.data||[];
 
-  if(result.error){
+if(typeof items==="string"){
 
-    box.innerHTML =
-      "<p class='small'>"+
-      "Could not load items."+
-      "</p>";
+try{
+items=JSON.parse(items);
+}catch(e){
+items=[];
+}
 
-    return;
-  }
+}
 
+if(!items.length){
 
-  const items =
-    result.data || [];
+box.innerHTML=
+"<p style='font-size:13px;color:#777'>"+
+"No item details"+
+"</p>";
 
+return;
+}
 
-  if(!items.length){
+box.innerHTML=
+items.map(item=>`
 
-    box.innerHTML =
-      "<p class='small'>"+
-      "No item details"+
-      "</p>";
+<div class="order-item">
 
-    return;
-  }
+<div>
 
+<b>
+${safe(item.item_name)}
+</b>
 
-  box.innerHTML =
-    items.map(
-      function(item){
+<div class="item-desc">
 
-        return `
+Qty: ${item.quantity}
 
-        <div class="item">
+${
+item.description
+?
+"<br>"+safe(item.description)
+:
+""
+}
 
-          <div>
+</div>
 
-            <b>
-              ${escapeHtml(
-                item.item_name
-              )}
-            </b>
+</div>
 
-            <div class="small">
+<div>
+₹${(
+Number(item.price||0)*
+Number(item.quantity||1)
+).toFixed(0)}
+</div>
 
-              Qty:
-              ${item.quantity}
+</div>
 
-              ${
-                item.description
-                ?
-                "<br>"+
-                escapeHtml(
-                  item.description
-                )
-                :
-                ""
-              }
-
-            </div>
-
-          </div>
-
-          <div>
-
-            ₹${(
-              Number(item.price || 0) *
-              Number(item.quantity || 1)
-            ).toFixed(0)}
-
-          </div>
-
-        </div>
-
-        `;
-
-      }
-    ).join("");
+`).join("");
 
 }
 
 
-/* =========================
-   MARK DELIVERED
-========================= */
+/* DELIVERED */
 
-async function markDelivered(
-  id
-){
+async function delivered(id){
 
-  if(
-    !confirm(
-      "Mark this order as delivered?"
-    )
-  ){
-    return;
-  }
+if(!confirm(
+"Mark order as delivered?"
+))return;
 
+const r=
+await db.rpc(
+"admin_mark_delivered",
+{
+pin:PIN,
+order_id:id
+}
+);
 
-  const result =
-    await supabaseClient.rpc(
-      "admin_mark_delivered",
-      {
-        pin:ADMIN_PIN,
-        order_id:id
-      }
-    );
+if(r.error){
+alert(r.error.message);
+return;
+}
 
-
-  if(result.error){
-
-    alert(
-      result.error.message
-    );
-
-    return;
-  }
-
-
-  alert(
-    "Order marked as delivered."
-  );
-
-
-  loadOrders();
+loadOrders();
 
 }
 
 
-/* =========================
-   UPDATE ORDER STATUS
-========================= */
+/* STATUS */
 
-async function updateOrderStatus(
-  id,
-  status
-){
+async function status(id,s){
 
-  const result =
-    await supabaseClient.rpc(
-      "admin_update_order_status",
-      {
-        pin:ADMIN_PIN,
-        p_order_id:id,
-        p_status:status
-      }
-    );
+const r=
+await db.rpc(
+"admin_update_order_status",
+{
+pin:PIN,
+p_order_id:id,
+p_status:s
+}
+);
 
+if(r.error){
+alert(r.error.message);
+return;
+}
 
-  if(result.error){
-
-    alert(
-      result.error.message
-    );
-
-    return;
-  }
-
-
-  loadOrders();
+loadOrders();
 
 }
 
 
-/* =========================
-   MENU
-========================= */
+/* STATS */
+
+function updateStats(){
+
+const today=
+new Date().toDateString();
+
+const todayOrders=
+orders.filter(
+o=>
+new Date(
+o.created_at
+).toDateString()===today
+);
+
+const todaySales=
+todayOrders.reduce(
+(a,o)=>
+a+Number(o.total_amount||0),
+0
+);
+
+const totalSales=
+orders.reduce(
+(a,o)=>
+a+Number(o.total_amount||0),
+0
+);
+
+const pending=
+orders.filter(
+o=>
+o.status!=="delivered" &&
+o.status!=="cancelled"
+).length;
+
+document.getElementById(
+"todayOrders"
+).innerText=
+todayOrders.length;
+
+document.getElementById(
+"todaySales"
+).innerText=
+"₹"+todaySales;
+
+document.getElementById(
+"pending"
+).innerText=
+pending;
+
+document.getElementById(
+"growthOrders"
+).innerText=
+orders.length;
+
+document.getElementById(
+"growthSales"
+).innerText=
+"₹"+totalSales;
+
+document.getElementById(
+"financeOrders"
+).innerText=
+orders.length;
+
+document.getElementById(
+"financeSales"
+).innerText=
+"₹"+totalSales;
+
+document.getElementById(
+"menuCount"
+).innerText=
+menuItems.length;
+
+}
+
+
+/* MENU */
 
 async function loadMenu(){
 
-  const box =
-    document.getElementById(
-      "menuList"
-    );
+const r=
+await db.rpc(
+"admin_get_menu",
+{pin:PIN}
+);
 
+if(r.error){
 
-  box.innerHTML =
-    "Loading menu...";
+document.getElementById(
+"menuList"
+).innerHTML=
+"<p style='color:red'>"+
+r.error.message+
+"</p>";
 
+return;
+}
 
-  const result =
-    await supabaseClient.rpc(
-      "admin_get_menu",
-      {
-        pin:ADMIN_PIN
-      }
-    );
+menuItems=r.data||[];
 
-
-  if(result.error){
-
-    console.error(
-      result.error
-    );
-
-
-    box.innerHTML =
-      "<p style='color:red;'>"+
-      escapeHtml(
-        result.error.message
-      )+
-      "</p>";
-
-    return;
-  }
-
-
-  menuItems =
-    result.data || [];
-
-
-  renderMenu();
-
-
-  document.getElementById(
-    "menuCount"
-  ).innerText =
-    menuItems.length;
+renderMenu();
 
 }
 
+
+/* RENDER MENU */
 
 function renderMenu(){
 
-  const box =
-    document.getElementById(
-      "menuList"
-    );
+const box=
+document.getElementById(
+"menuList"
+);
 
+if(!menuItems.length){
 
-  if(!menuItems.length){
+box.innerHTML=
+"<p>No menu items.</p>";
 
-    box.innerHTML =
-      "<p>No menu items found.</p>";
+return;
+}
 
-    return;
-  }
+box.innerHTML=
+menuItems.map(item=>`
 
+<div class="menu-row">
 
-  box.innerHTML =
-    menuItems.map(
-      function(item){
+<div class="menu-info">
 
-        return `
+<b>
+${safe(item.name)}
+</b>
 
-        <div class="menu-row">
+<div>
+₹${Number(item.price)}
+</div>
 
-          <div class="menu-info">
+<div style="font-size:12px;color:#777">
+${safe(item.category||"")}
+</div>
 
-            <b>
-              ${escapeHtml(
-                item.name
-              )}
-            </b>
+<div style="font-size:12px;color:#777">
+${safe(item.description||"")}
+</div>
 
-            <div class="price">
-              ₹${Number(
-                item.price
-              ).toFixed(0)}
-            </div>
+<div style="font-size:12px">
+${
+item.is_available
+?"🟢 Available"
+:"🔴 Unavailable"
+}
+</div>
 
-            <div class="small">
-              ${escapeHtml(
-                item.category || ""
-              )}
-            </div>
+</div>
 
-            <div class="small">
-              ${escapeHtml(
-                item.description || ""
-              )}
-            </div>
+<div>
 
-            <div class="small">
+<button
+class="gray"
+onclick="editMenu(${item.id})"
+>
+Edit
+</button>
 
-              ${
-                item.is_available
-                ?
-                "🟢 Available"
-                :
-                "🔴 Unavailable"
-              }
+<button
+class="gray"
+onclick="toggleMenu(${item.id},${item.is_available})"
+>
+${item.is_available?"Off":"On"}
+</button>
 
-            </div>
+<button
+class="red"
+onclick="deleteMenu(${item.id})"
+>
+Delete
+</button>
 
-          </div>
+</div>
 
+</div>
 
-          <div class="menu-actions">
-
-            <button
-              class="gray"
-              onclick="
-                editMenu(${item.id})
-              "
-            >
-              Edit
-            </button>
-
-            <button
-              class="gray"
-              onclick="
-                toggleMenu(
-                  ${item.id},
-                  ${item.is_available}
-                )
-              "
-            >
-              ${
-                item.is_available
-                ?
-                "Off"
-                :
-                "On"
-              }
-            </button>
-
-            <button
-              class="danger"
-              onclick="
-                deleteMenu(${item.id})
-              "
-            >
-              Delete
-            </button>
-
-          </div>
-
-        </div>
-
-        `;
-
-      }
-    ).join("");
+`).join("");
 
 }
 
 
-/* =========================
-   ADD MENU
-========================= */
+/* ADD */
 
-function openAddMenu(){
+function openAdd(){
 
-  document.getElementById(
-    "modalTitle"
-  ).innerText =
-    "Add Menu Item";
+document.getElementById(
+"modalTitle"
+).innerText="Add Menu Item";
 
+document.getElementById(
+"menuId"
+).value="";
 
-  document.getElementById(
-    "editMenuId"
-  ).value = "";
+document.getElementById(
+"menuName"
+).value="";
 
+document.getElementById(
+"menuPrice"
+).value="";
 
-  document.getElementById(
-    "menuName"
-  ).value = "";
+document.getElementById(
+"menuCategory"
+).value="Main Course";
 
+document.getElementById(
+"menuDescription"
+).value="";
 
-  document.getElementById(
-    "menuPrice"
-  ).value = "";
-
-
-  document.getElementById(
-    "menuCategory"
-  ).value =
-    "Main Course";
-
-
-  document.getElementById(
-    "menuDescription"
-  ).value = "";
-
-
-  document.getElementById(
-    "menuModal"
-  ).style.display =
-    "flex";
+document.getElementById(
+"modal"
+).style.display="flex";
 
 }
 
 
-/* =========================
-   EDIT MENU
-========================= */
+/* EDIT */
 
 function editMenu(id){
 
-  const item =
-    menuItems.find(
-      function(x){
-        return Number(x.id) ===
-          Number(id);
-      }
-    );
+const item=
+menuItems.find(
+x=>Number(x.id)===Number(id)
+);
 
+if(!item)return;
 
-  if(!item)return;
+document.getElementById(
+"modalTitle"
+).innerText="Edit Menu Item";
 
+document.getElementById(
+"menuId"
+).value=item.id;
 
-  document.getElementById(
-    "modalTitle"
-  ).innerText =
-    "Edit Menu Item";
+document.getElementById(
+"menuName"
+).value=item.name;
 
+document.getElementById(
+"menuPrice"
+).value=item.price;
 
-  document.getElementById(
-    "editMenuId"
-  ).value =
-    item.id;
+document.getElementById(
+"menuCategory"
+).value=item.category;
 
+document.getElementById(
+"menuDescription"
+).value=
+item.description||"";
 
-  document.getElementById(
-    "menuName"
-  ).value =
-    item.name || "";
-
-
-  document.getElementById(
-    "menuPrice"
-  ).value =
-    item.price || "";
-
-
-  document.getElementById(
-    "menuCategory"
-  ).value =
-    item.category ||
-    "Main Course";
-
-
-  document.getElementById(
-    "menuDescription"
-  ).value =
-    item.description || "";
-
-
-  document.getElementById(
-    "menuModal"
-  ).style.display =
-    "flex";
+document.getElementById(
+"modal"
+).style.display="flex";
 
 }
 
 
-/* =========================
-   CLOSE MODAL
-========================= */
+/* CLOSE */
 
-function closeMenuModal(){
+function closeModal(){
 
-  document.getElementById(
-    "menuModal"
-  ).style.display =
-    "none";
+document.getElementById(
+"modal"
+).style.display="none";
 
 }
 
 
-/* =========================
-   SAVE MENU
-========================= */
+/* SAVE */
 
-async function saveMenuItem(){
+async function saveMenu(){
 
-  const id =
-    document.getElementById(
-      "editMenuId"
-    ).value;
+const id=
+document.getElementById(
+"menuId"
+).value;
 
+const name=
+document.getElementById(
+"menuName"
+).value.trim();
 
-  const name =
-    document.getElementById(
-      "menuName"
-    ).value.trim();
+const price=
+Number(
+document.getElementById(
+"menuPrice"
+).value
+);
 
+const category=
+document.getElementById(
+"menuCategory"
+).value;
 
-  const price =
-    Number(
-      document.getElementById(
-        "menuPrice"
-      ).value
-    );
+const description=
+document.getElementById(
+"menuDescription"
+).value.trim();
 
+if(!name||!price){
 
-  const category =
-    document.getElementById(
-      "menuCategory"
-    ).value;
+alert("Enter name and price");
 
+return;
+}
 
-  const description =
-    document.getElementById(
-      "menuDescription"
-    ).value.trim();
+let r;
 
+if(id){
 
-  if(!name){
+r=
+await db.rpc(
+"admin_update_menu_item",
+{
+pin:PIN,
+p_id:Number(id),
+p_name:name,
+p_price:price,
+p_category:category,
+p_description:description
+}
+);
 
-    alert(
-      "Enter item name."
-    );
+}else{
 
-    return;
-  }
+r=
+await db.rpc(
+"admin_add_menu_item",
+{
+pin:PIN,
+p_name:name,
+p_price:price,
+p_category:category,
+p_description:description,
+p_is_available:true
+}
+);
 
+}
 
-  if(!price || price < 0){
+if(r.error){
 
-    alert(
-      "Enter valid price."
-    );
+alert(r.error.message);
 
-    return;
-  }
+return;
+}
 
+closeModal();
 
-  let result;
-
-
-  if(id){
-
-    result =
-      await supabaseClient.rpc(
-        "admin_update_menu_item",
-        {
-          pin:ADMIN_PIN,
-          p_id:Number(id),
-          p_name:name,
-          p_price:price,
-          p_category:category,
-          p_description:description
-        }
-      );
-
-  }else{
-
-    result =
-      await supabaseClient.rpc(
-        "admin_add_menu_item",
-        {
-          pin:ADMIN_PIN,
-          p_name:name,
-          p_price:price,
-          p_category:category,
-          p_description:description,
-          p_is_available:true
-        }
-      );
-
-  }
-
-
-  if(result.error){
-
-    console.error(
-      result.error
-    );
-
-
-    alert(
-      result.error.message
-    );
-
-    return;
-  }
-
-
-  closeMenuModal();
-
-  await loadMenu();
-
-  alert(
-    id
-    ?
-    "Item updated."
-    :
-    "Item added."
-  );
+loadMenu();
 
 }
 
 
-/* =========================
-   TOGGLE MENU
-========================= */
+/* TOGGLE */
 
-async function toggleMenu(
-  id,
-  current
-){
+async function toggleMenu(id,current){
 
-  const result =
-    await supabaseClient.rpc(
-      "admin_toggle_menu_item",
-      {
-        pin:ADMIN_PIN,
-        p_id:id,
-        p_is_available:!current
-      }
-    );
+const r=
+await db.rpc(
+"admin_toggle_menu_item",
+{
+pin:PIN,
+p_id:id,
+p_is_available:!current
+}
+);
 
+if(r.error){
+alert(r.error.message);
+return;
+}
 
-  if(result.error){
-
-    alert(
-      result.error.message
-    );
-
-    return;
-  }
-
-
-  loadMenu();
+loadMenu();
 
 }
 
 
-/* =========================
-   DELETE MENU
-========================= */
+/* DELETE */
 
-async function deleteMenu(
-  id
-){
+async function deleteMenu(id){
 
-  if(
-    !confirm(
-      "Delete this menu item?"
-    )
-  ){
-    return;
-  }
+if(!confirm(
+"Delete this item?"
+))return;
 
+const r=
+await db.rpc(
+"admin_delete_menu_item",
+{
+pin:PIN,
+p_id:id
+}
+);
 
-  const result =
-    await supabaseClient.rpc(
-      "admin_delete_menu_item",
-      {
-        pin:ADMIN_PIN,
-        p_id:id
-      }
-    );
+if(r.error){
+alert(r.error.message);
+return;
+}
 
-
-  if(result.error){
-
-    alert(
-      result.error.message
-    );
-
-    return;
-  }
-
-
-  loadMenu();
+loadMenu();
 
 }
 
 
-/* =========================
-   DASHBOARD
-========================= */
-
-function updateDashboard(){
-
-  const today =
-    new Date().toDateString();
-
-
-  const todayOrders =
-    orders.filter(
-      function(order){
-
-        return new Date(
-          order.created_at
-        ).toDateString()
-        === today;
-
-      }
-    );
-
-
-  const todaySales =
-    todayOrders.reduce(
-      function(sum,order){
-
-        return sum +
-          Number(
-            order.total_amount || 0
-          );
-
-      },
-      0
-    );
-
-
-  const pending =
-    orders.filter(
-      function(order){
-
-        return (
-          order.status !== "delivered" &&
-          order.status !== "cancelled"
-        );
-
-      }
-    ).length;
-
-
-  const totalSales =
-    orders.reduce(
-      function(sum,order){
-
-        return sum +
-          Number(
-            order.total_amount || 0
-          );
-
-      },
-      0
-    );
-
-
-  setText(
-    "todayOrders",
-    todayOrders.length
-  );
-
-
-  setText(
-    "todaySales",
-    "₹"+todaySales.toFixed(0)
-  );
-
-
-  setText(
-    "pendingOrders",
-    pending
-  );
-
-
-  setText(
-    "growthOrders",
-    orders.length
-  );
-
-
-  setText(
-    "growthSales",
-    "₹"+totalSales.toFixed(0)
-  );
-
-
-  setText(
-    "financeOrders",
-    orders.length
-  );
-
-
-  setText(
-    "financeSales",
-    "₹"+totalSales.toFixed(0)
-  );
-
-
-  setText(
-    "menuCount",
-    menuItems.length
-  );
-
-}
-
-
-function setText(
-  id,
-  value
-){
-
-  const element =
-    document.getElementById(id);
-
-
-  if(element){
-
-    element.innerText =
-      value;
-
-  }
-
-}
-
-
-/* =========================
-   INVENTORY
-========================= */
-
-function saveInventory(){
-
-  const data = {
-
-    paneer:
-      document.getElementById(
-        "stockPaneer"
-      ).value,
-
-    atta:
-      document.getElementById(
-        "stockAtta"
-      ).value,
-
-    oil:
-      document.getElementById(
-        "stockOil"
-      ).value,
-
-    vegetables:
-      document.getElementById(
-        "stockVegetables"
-      ).value
-
-  };
-
-
-  localStorage.setItem(
-    "gharInventory",
-    JSON.stringify(data)
-  );
-
-
-  document.getElementById(
-    "inventoryMsg"
-  ).innerText =
-    "✅ Inventory saved.";
-
-}
-
-
-function loadInventory(){
-
-  const raw =
-    localStorage.getItem(
-      "gharInventory"
-    );
-
-
-  if(!raw)return;
-
-
-  try{
-
-    const data =
-      JSON.parse(raw);
-
-
-    document.getElementById(
-      "stockPaneer"
-    ).value =
-      data.paneer || "";
-
-
-    document.getElementById(
-      "stockAtta"
-    ).value =
-      data.atta || "";
-
-
-    document.getElementById(
-      "stockOil"
-    ).value =
-      data.oil || "";
-
-
-    document.getElementById(
-      "stockVegetables"
-    ).value =
-      data.vegetables || "";
-
-  }catch(error){
-
-    console.log(error);
-
-  }
-
-}
-
-
-/* =========================
-   SECURITY
-========================= */
-
-function escapeHtml(
-  value
-){
-
-  return String(
-    value ?? ""
-  )
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
+/* SAFE TEXT */
+
+function safe(v){
+
+return String(v??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
