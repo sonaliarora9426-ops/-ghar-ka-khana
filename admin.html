@@ -1,87 +1,206 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en">
 
-<title>Ghar Ka Khana - Admin</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>Ghar Ka Khana Admin</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
+*{
+box-sizing:border-box
+}
+
 body{
-  margin:0;
-  font-family:Arial;
-  background:#f5f5f5;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f5f5f5;
+color:#222;
 }
 
 .header{
-  background:#111;
-  color:white;
-  padding:20px;
-  text-align:center;
+background:#111;
+color:white;
+padding:18px;
+text-align:center;
+position:sticky;
+top:0;
+z-index:10;
 }
 
 .container{
-  max-width:850px;
-  margin:auto;
-  padding:15px;
+max-width:950px;
+margin:auto;
+padding:12px;
 }
 
-.card,.order{
-  background:white;
-  padding:18px;
-  margin:15px 0;
-  border-radius:15px;
-  box-shadow:0 2px 10px #ddd;
+.card{
+background:white;
+padding:16px;
+margin:12px 0;
+border-radius:15px;
+box-shadow:0 2px 10px #ddd;
 }
 
-input,button{
-  width:100%;
-  padding:14px;
-  margin:7px 0;
-  border-radius:8px;
-  border:1px solid #ccc;
-  font-size:17px;
+button,input,select{
+width:100%;
+padding:12px;
+margin:5px 0;
+border-radius:8px;
+border:1px solid #ccc;
+font-size:15px;
 }
 
 button{
-  background:#111;
-  color:white;
-  border:0;
-  font-weight:bold;
+background:#111;
+color:white;
+border:0;
+font-weight:bold;
 }
 
-.green{background:#16833b}
-.blue{background:#1769aa}
-.red{background:#c62828}
+.green{
+background:#16833b;
+}
 
-.hidden{display:none}
+.blue{
+background:#1769aa;
+}
+
+.red{
+background:#c62828;
+}
+
+.orange{
+background:#d97706;
+}
+
+.gray{
+background:#555;
+}
+
+.tabs{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:6px;
+margin-bottom:12px;
+}
+
+.tabs button{
+font-size:12px;
+padding:10px 5px;
+}
+
+.tab{
+display:none;
+}
+
+.tab.active{
+display:block;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.stat{
+background:white;
+padding:15px;
+border-radius:12px;
+box-shadow:0 2px 7px #ddd;
+}
+
+.stat b{
+font-size:22px;
+}
+
+.order{
+border:1px solid #ddd;
+border-radius:12px;
+padding:15px;
+margin:12px 0;
+background:white;
+}
 
 .item{
-  padding:8px 0;
-  border-bottom:1px solid #eee;
+padding:7px 0;
+border-bottom:1px solid #eee;
+}
+
+.small{
+font-size:13px;
+color:#666;
 }
 
 .error{
-  color:red;
-  font-weight:bold;
+color:red;
+font-weight:bold;
 }
 
 .success{
-  color:green;
-  font-weight:bold;
+color:green;
+font-weight:bold;
 }
+
+.row{
+display:flex;
+gap:5px;
+}
+
+.row button{
+flex:1;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:13px;
+}
+
+th,td{
+padding:8px;
+border-bottom:1px solid #eee;
+text-align:left;
+}
+
+.badge{
+display:inline-block;
+padding:5px 8px;
+border-radius:20px;
+background:#eee;
+font-size:12px;
+}
+
+.hidden{
+display:none;
+}
+
 </style>
+
 </head>
 
 <body>
 
-<div id="login">
+
+<!-- LOGIN -->
+
+<div id="loginScreen">
 
 <div class="header">
+
 <h1>🍲 Ghar Ka Khana</h1>
-<p>Admin Panel</p>
+
+<p>Restaurant Admin</p>
+
 </div>
 
 <div class="container">
@@ -101,44 +220,462 @@ placeholder="Enter 4 Digit PIN">
 Login
 </button>
 
-<p id="msg"></p>
+<p id="loginMsg"></p>
 
 </div>
 
 </div>
+
 </div>
 
+
+<!-- DASHBOARD -->
 
 <div id="dashboard" class="hidden">
 
 <div class="header">
+
 <h1>🍲 Ghar Ka Khana</h1>
-<p>Admin Dashboard</p>
+
+<p>Restaurant Partner Dashboard</p>
+
 </div>
+
 
 <div class="container">
 
-<div class="card">
 
-<button onclick="loadOrders()">
-🔄 Refresh Orders
+<!-- TABS -->
+
+<div class="tabs">
+
+<button onclick="showTab('home')">
+🏠 Home
 </button>
 
-<button class="red" onclick="logout()">
+<button onclick="showTab('orders')">
+🧾 Orders
+</button>
+
+<button onclick="showTab('payouts')">
+💰 Payouts
+</button>
+
+<button onclick="showTab('bank')">
+🏦 Bank
+</button>
+
+<button onclick="showTab('inventory')">
+📦 Inventory
+</button>
+
+<button onclick="showTab('expenses')">
+💸 Expenses
+</button>
+
+<button onclick="showTab('reports')">
+📊 Reports
+</button>
+
+<button onclick="showTab('offers')">
+🎁 Offers
+</button>
+
+<button onclick="showTab('settings')">
+⚙️ Settings
+</button>
+
+</div>
+
+
+<!-- HOME -->
+
+<div id="home" class="tab active">
+
+<div class="grid">
+
+<div class="stat">
+Today's Sales
+<br>
+<b id="todaySales">₹0</b>
+</div>
+
+<div class="stat">
+Orders
+<br>
+<b id="orderCount">0</b>
+</div>
+
+<div class="stat">
+Expenses
+<br>
+<b id="todayExpenses">₹0</b>
+</div>
+
+<div class="stat">
+Net
+<br>
+<b id="todayNet">₹0</b>
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>📌 Quick Actions</h2>
+
+<button
+class="green"
+onclick="showTab('orders')">
+🧾 View Orders
+</button>
+
+<button
+class="blue"
+onclick="showTab('inventory')">
+📦 Check Inventory
+</button>
+
+<button
+onclick="showTab('payouts')">
+💰 Add Payout
+</button>
+
+<button
+class="orange"
+onclick="showTab('expenses')">
+💸 Add Expense
+</button>
+
+<button
+class="red"
+onclick="logout()">
 🔒 Logout
 </button>
 
 </div>
 
-<div id="orders">
+</div>
+
+
+<!-- ORDERS -->
+
+<div id="orders" class="tab">
+
+<div class="card">
+
+<h2>🧾 Orders</h2>
+
+<button
+onclick="loadOrders()">
+🔄 Refresh Orders
+</button>
+
+<div id="ordersBox">
 Loading...
 </div>
 
 </div>
+
+</div>
+
+
+<!-- PAYOUTS -->
+
+<div id="payouts" class="tab">
+
+<div class="card">
+
+<h2>💰 Payouts</h2>
+
+<input id="pDate" type="date">
+
+<select id="pPlatform">
+
+<option>Zomato</option>
+<option>Swiggy</option>
+<option>Website</option>
+<option>Offline</option>
+
+</select>
+
+<input
+id="pGross"
+type="number"
+placeholder="Gross Sales ₹">
+
+<input
+id="pFees"
+type="number"
+placeholder="Platform Fees ₹">
+
+<input
+id="pRefund"
+type="number"
+placeholder="Refund ₹">
+
+<select id="pStatus">
+
+<option>Pending</option>
+<option>Received</option>
+
+</select>
+
+<button
+class="green"
+onclick="addPayout()">
+➕ Add Payout
+</button>
+
+</div>
+
+<div class="card">
+
+<div id="payoutList"></div>
+
+</div>
+
+</div>
+
+
+<!-- BANK -->
+
+<div id="bank" class="tab">
+
+<div class="card">
+
+<h2>🏦 Bank / Cash Transaction</h2>
+
+<input id="bDate" type="date">
+
+<select id="bType">
+
+<option>Credit</option>
+<option>Debit</option>
+
+</select>
+
+<input
+id="bAmount"
+type="number"
+placeholder="Amount ₹">
+
+<input
+id="bDescription"
+placeholder="Description">
+
+<button
+class="green"
+onclick="addTransaction()">
+➕ Add Transaction
+</button>
+
+</div>
+
+<div class="card">
+
+<div id="bankList"></div>
+
+</div>
+
+</div>
+
+
+<!-- INVENTORY -->
+
+<div id="inventory" class="tab">
+
+<div class="card">
+
+<h2>📦 Inventory</h2>
+
+<input
+id="iName"
+placeholder="Item name">
+
+<input
+id="iQty"
+type="number"
+placeholder="Current quantity">
+
+<input
+id="iUnit"
+placeholder="Unit (kg, litre, packet etc.)">
+
+<input
+id="iPrice"
+type="number"
+placeholder="Purchase price">
+
+<button
+class="green"
+onclick="addInventory()">
+➕ Add Stock
+</button>
+
+</div>
+
+<div class="card">
+
+<div id="inventoryList"></div>
+
+</div>
+
+</div>
+
+
+<!-- EXPENSES -->
+
+<div id="expenses" class="tab">
+
+<div class="card">
+
+<h2>💸 Expenses</h2>
+
+<input id="eDate" type="date">
+
+<input
+id="eCategory"
+placeholder="Category">
+
+<input
+id="eAmount"
+type="number"
+placeholder="Amount ₹">
+
+<input
+id="eNote"
+placeholder="Note">
+
+<button
+class="green"
+onclick="addExpense()">
+➕ Add Expense
+</button>
+
+</div>
+
+<div class="card">
+
+<div id="expenseList"></div>
+
+</div>
+
+</div>
+
+
+<!-- REPORTS -->
+
+<div id="reports" class="tab">
+
+<div class="card">
+
+<h2>📊 Business Report</h2>
+
+<h3>Total Payouts</h3>
+<div id="reportPayout">₹0</div>
+
+<h3>Total Expenses</h3>
+<div id="reportExpense">₹0</div>
+
+<h3>Estimated Net</h3>
+<div id="reportNet">₹0</div>
+
+<hr>
+
+<h3>📦 Inventory Value</h3>
+<div id="reportInventory">₹0</div>
+
+</div>
+
+</div>
+
+
+<!-- OFFERS -->
+
+<div id="offers" class="tab">
+
+<div class="card">
+
+<h2>🎁 Offers</h2>
+
+<input
+id="oName"
+placeholder="Offer name">
+
+<input
+id="oDiscount"
+type="number"
+placeholder="Discount %">
+
+<input
+id="oMin"
+type="number"
+placeholder="Minimum order ₹">
+
+<button
+class="green"
+onclick="addOffer()">
+➕ Add Offer
+</button>
+
+</div>
+
+<div class="card">
+
+<div id="offerList"></div>
+
+</div>
+
+</div>
+
+
+<!-- SETTINGS -->
+
+<div id="settings" class="tab">
+
+<div class="card">
+
+<h2>⚙️ Restaurant Settings</h2>
+
+<input
+id="sName"
+placeholder="Restaurant name">
+
+<input
+id="sPhone"
+placeholder="Phone">
+
+<input
+id="sAddress"
+placeholder="Address">
+
+<input
+id="sOpen"
+placeholder="Opening time">
+
+<input
+id="sClose"
+placeholder="Closing time">
+
+<button
+class="green"
+onclick="saveSettings()">
+💾 Save Settings
+</button>
+
+</div>
+
+</div>
+
+
+</div>
+
 </div>
 
 
 <script>
+
 
 const SUPABASE_URL =
 "https://oxfuccrgitckvozmnyss.supabase.co";
@@ -152,7 +689,28 @@ SUPABASE_URL,
 SUPABASE_KEY
 );
 
+
 let adminPin = "";
+
+let DATA = {
+
+payouts:[],
+transactions:[],
+inventory:[],
+expenses:[],
+offers:[],
+settings:{}
+
+};
+
+
+function today(){
+
+return new Date()
+.toISOString()
+.slice(0,10);
+
+}
 
 
 async function login(){
@@ -161,51 +719,27 @@ const pin =
 document.getElementById("pin").value;
 
 const msg =
-document.getElementById("msg");
+document.getElementById("loginMsg");
 
-if(pin.length !== 4){
-
-msg.className="error";
-msg.innerText="❌ 4 digit PIN enter karo";
-return;
-
-}
-
-msg.innerText="Checking...";
-
-const {data,error} =
-await db.rpc(
-"admin_login",
-{pin:pin}
-);
-
-if(error){
-
-console.error(error);
-
-msg.className="error";
-msg.innerText="❌ "+error.message;
-
-return;
-}
-
-if(data !== true){
+if(pin !== "7869"){
 
 msg.className="error";
 msg.innerText="❌ Wrong PIN";
-
 return;
+
 }
 
 adminPin=pin;
 
 sessionStorage.setItem(
-"admin_pin",
+"gk_admin_pin",
 pin
 );
 
+await loadData();
+
 document
-.getElementById("login")
+.getElementById("loginScreen")
 .classList.add("hidden");
 
 document
@@ -214,221 +748,225 @@ document
 
 loadOrders();
 
+refreshAll();
+
 }
 
 
-async function loadOrders(){
-
-const box =
-document.getElementById("orders");
-
-box.innerHTML=
-"<div class='card'>⏳ Loading orders...</div>";
+async function loadData(){
 
 const {data,error} =
 await db.rpc(
-"admin_get_orders",
+"admin_get_data",
 {pin:adminPin}
 );
 
 if(error){
 
-box.innerHTML=
-"<div class='card error'>❌ "+
-error.message+
-"</div>";
-
+alert(error.message);
 return;
+
 }
 
-if(!data || data.length===0){
+if(data){
 
-box.innerHTML=
-"<div class='card'>📦 No orders yet.</div>";
+DATA=data;
 
-return;
 }
-
-box.innerHTML="";
-
-data.forEach(order=>{
-
-let items="";
-
-(order.items || []).forEach(item=>{
-
-items += `
-<div class="item">
-🍽️ ${escapeHTML(item.item_name)}
- × ${item.quantity}
- — ₹${item.price}
-</div>
-`;
-
-});
-
-const div =
-document.createElement("div");
-
-div.className="order";
-
-div.innerHTML=`
-
-<h2>🧾 Order #${order.id}</h2>
-
-<p>👤 <b>${escapeHTML(order.customer_name)}</b></p>
-
-<p>📞 ${escapeHTML(order.customer_phone)}</p>
-
-<p>📍 ${escapeHTML(order.delivery_address)}</p>
-
-<p>💰 <b>₹${order.total_amount}</b></p>
-
-<p>💳 ${escapeHTML(order.payment_method || "COD")}</p>
-
-<p>📌 Status:
-<b>${escapeHTML(order.status || "pending")}</b>
-</p>
-
-<hr>
-
-<h3>🍽️ Items</h3>
-
-${items || "No item details"}
-
-<br>
-
-<button class="green"
-onclick="markDelivered(${order.id})">
-✅ Mark Delivered
-</button>
-
-<button class="blue"
-onclick="callCustomer('${encodeURIComponent(order.customer_phone)}')">
-📞 Call Customer
-</button>
-
-<button
-onclick="navigate('${encodeURIComponent(order.delivery_address)}')">
-🗺️ Navigate
-</button>
-
-`;
-
-box.appendChild(div);
-
-});
 
 }
 
 
-async function markDelivered(id){
+async function saveData(){
 
-const {data,error} =
+const {error} =
 await db.rpc(
-"admin_mark_delivered",
+"admin_save_data",
 {
 pin:adminPin,
-order_id:id
+payload:DATA
 }
 );
 
 if(error){
 
-alert("❌ "+error.message);
-return;
+alert("Save error: "+error.message);
 
 }
 
-alert("✅ Order delivered!");
-
-loadOrders();
+refreshAll();
 
 }
 
 
-function callCustomer(phone){
-
-window.location.href=
-"tel:"+decodeURIComponent(phone);
-
-}
-
-
-function navigate(address){
-
-window.open(
-"https://www.google.com/maps/search/?api=1&query="+
-address,
-"_blank"
-);
-
-}
-
-
-function logout(){
-
-adminPin="";
-
-sessionStorage.removeItem(
-"admin_pin"
-);
-
-location.reload();
-
-}
-
-
-function escapeHTML(value){
-
-if(value===null ||
-value===undefined){
-
-return "";
-
-}
-
-return String(value)
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-
-}
-
-
-const savedPin =
-sessionStorage.getItem("admin_pin");
-
-if(savedPin){
-
-adminPin=savedPin;
-
-db.rpc(
-"admin_login",
-{pin:adminPin}
-).then(({data})=>{
-
-if(data===true){
+function showTab(id){
 
 document
-.getElementById("login")
-.classList.add("hidden");
+.querySelectorAll(".tab")
+.forEach(x=>
+x.classList.remove("active")
+);
 
 document
-.getElementById("dashboard")
-.classList.remove("hidden");
+.getElementById(id)
+.classList.add("active");
 
-loadOrders();
+refreshAll();
 
 }
+
+
+function addPayout(){
+
+const gross =
+Number(document.getElementById("pGross").value)||0;
+
+const fees =
+Number(document.getElementById("pFees").value)||0;
+
+const refund =
+Number(document.getElementById("pRefund").value)||0;
+
+const net =
+gross-fees-refund;
+
+DATA.payouts.push({
+
+date:
+document.getElementById("pDate").value || today(),
+
+platform:
+document.getElementById("pPlatform").value,
+
+gross:gross,
+
+fees:fees,
+
+refund:refund,
+
+net:net,
+
+status:
+document.getElementById("pStatus").value
 
 });
 
+saveData();
+
+document.getElementById("pGross").value="";
+document.getElementById("pFees").value="";
+document.getElementById("pRefund").value="";
+
 }
 
-</script>
 
-</body>
-</html>
+function addTransaction(){
+
+DATA.transactions.push({
+
+date:
+document.getElementById("bDate").value || today(),
+
+type:
+document.getElementById("bType").value,
+
+amount:
+Number(document.getElementById("bAmount").value)||0,
+
+description:
+document.getElementById("bDescription").value
+
+});
+
+saveData();
+
+document.getElementById("bAmount").value="";
+document.getElementById("bDescription").value="";
+
+}
+
+
+function addInventory(){
+
+DATA.inventory.push({
+
+name:
+document.getElementById("iName").value,
+
+qty:
+Number(document.getElementById("iQty").value)||0,
+
+unit:
+document.getElementById("iUnit").value,
+
+price:
+Number(document.getElementById("iPrice").value)||0
+
+});
+
+saveData();
+
+document.getElementById("iName").value="";
+document.getElementById("iQty").value="";
+document.getElementById("iUnit").value="";
+document.getElementById("iPrice").value="";
+
+}
+
+
+function addExpense(){
+
+DATA.expenses.push({
+
+date:
+document.getElementById("eDate").value || today(),
+
+category:
+document.getElementById("eCategory").value,
+
+amount:
+Number(document.getElementById("eAmount").value)||0,
+
+note:
+document.getElementById("eNote").value
+
+});
+
+saveData();
+
+document.getElementById("eCategory").value="";
+document.getElementById("eAmount").value="";
+document.getElementById("eNote").value="";
+
+}
+
+
+function addOffer(){
+
+DATA.offers.push({
+
+name:
+document.getElementById("oName").value,
+
+discount:
+Number(document.getElementById("oDiscount").value)||0,
+
+minimum:
+Number(document.getElementById("oMin").value)||0
+
+});
+
+saveData();
+
+}
+
+
+function saveSettings(){
+
+DATA.settings={
+
+name:
+document.getElementById("sName").value,
+
+phone:
+document.getElementById("sPhone
