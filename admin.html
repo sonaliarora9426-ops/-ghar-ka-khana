@@ -6,7 +6,6 @@
 
 <title>Ghar Ka Khana Admin</title>
 
-<!-- ADMIN PWA -->
 <link rel="manifest" href="./admin-manifest.json">
 <meta name="theme-color" content="#f47b20">
 <meta name="mobile-web-app-capable" content="yes">
@@ -19,1636 +18,1256 @@
 <style>
 *{box-sizing:border-box}
 body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-background:#f5f6f8;
-color:#151515
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:#f6f6f6;
+  color:#171717;
 }
-.hidden{display:none!important}
-.app{max-width:720px;margin:auto;padding-bottom:80px}
-.top{
-position:sticky;
-top:0;
-z-index:5;
-background:#fff;
-padding:14px 16px;
-border-bottom:1px solid #eee
+button,input,textarea,select{
+  font:inherit;
 }
-.brand{font-size:21px;font-weight:800}
-.muted{color:#777;font-size:13px}
-.card{
-background:#fff;
-border-radius:18px;
-margin:12px;
-padding:16px;
-box-shadow:0 2px 12px #0000000a
+button{
+  cursor:pointer;
 }
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px
+.login-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
 }
-.stat{
-padding:15px;
-border:1px solid #eee;
-border-radius:15px
-}
-.stat b{
-display:block;
-font-size:25px;
-margin-top:4px
-}
-.title{
-font-size:18px;
-font-weight:800;
-margin-bottom:12px
-}
-.row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:8px
-}
-.btn{
-border:0;
-border-radius:11px;
-padding:10px 13px;
-font-weight:700
-}
-.black{background:#111;color:#fff}
-.gray{background:#eee}
-.red{background:#ffe6e6;color:#a00}
-.input{
-width:100%;
-padding:12px;
-border:1px solid #ddd;
-border-radius:11px;
-margin:6px 0 10px;
-background:white
-}
-.nav{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-background:#fff;
-border-top:1px solid #ddd;
-z-index:10
-}
-.navin{
-max-width:720px;
-margin:auto;
-display:grid;
-grid-template-columns:repeat(5,1fr)
-}
-.nav button{
-border:0;
-background:#fff;
-padding:8px 2px;
-color:#777;
-font-size:11px
-}
-.nav button b{
-display:block;
-font-size:20px
-}
-.nav button.active{
-color:#111;
-font-weight:800
-}
-.section{display:none}
-.section.active{display:block}
-.item{
-border:1px solid #eee;
-border-radius:14px;
-padding:12px;
-margin:9px 0
-}
-.pill{
-font-size:11px;
-padding:5px 8px;
-border-radius:20px;
-background:#eee
-}
-.on{
-background:#e6f8ed;
-color:#13733b
-}
-.off{
-background:#ffe7e7;
-color:#a00
-}
-.actions{
-display:flex;
-gap:7px;
-flex-wrap:wrap;
-margin-top:9px
-}
-.login{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-background:#f3f4f6
-}
-.loginbox{
-background:#fff;
-width:min(400px,100%);
-padding:28px;
-border-radius:22px
+.login-card{
+  width:100%;
+  max-width:520px;
+  background:white;
+  border-radius:30px;
+  padding:55px 35px;
+  text-align:center;
+  box-shadow:0 10px 35px rgba(0,0,0,.08);
 }
 .logo{
-text-align:center;
-font-size:50px
+  font-size:65px;
+  margin-bottom:15px;
 }
-.modal{
-position:fixed;
-inset:0;
-background:#0008;
-z-index:20;
-display:flex;
-align-items:flex-end
+.login-card h1{
+  font-size:40px;
+  margin:10px 0;
 }
-.sheet{
-background:#fff;
-width:100%;
-max-width:720px;
-margin:auto;
-border-radius:22px 22px 0 0;
-padding:20px;
-max-height:90vh;
-overflow:auto
+.login-card p{
+  color:#777;
+  font-size:18px;
 }
-.quick{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:9px
+.pin{
+  width:100%;
+  height:58px;
+  border:2px solid #ddd;
+  border-radius:18px;
+  padding:0 20px;
+  text-align:center;
+  font-size:24px;
+  letter-spacing:8px;
+  margin:25px 0 15px;
 }
-.quick button{
-border:0;
-background:#f3f3f3;
-border-radius:14px;
-padding:12px
+.login-btn{
+  width:100%;
+  height:60px;
+  border:0;
+  border-radius:18px;
+  background:#111;
+  color:white;
+  font-weight:700;
+  font-size:20px;
 }
-.quick b{
-display:block;
-margin-top:5px
+.login-btn:active{
+  transform:scale(.98);
+}
+.error{
+  color:#d00;
+  margin-top:15px;
+  font-weight:600;
+}
+.app{
+  display:none;
+  min-height:100vh;
+  padding-bottom:90px;
+}
+header{
+  background:white;
+  padding:20px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  border-bottom:1px solid #eee;
+}
+.header-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.header-title{
+  font-size:24px;
+  font-weight:800;
+}
+.logout{
+  border:0;
+  background:#eee;
+  border-radius:12px;
+  padding:10px 15px;
+}
+.content{
+  padding:20px;
+  max-width:1000px;
+  margin:auto;
+}
+.section{
+  display:none;
+}
+.section.active{
+  display:block;
+}
+.card{
+  background:white;
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 4px 18px rgba(0,0,0,.05);
+}
+h2{
+  margin-top:0;
+}
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+.stat{
+  background:white;
+  padding:20px;
+  border-radius:18px;
+}
+.stat b{
+  display:block;
+  font-size:28px;
+  margin-top:5px;
+}
+.order{
+  border:1px solid #eee;
+  border-radius:18px;
+  padding:17px;
+  margin-bottom:14px;
+}
+.order-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+.status{
+  padding:6px 10px;
+  border-radius:20px;
+  background:#fff1e5;
+  color:#d65f00;
+  font-size:13px;
+  font-weight:700;
+}
+.item{
+  padding:9px 0;
+  border-bottom:1px solid #eee;
+}
+.item:last-child{
+  border-bottom:0;
+}
+.small{
+  color:#777;
+  font-size:14px;
+}
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+.actions button{
+  border:0;
+  border-radius:12px;
+  padding:10px 14px;
+  background:#111;
+  color:white;
+}
+.actions .light{
+  background:#eee;
+  color:#111;
+}
+.menu-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:15px 0;
+  border-bottom:1px solid #eee;
+}
+.menu-row:last-child{
+  border-bottom:0;
+}
+.price{
+  font-weight:800;
+}
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:78px;
+  background:white;
+  border-top:1px solid #ddd;
+  display:flex;
+  z-index:20;
+}
+.nav-btn{
+  flex:1;
+  border:0;
+  background:white;
+  color:#777;
+  font-size:12px;
+  font-weight:700;
+}
+.nav-btn span{
+  display:block;
+  font-size:23px;
+  margin-bottom:3px;
+}
+.nav-btn.active{
+  color:#111;
+}
+textarea,
+.text-input{
+  width:100%;
+  border:1px solid #ddd;
+  border-radius:14px;
+  padding:13px;
+}
+.primary{
+  background:#f47b20;
+  color:white;
+  border:0;
+  border-radius:14px;
+  padding:13px 18px;
+  font-weight:700;
 }
 .empty{
-text-align:center;
-padding:25px;
-color:#888
+  text-align:center;
+  color:#777;
+  padding:30px 10px;
+}
+.loading{
+  text-align:center;
+  padding:25px;
+  color:#777;
+}
+@media(min-width:700px){
+  .stat-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div id="login" class="login">
-<div class="loginbox">
+<!-- LOGIN -->
+<div id="loginPage" class="login-page">
+  <div class="login-card">
 
-<div class="logo">🍱</div>
+    <div class="logo">🍱</div>
 
-<h1 style="text-align:center">
-Ghar Ka Khana
-</h1>
+    <h1>Ghar Ka Khana</h1>
+    <p>Restaurant Admin</p>
 
-<p class="muted" style="text-align:center">
-Restaurant Admin
-</p>
+    <input
+      id="pinInput"
+      class="pin"
+      type="password"
+      inputmode="numeric"
+      maxlength="4"
+      placeholder="PIN"
+      autocomplete="off"
+    >
 
-<input
-id="pin"
-class="input"
-type="password"
-inputmode="numeric"
-maxlength="4"
-placeholder="Enter 4-digit PIN">
+    <button id="loginButton" class="login-btn">
+      Login
+    </button>
 
-<button
-class="btn black"
-style="width:100%"
-onclick="login()">
-Login
-</button>
+    <div id="loginError" class="error"></div>
 
-<p id="msg"
-class="muted"
-style="text-align:center">
-</p>
-
-</div>
+  </div>
 </div>
 
 
-<div id="app" class="app hidden">
+<!-- APP -->
+<div id="app" class="app">
 
-<div class="top">
-<div class="row">
+<header>
+  <div class="header-row">
+    <div class="header-title">Ghar Ka Khana</div>
+    <button class="logout" onclick="logout()">Logout</button>
+  </div>
+</header>
 
-<div>
-<div class="brand">🍱 Ghar Ka Khana</div>
-<div class="muted">
-Independent Restaurant App
-</div>
-</div>
+<div class="content">
 
-<button class="btn gray" onclick="logout()">
-Logout
-</button>
-
-</div>
-</div>
-
-
+<!-- HUB -->
 <section id="hub" class="section active">
+  <div class="card">
+    <h2>🏠 Dashboard</h2>
+    <p class="small">Welcome to Ghar Ka Khana Admin</p>
+  </div>
 
-<div class="card">
+  <div class="stat-grid">
+    <div class="stat">
+      Orders
+      <b id="statOrders">0</b>
+    </div>
 
-<div class="row">
-<b>🟢 Restaurant LIVE</b>
-<span class="pill on">ONLINE</span>
-</div>
+    <div class="stat">
+      Pending
+      <b id="statPending">0</b>
+    </div>
 
-<div class="muted" style="margin-top:6px">
-Your own restaurant management system
-</div>
+    <div class="stat">
+      Delivered
+      <b id="statDelivered">0</b>
+    </div>
 
-</div>
-
-
-<div class="grid">
-
-<div class="stat">
-<span class="muted">Today's Sales</span>
-<b id="sales">₹0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Today's Orders</span>
-<b id="ordersToday">0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Pending</span>
-<b id="pending">0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Delivered</span>
-<b id="delivered">0</b>
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="title">
-Quick Links
-</div>
-
-<div class="quick">
-
-<button onclick="go('orders')">
-📦
-<b>Orders</b>
-</button>
-
-<button onclick="go('menu')">
-🍽️
-<b>Menu</b>
-</button>
-
-<button onclick="go('growth')">
-📈
-<b>Growth</b>
-</button>
-
-<button onclick="go('finance')">
-₹
-<b>Finance</b>
-</button>
-
-<button onclick="go('inventory')">
-📦
-<b>Inventory</b>
-</button>
-
-<button onclick="go('settings')">
-⚙️
-<b>Settings</b>
-</button>
-
-</div>
-</div>
-
-
-<div class="card">
-
-<div class="title">
-Recent Orders
-</div>
-
-<div id="recent"></div>
-
-</div>
-
+    <div class="stat">
+      Sales
+      <b id="statSales">₹0</b>
+    </div>
+  </div>
 </section>
 
 
+<!-- ORDERS -->
 <section id="orders" class="section">
 
-<div class="card">
+  <div class="card">
+    <h2>📦 Orders</h2>
+    <button class="primary" onclick="loadOrders()">
+      Refresh Orders
+    </button>
+  </div>
 
-<div class="row">
-
-<div class="title">
-Orders
-</div>
-
-<button class="btn gray" onclick="loadOrders()">
-↻
-</button>
-
-</div>
-
-<div id="orderList"></div>
-
-</div>
+  <div id="ordersList" class="card">
+    <div class="loading">Loading orders...</div>
+  </div>
 
 </section>
 
 
-<section id="menu" class="section">
-
-<div class="card">
-
-<div class="row">
-
-<div>
-
-<div class="title" style="margin:0">
-Menu Management
-</div>
-
-<div class="muted">
-Changes show on customer website.
-</div>
-
-</div>
-
-<button class="btn black" onclick="openMenu()">
-＋ Add
-</button>
-
-</div>
-
-
-<input
-id="search"
-class="input"
-placeholder="Search item..."
-oninput="renderMenu()">
-
-<div id="menuList"></div>
-
-</div>
-
-</section>
-
-
+<!-- GROWTH -->
 <section id="growth" class="section">
 
-<div class="card">
-
-<div class="title">
-Business Insights
-</div>
-
-<div class="grid">
-
-<div class="stat">
-<span class="muted">Total Sales</span>
-<b id="totalSales">₹0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Avg Order</span>
-<b id="avg">₹0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Menu Items</span>
-<b id="mc">0</b>
-</div>
-
-<div class="stat">
-<span class="muted">Available</span>
-<b id="ac">0</b>
-</div>
-
-</div>
-
-</div>
+  <div class="card">
+    <h2>📈 Growth</h2>
+    <p>Total Orders: <b id="growthOrders">0</b></p>
+    <p>Delivered Orders: <b id="growthDelivered">0</b></p>
+    <p>Total Sales: <b id="growthSales">₹0</b></p>
+  </div>
 
 </section>
 
 
+<!-- MENU -->
+<section id="menu" class="section">
+
+  <div class="card">
+    <h2>🍽️ Menu</h2>
+    <button class="primary" onclick="loadMenu()">
+      Refresh Menu
+    </button>
+  </div>
+
+  <div id="menuList" class="card">
+    <div class="loading">Loading menu...</div>
+  </div>
+
+</section>
+
+
+<!-- FINANCE -->
 <section id="finance" class="section">
 
-<div class="card">
+  <div class="card">
+    <h2>💰 Finance</h2>
+    <p>Total sales</p>
+    <h1 id="financeSales">₹0</h1>
+  </div>
 
-<div class="title">
-Finance
-</div>
+  <div class="card">
+    <h3>Add Expense</h3>
 
-<div class="grid">
+    <input
+      id="expenseName"
+      class="text-input"
+      placeholder="Expense name"
+    >
 
-<div class="stat">
-<span class="muted">Revenue</span>
-<b id="rev">₹0</b>
-</div>
+    <br><br>
 
-<div class="stat">
-<span class="muted">Expenses</span>
-<b id="exp">₹0</b>
-</div>
+    <input
+      id="expenseAmount"
+      class="text-input"
+      type="number"
+      placeholder="Amount"
+    >
 
-<div class="stat">
-<span class="muted">Profit</span>
-<b id="profit">₹0</b>
-</div>
+    <br><br>
 
-<div class="stat">
-<span class="muted">COD Revenue</span>
-<b id="cod">₹0</b>
-</div>
+    <button class="primary" onclick="addExpense()">
+      Add Expense
+    </button>
 
-</div>
+  </div>
 
-</div>
-
-
-<div class="card">
-
-<div class="title">
-Expenses
-</div>
-
-<div id="expenseList"></div>
-
-<button class="btn black" onclick="addExpense()">
-＋ Add Expense
-</button>
-
-</div>
+  <div id="expenseList" class="card"></div>
 
 </section>
 
 
-<section id="inventory" class="section">
-
-<div class="card">
-
-<div class="title">
-Inventory
-</div>
-
-<div id="inventoryList"></div>
-
-<button class="btn black" onclick="addInventory()">
-＋ Add Stock
-</button>
-
-</div>
-
-</section>
-
-
+<!-- SETTINGS -->
 <section id="settings" class="section">
 
-<div class="card">
+  <div class="card">
+    <h2>⚙️ Settings</h2>
+    <p class="small">
+      Ghar Ka Khana Admin Panel
+    </p>
 
-<div class="title">
-Settings
-</div>
-
-<input
-id="sname"
-class="input"
-value="Ghar Ka Khana"
-placeholder="Restaurant name">
-
-<input
-id="sphone"
-class="input"
-value="9877663522"
-placeholder="Phone">
-
-<textarea
-id="saddress"
-class="input"
-placeholder="Address"></textarea>
-
-<input
-id="shours"
-class="input"
-value="10 AM - 10 PM"
-placeholder="Hours">
-
-<button
-class="btn black"
-onclick="saveSettings()">
-Save
-</button>
-
-</div>
-
-
-<div class="card">
-
-<b>About</b>
-
-<p class="muted">
-Independent app. No Zomato/Swiggy integration.
-</p>
-
-</div>
+    <button class="primary" onclick="refreshAll()">
+      Refresh Everything
+    </button>
+  </div>
 
 </section>
 
 </div>
 
 
-<div id="modal" class="modal hidden">
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
 
-<div class="sheet">
+  <button class="nav-btn active" onclick="showSection('orders',this)">
+    <span>📦</span>
+    Orders
+  </button>
 
-<h2 id="mtitle">
-Add Menu Item
-</h2>
+  <button class="nav-btn" onclick="showSection('hub',this)">
+    <span>🏠</span>
+    Hub
+  </button>
 
-<input id="mid" type="hidden">
+  <button class="nav-btn" onclick="showSection('growth',this)">
+    <span>📈</span>
+    Growth
+  </button>
 
-<input
-id="mname"
-class="input"
-placeholder="Item name">
+  <button class="nav-btn" onclick="showSection('menu',this)">
+    <span>🍽️</span>
+    Menu
+  </button>
 
-<input
-id="mprice"
-class="input"
-type="number"
-placeholder="Price ₹">
+  <button class="nav-btn" onclick="showSection('finance',this)">
+    <span>₹</span>
+    Finance
+  </button>
 
-<select id="mcat" class="input">
+</nav>
 
-<option>Main Course</option>
-<option>Parathas & Roti</option>
-<option>Snacks</option>
-<option>Chaat</option>
-<option>Breakfast</option>
-<option>Lunch</option>
-<option>Dinner</option>
-<option>Drinks</option>
-<option>Combo</option>
-
-</select>
-
-<textarea
-id="mdesc"
-class="input"
-placeholder="Description"></textarea>
-
-<label>
-<input
-id="mavail"
-type="checkbox"
-checked>
-Available
-</label>
-
-<div class="actions">
-
-<button
-class="btn black"
-onclick="saveMenu()">
-Save
-</button>
-
-<button
-class="btn gray"
-onclick="closeModal()">
-Cancel
-</button>
-
-</div>
-
-</div>
-</div>
-
-
-<div class="nav">
-
-<div class="navin">
-
-<button
-id="n-orders"
-onclick="go('orders')">
-📦
-<b>Orders</b>
-</button>
-
-<button
-id="n-hub"
-class="active"
-onclick="go('hub')">
-🏠
-<b>Hub</b>
-</button>
-
-<button
-id="n-growth"
-onclick="go('growth')">
-📈
-<b>Growth</b>
-</button>
-
-<button
-id="n-menu"
-onclick="go('menu')">
-🍽️
-<b>Menu</b>
-</button>
-
-<button
-id="n-finance"
-onclick="go('finance')">
-₹
-<b>Finance</b>
-</button>
-
-</div>
 </div>
 
 
 <script>
 
-const URL =
+/* =========================
+   SUPABASE
+========================= */
+
+const SUPABASE_URL =
 "https://oxfuccrgitckvozmnyss.supabase.co";
 
-const KEY =
+const SUPABASE_KEY =
 "sb_publishable_DwZtFpmfTwDnlAp6fYbjpA_upTa3khj";
 
 const db =
-supabase.createClient(URL,KEY);
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
-let pin="";
-let orders=[];
-let menu=[];
-let data={
-expenses:[],
-inventory:[],
-settings:{}
+
+/* =========================
+   ADMIN PIN
+========================= */
+
+const ADMIN_PIN = "7869";
+
+let pin = "";
+let orders = [];
+let menu = [];
+let data = {
+  expenses: [],
+  inventory: [],
+  settings: {}
 };
 
-const $ =
-x => document.getElementById(x);
 
-const money =
-n => "₹"+Number(n||0).toLocaleString("en-IN");
+/* =========================
+   LOGIN
+========================= */
 
-function esc(x){
-return String(x??"").replace(
-/[&<>"']/g,
-m => ({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-}[m])
-);
-}
+document.addEventListener("DOMContentLoaded", function(){
+
+  const input =
+    document.getElementById("pinInput");
+
+  const button =
+    document.getElementById("loginButton");
+
+  input.addEventListener("keydown", function(e){
+    if(e.key === "Enter"){
+      login();
+    }
+  });
+
+  button.addEventListener("click", function(){
+    login();
+  });
+
+});
 
 
 async function login(){
 
-pin=$("pin").value.trim();
+  const input =
+    document.getElementById("pinInput");
 
-if(pin!=="7869"){
+  const error =
+    document.getElementById("loginError");
 
-$("msg").textContent="Wrong PIN";
+  const button =
+    document.getElementById("loginButton");
 
-return;
+  pin = input.value.trim();
 
+  error.textContent = "";
+
+  if(pin.length !== 4){
+    error.textContent = "Please enter 4 digit PIN";
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Logging in...";
+
+  try{
+
+    /* First verify locally */
+    if(pin !== ADMIN_PIN){
+      throw new Error("Invalid PIN");
+    }
+
+    /*
+      Verify through Supabase RPC too.
+      This keeps the existing admin authentication.
+    */
+    const result =
+      await db.rpc("admin_login", {
+        pin: pin
+      });
+
+    if(result.error){
+      console.error(result.error);
+
+      /*
+        If RPC is unavailable, don't silently fail.
+      */
+      throw new Error(result.error.message);
+    }
+
+    localStorage.setItem(
+      "gk_admin_login",
+      "7869"
+    );
+
+    document.getElementById("loginPage").style.display =
+      "none";
+
+    document.getElementById("app").style.display =
+      "block";
+
+    await refreshAll();
+
+  }catch(err){
+
+    console.error("LOGIN ERROR:", err);
+
+    error.textContent =
+      err.message || "Login failed";
+
+  }finally{
+
+    button.disabled = false;
+    button.textContent = "Login";
+
+  }
 }
 
-sessionStorage.setItem("gkpin",pin);
 
-$("login").classList.add("hidden");
+/* =========================
+   LOGOUT
+========================= */
 
-$("app").classList.remove("hidden");
+function logout(){
 
-await loadAll();
+  localStorage.removeItem(
+    "gk_admin_login"
+  );
 
+  location.reload();
 }
 
 
-async function loadAll(){
+/* =========================
+   AUTO LOGIN
+========================= */
 
-await Promise.all([
-loadOrders(),
-loadMenu(),
-loadData()
-]);
+async function checkSavedLogin(){
 
-refresh();
+  const saved =
+    localStorage.getItem("gk_admin_login");
 
+  if(saved === ADMIN_PIN){
+
+    pin = ADMIN_PIN;
+
+    document.getElementById("loginPage").style.display =
+      "none";
+
+    document.getElementById("app").style.display =
+      "block";
+
+    await refreshAll();
+  }
 }
 
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showSection(id, button){
+
+  document
+    .querySelectorAll(".section")
+    .forEach(x =>
+      x.classList.remove("active")
+    );
+
+  document
+    .getElementById(id)
+    .classList.add("active");
+
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(x =>
+      x.classList.remove("active")
+    );
+
+  if(button){
+    button.classList.add("active");
+  }
+}
+
+
+/* =========================
+   ORDERS
+========================= */
 
 async function loadOrders(){
 
-let r =
-await db.rpc(
-"admin_get_orders",
-{pin}
-);
+  const box =
+    document.getElementById("ordersList");
 
-if(!r.error){
+  box.innerHTML =
+    '<div class="loading">Loading orders...</div>';
 
-orders =
-Array.isArray(r.data)
-?r.data
-:[];
+  try{
 
-}
+    const r =
+      await db.rpc("admin_get_orders", {
+        pin: pin
+      });
 
-}
+    if(r.error){
+      throw r.error;
+    }
 
+    orders =
+      Array.isArray(r.data)
+        ? r.data
+        : [];
 
-async function loadMenu(){
+    renderOrders();
+    updateStats();
 
-let r =
-await db.rpc(
-"admin_get_menu",
-{pin}
-);
+  }catch(err){
 
-if(!r.error){
+    console.error(err);
 
-menu =
-Array.isArray(r.data)
-?r.data
-:[];
+    box.innerHTML =
+      `<div class="empty">
+        Unable to load orders.<br><br>
+        ${escapeHtml(err.message || "")}
+      </div>`;
 
-}
-
-}
-
-
-async function loadData(){
-
-let r =
-await db.rpc(
-"admin_get_data",
-{pin}
-);
-
-if(!r.error && r.data){
-
-data=r.data||data;
-
-}
-
-}
-
-
-function go(id){
-
-document
-.querySelectorAll(".section")
-.forEach(x =>
-x.classList.remove("active")
-);
-
-$(id).classList.add("active");
-
-document
-.querySelectorAll(".nav button")
-.forEach(x =>
-x.classList.remove("active")
-);
-
-let n=$("n-"+id);
-
-if(n)
-n.classList.add("active");
-
-if(id==="menu")
-renderMenu();
-
-if(id==="orders")
-renderOrders();
-
-if(id==="finance")
-renderFinance();
-
-if(id==="inventory")
-renderInventory();
-
-}
-
-
-function refresh(){
-
-renderHub();
-renderOrders();
-renderMenu();
-renderGrowth();
-renderFinance();
-renderInventory();
-
-}
-
-
-function renderHub(){
-
-let t =
-new Date().toDateString();
-
-let a =
-orders.filter(
-o =>
-new Date(o.created_at)
-.toDateString()===t
-);
-
-$("sales").textContent =
-money(
-a.reduce(
-(s,o)=>
-s+Number(o.total_amount||0),
-0
-)
-);
-
-$("ordersToday").textContent =
-a.length;
-
-$("pending").textContent =
-orders.filter(
-o =>
-[
-"pending",
-"preparing",
-"ready",
-"out_for_delivery"
-].includes(o.status)
-).length;
-
-$("delivered").textContent =
-orders.filter(
-o =>
-o.status==="delivered"
-).length;
-
-$("recent").innerHTML =
-orders
-.slice(0,5)
-.map(o => `
-
-<div class="item">
-
-<div class="row">
-
-<b>
-#${o.id}
-${esc(o.customer_name)}
-</b>
-
-<span class="pill">
-${esc(o.status)}
-</span>
-
-</div>
-
-<div class="muted">
-${money(o.total_amount)}
-•
-${esc(o.payment_method||"COD")}
-</div>
-
-</div>
-
-`)
-.join("")
-||
-'<div class="empty">No orders</div>';
-
+  }
 }
 
 
 function renderOrders(){
 
-$("orderList").innerHTML =
-orders.map(o => `
+  const box =
+    document.getElementById("ordersList");
 
-<div class="item">
+  if(!orders.length){
 
-<div class="row">
+    box.innerHTML =
+      '<div class="empty">No orders yet.</div>';
 
-<b>
-#${o.id}
-•
-${esc(o.customer_name)}
-</b>
+    return;
+  }
 
-<span class="pill">
-${esc(o.status)}
-</span>
+  box.innerHTML =
+    orders.map(o => {
 
-</div>
+      const status =
+        o.status || "pending";
 
-<div class="muted">
+      const date =
+        o.created_at
+          ? new Date(o.created_at).toLocaleString("en-IN")
+          : "";
 
-📞 ${esc(o.customer_phone)}
+      let items = "";
 
-<br>
+      if(Array.isArray(o.items) && o.items.length){
 
-📍 ${esc(o.delivery_address)}
+        items =
+          o.items.map(i => `
+            <div class="item">
+              <b>${escapeHtml(i.item_name || "")}</b>
+              × ${i.quantity || 1}
+              <span style="float:right">
+                ₹${Number(i.price || 0) *
+                    Number(i.quantity || 1)}
+              </span>
+              ${
+                i.description
+                  ? `<div class="small">
+                      ${escapeHtml(i.description)}
+                    </div>`
+                  : ""
+              }
+            </div>
+          `).join("");
 
-</div>
+      }else{
 
-<p>
+        items =
+          `<div class="small">
+            Item details will appear here.
+          </div>`;
 
-<b>
-${money(o.total_amount)}
-</b>
+      }
 
-•
+      return `
+        <div class="order">
 
-${esc(o.payment_method||"COD")}
+          <div class="order-top">
+            <div>
+              <b>Order #${o.id}</b>
+              <div class="small">${date}</div>
+            </div>
 
-</p>
+            <span class="status">
+              ${escapeHtml(status)}
+            </span>
+          </div>
 
-<div class="muted">
+          <br>
 
-${
-(o.items||[])
-.map(
-i =>
-`${esc(i.item_name)} × ${i.quantity}`
-)
-.join(" • ")
-||
-"No item details"
+          <b>${escapeHtml(o.customer_name || "")}</b>
+
+          <div class="small">
+            📞 ${escapeHtml(o.customer_phone || "")}
+          </div>
+
+          <div class="small">
+            📍 ${escapeHtml(o.delivery_address || "")}
+          </div>
+
+          <hr>
+
+          ${items}
+
+          <hr>
+
+          <b>Total: ₹${Number(o.total_amount || 0)}</b>
+
+          <div class="actions">
+
+            ${
+              status !== "delivered"
+              ? `
+                <button
+                  onclick="markDelivered(${Number(o.id)})">
+                  Mark Delivered
+                </button>
+              `
+              : ""
+            }
+
+            <button
+              class="light"
+              onclick="loadOrderItems(${Number(o.id)})">
+              View Items
+            </button>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
 }
 
-</div>
 
-<div class="actions">
+/* =========================
+   ORDER ITEMS
+========================= */
 
-<a
-class="btn gray"
-href="tel:${esc(o.customer_phone)}">
-Call
-</a>
+async function loadOrderItems(orderId){
 
-<button
-class="btn black"
-onclick="nextStatus(${o.id},'preparing')">
-Preparing
-</button>
+  try{
 
-<button
-class="btn black"
-onclick="nextStatus(${o.id},'ready')">
-Ready
-</button>
+    const r =
+      await db.rpc("admin_get_order_items", {
+        pin: pin,
+        p_order_id: Number(orderId)
+      });
 
-<button
-class="btn black"
-onclick="nextStatus(${o.id},'out_for_delivery')">
-Out
-</button>
+    if(r.error){
+      throw r.error;
+    }
 
-<button
-class="btn black"
-onclick="nextStatus(${o.id},'delivered')">
-Delivered
-</button>
+    const items =
+      Array.isArray(r.data)
+        ? r.data
+        : [];
 
-<button
-class="btn red"
-onclick="nextStatus(${o.id},'cancelled')">
-Cancel
-</button>
+    if(!items.length){
+      alert("No item details found.");
+      return;
+    }
 
-</div>
+    const text =
+      items.map(i =>
+        `${i.item_name} × ${i.quantity || 1} — ₹${Number(i.price || 0) * Number(i.quantity || 1)}`
+      ).join("\n");
 
-</div>
+    alert(
+      "Order #" + orderId +
+      "\n\n" + text
+    );
 
-`)
-.join("")
-||
-'<div class="empty">No orders yet</div>';
+  }catch(err){
 
+    alert(
+      "Unable to load item details:\n" +
+      (err.message || "")
+    );
+
+  }
 }
 
 
-async function nextStatus(id,status){
+/* =========================
+   DELIVERED
+========================= */
 
-let r =
-await db.rpc(
-"admin_update_order_status",
-{
-pin,
-p_order_id:id,
-p_status:status
+async function markDelivered(orderId){
+
+  if(!confirm("Mark this order as delivered?")){
+    return;
+  }
+
+  try{
+
+    const r =
+      await db.rpc(
+        "admin_mark_delivered",
+        {
+          pin: pin,
+          order_id: Number(orderId)
+        }
+      );
+
+    if(r.error){
+      throw r.error;
+    }
+
+    await loadOrders();
+
+  }catch(err){
+
+    alert(
+      err.message || "Unable to update order"
+    );
+
+  }
 }
-);
 
-if(r.error){
 
-alert(r.error.message);
+/* =========================
+   MENU
+========================= */
 
-}else{
+async function loadMenu(){
 
-await loadOrders();
+  const box =
+    document.getElementById("menuList");
 
-refresh();
+  box.innerHTML =
+    '<div class="loading">Loading menu...</div>';
 
-}
+  try{
 
+    const r =
+      await db.rpc("admin_get_menu");
+
+    if(r.error){
+      throw r.error;
+    }
+
+    menu =
+      Array.isArray(r.data)
+        ? r.data
+        : [];
+
+    renderMenu();
+
+  }catch(err){
+
+    console.error(err);
+
+    box.innerHTML =
+      `<div class="empty">
+        Unable to load menu.<br><br>
+        ${escapeHtml(err.message || "")}
+      </div>`;
+
+  }
 }
 
 
 function renderMenu(){
 
-let q =
-($("search")?.value||"")
-.toLowerCase();
+  const box =
+    document.getElementById("menuList");
 
-let a =
-menu.filter(
-x =>
-x.name
-.toLowerCase()
-.includes(q)
-);
+  if(!menu.length){
 
-$("menuList").innerHTML =
-a.map(x => `
+    box.innerHTML =
+      '<div class="empty">No menu items.</div>';
 
-<div class="item ${x.is_available?"":"off"}">
+    return;
+  }
 
-<div class="row">
+  box.innerHTML =
+    menu.map(m => `
 
-<div>
+      <div class="menu-row">
 
-<b>
-${esc(x.name)}
-</b>
+        <div>
+          <b>${escapeHtml(m.name || "")}</b>
 
-<div class="muted">
-${esc(x.category)}
-</div>
+          <div class="small">
+            ${escapeHtml(m.category || "")}
+          </div>
 
-</div>
+          ${
+            m.description
+              ? `<div class="small">
+                   ${escapeHtml(m.description)}
+                 </div>`
+              : ""
+          }
+        </div>
 
-<b>
-${money(x.price)}
-</b>
+        <div class="price">
+          ₹${Number(m.price || 0)}
+        </div>
 
-</div>
+      </div>
 
-<div class="muted">
-${esc(x.description||"")}
-</div>
-
-<div class="actions">
-
-<span
-class="pill ${x.is_available?"on":"off"}">
-
-${x.is_available
-?"Available"
-:"Out of stock"}
-
-</span>
-
-<button
-class="btn gray"
-onclick="editMenu(${x.id})">
-Edit
-</button>
-
-<button
-class="btn gray"
-onclick="toggleMenu(
-${x.id},
-${!x.is_available}
-)">
-${x.is_available?"Hide":"Show"}
-</button>
-
-<button
-class="btn red"
-onclick="deleteMenu(${x.id})">
-Delete
-</button>
-
-</div>
-
-</div>
-
-`)
-.join("")
-||
-'<div class="empty">No menu items</div>';
-
+    `).join("");
 }
 
 
-function openMenu(x){
+/* =========================
+   STATS
+========================= */
 
-$("modal")
-.classList.remove("hidden");
+function updateStats(){
 
-$("mtitle").textContent =
-x
-?"Edit Menu Item"
-:"Add Menu Item";
+  const total =
+    orders.length;
 
-$("mid").value =
-x?.id||"";
+  const pending =
+    orders.filter(o =>
+      String(o.status || "").toLowerCase()
+      === "pending"
+    ).length;
 
-$("mname").value =
-x?.name||"";
+  const delivered =
+    orders.filter(o =>
+      String(o.status || "").toLowerCase()
+      === "delivered"
+    ).length;
 
-$("mprice").value =
-x?.price||"";
+  const sales =
+    orders.reduce(
+      (sum,o) =>
+        sum + Number(o.total_amount || 0),
+      0
+    );
 
-$("mcat").value =
-x?.category||"Main Course";
+  document.getElementById("statOrders")
+    .textContent = total;
 
-$("mdesc").value =
-x?.description||"";
+  document.getElementById("statPending")
+    .textContent = pending;
 
-$("mavail").checked =
-x
-?x.is_available
-:true;
+  document.getElementById("statDelivered")
+    .textContent = delivered;
 
+  document.getElementById("statSales")
+    .textContent = "₹" + sales;
+
+  document.getElementById("growthOrders")
+    .textContent = total;
+
+  document.getElementById("growthDelivered")
+    .textContent = delivered;
+
+  document.getElementById("growthSales")
+    .textContent = "₹" + sales;
+
+  document.getElementById("financeSales")
+    .textContent = "₹" + sales;
 }
 
 
-function editMenu(id){
+/* =========================
+   FINANCE
+========================= */
 
-openMenu(
-menu.find(x => x.id===id)
-);
+async function loadData(){
 
-}
+  try{
 
+    const r =
+      await db.rpc("admin_get_data", {
+        pin: pin
+      });
 
-function closeModal(){
+    if(r.error){
+      console.error(r.error);
+      return;
+    }
 
-$("modal")
-.classList.add("hidden");
+    if(r.data){
+      data = r.data;
+    }
 
-}
+    if(!Array.isArray(data.expenses)){
+      data.expenses = [];
+    }
 
+    renderExpenses();
 
-async function saveMenu(){
+  }catch(err){
 
-let id =
-$("mid").value;
+    console.error(err);
 
-let p={
-
-pin,
-
-p_name:
-$("mname").value,
-
-p_price:
-Number($("mprice").value),
-
-p_category:
-$("mcat").value,
-
-p_description:
-$("mdesc").value,
-
-p_is_available:
-$("mavail").checked
-
-};
-
-let r =
-id
-
-?await db.rpc(
-"admin_update_menu_item",
-{
-...p,
-p_id:Number(id)
-}
-)
-
-:await db.rpc(
-"admin_add_menu_item",
-p
-);
-
-if(r.error){
-
-alert(r.error.message);
-
-}else{
-
-closeModal();
-
-await loadMenu();
-
-refresh();
-
-}
-
-}
-
-
-async function toggleMenu(id,v){
-
-let r =
-await db.rpc(
-"admin_toggle_menu_item",
-{
-pin,
-p_id:id,
-p_available:v
-}
-);
-
-if(r.error){
-
-alert(r.error.message);
-
-}else{
-
-await loadMenu();
-
-refresh();
-
-}
-
-}
-
-
-async function deleteMenu(id){
-
-if(
-!confirm(
-"Delete this item?"
-)
-)
-return;
-
-let r =
-await db.rpc(
-"admin_delete_menu_item",
-{
-pin,
-p_id:id
-}
-);
-
-if(r.error){
-
-alert(r.error.message);
-
-}else{
-
-await loadMenu();
-
-refresh();
-
-}
-
-}
-
-
-function renderGrowth(){
-
-let total =
-orders.reduce(
-(s,o) =>
-s+Number(o.total_amount||0),
-0
-);
-
-$("totalSales").textContent =
-money(total);
-
-$("avg").textContent =
-money(
-orders.length
-?total/orders.length
-:0
-);
-
-$("mc").textContent =
-menu.length;
-
-$("ac").textContent =
-menu.filter(
-x => x.is_available
-).length;
-
-}
-
-
-function renderFinance(){
-
-let rev =
-orders.reduce(
-(s,o)=>
-s+Number(o.total_amount||0),
-0
-);
-
-let e =
-(data.expenses||[])
-.reduce(
-(s,x)=>
-s+Number(x.amount||0),
-0
-);
-
-let cod =
-orders
-.filter(
-o =>
-(o.payment_method||"COD")
-==="COD"
-)
-.reduce(
-(s,o)=>
-s+Number(o.total_amount||0),
-0
-);
-
-$("rev").textContent =
-money(rev);
-
-$("exp").textContent =
-money(e);
-
-$("profit").textContent =
-money(rev-e);
-
-$("cod").textContent =
-money(cod);
-
-$("expenseList").innerHTML =
-(data.expenses||[])
-.map(
-(x,i) => `
-
-<div class="item">
-
-<div class="row">
-
-<b>
-${esc(x.name)}
-</b>
-
-<b>
-${money(x.amount)}
-</b>
-
-</div>
-
-</div>
-
-`
-)
-.join("")
-||
-'<div class="muted">No expenses added</div>';
-
+  }
 }
 
 
 async function addExpense(){
 
-let n =
-prompt("Expense name");
+  const name =
+    document
+      .getElementById("expenseName")
+      .value
+      .trim();
 
-if(!n)
-return;
+  const amount =
+    Number(
+      document
+        .getElementById("expenseAmount")
+        .value
+    );
 
-let a =
-prompt("Amount ₹");
+  if(!name || !amount){
+    alert("Enter expense name and amount.");
+    return;
+  }
 
-if(!a)
-return;
+  if(!Array.isArray(data.expenses)){
+    data.expenses = [];
+  }
 
-data.expenses =
-data.expenses||[];
+  data.expenses.push({
+    name:name,
+    amount:amount,
+    date:new Date().toISOString()
+  });
 
-data.expenses.push({
+  try{
 
-name:n,
+    const r =
+      await db.rpc("admin_save_data", {
+        pin: pin,
+        payload: data
+      });
 
-amount:Number(a),
+    if(r.error){
+      throw r.error;
+    }
 
-date:
-new Date()
-.toISOString()
+    document.getElementById("expenseName").value = "";
+    document.getElementById("expenseAmount").value = "";
 
-});
+    renderExpenses();
 
-await saveData();
+  }catch(err){
 
-renderFinance();
+    alert(
+      err.message || "Unable to save expense"
+    );
+
+  }
+}
+
+
+function renderExpenses(){
+
+  const box =
+    document.getElementById("expenseList");
+
+  const expenses =
+    Array.isArray(data.expenses)
+      ? data.expenses
+      : [];
+
+  if(!expenses.length){
+
+    box.innerHTML =
+      '<div class="empty">No expenses added.</div>';
+
+    return;
+  }
+
+  box.innerHTML =
+    "<h3>Expenses</h3>" +
+    expenses.map(e => `
+      <div class="menu-row">
+        <div>
+          <b>${escapeHtml(e.name || "")}</b>
+          <div class="small">
+            ${e.date
+              ? new Date(e.date).toLocaleDateString("en-IN")
+              : ""}
+          </div>
+        </div>
+        <b>₹${Number(e.amount || 0)}</b>
+      </div>
+    `).join("");
+}
+
+
+/* =========================
+   REFRESH
+========================= */
+
+async function refreshAll(){
+
+  await Promise.all([
+    loadOrders(),
+    loadMenu(),
+    loadData()
+  ]);
+
+  updateStats();
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* =========================
+   PWA
+========================= */
+
+if("serviceWorker" in navigator){
+
+  window.addEventListener("load", function(){
+
+    navigator.serviceWorker
+      .register("./admin-sw.js")
+      .then(function(){
+        console.log(
+          "Ghar Ka Khana Admin PWA ready"
+        );
+      })
+      .catch(function(error){
+        console.log(
+          "Admin PWA error:",
+          error
+        );
+      });
+
+  });
 
 }
 
 
-async function saveData(){
+/* =========================
+   START
+========================= */
 
-let r =
-await db.rpc(
-"admin_save_data",
-{
-pin,
-payload:data
-}
-);
-
-if(r.error)
-alert(r.error.message);
-
-}
-
-
-function renderInventory(){
-
-$("inventoryList").innerHTML =
-(data.inventory||[])
-.map(
-(x,i) => `
-
-<div class="item">
-
-<div class="row">
-
-<b>
-${esc(x.name)}
-</b>
-
-<span>
-${esc(x.qty)}
-${esc(x.unit||"")}
-</span>
-
-</div>
-
-</div>
-
-`
-)
-.join("")
-||
-'<div class="muted">No stock items</div>';
-
-}
-
-
-async function addInventory(){
-
-let n =
-prompt("Item name");
-
-if(!n)
-return;
-
-let q =
-prompt("Quantity");
-
-if(q===null)
-return;
-
-data.inventory =
-data.inventory||[];
-
-data.inventory.push({
-
-name:n,
-
-qty:q,
-
-unit:""
-
-});
-
-await saveData();
-
-renderInventory();
-
-}
-
-
-function saveSettings(){
-
-data.settings={
-
-name:
-$("sname").value,
-
-phone:
-$("sphone").value,
-
-address:
-$("saddress").value,
-
-hours:
-$("shours").value
-
-};
-
-saveData();
-
-alert("Settings saved");
-
-}
-
-
-function logout(){
-
-sessionStorage.removeItem("gkpin");
-
-location.reload();
-
-}
-
-
-if(
-sessionStorage.getItem("gkpin")
-==="7869"
-){
-
-pin="7869";
-
-$("login")
-.classList.add("hidden");
-
-$("app")
-.classList.remove("hidden");
-
-loadAll();
-
-}
-
-
-/* ADMIN PWA SERVICE WORKER */
-
-if(
-"serviceWorker" in navigator
-){
-
-window.addEventListener(
-"load",
-function(){
-
-navigator.serviceWorker
-.register("./admin-sw.js")
-.then(
-function(){
-console.log(
-"Ghar Ka Khana Admin PWA ready"
-);
-}
-)
-.catch(
-function(error){
-console.log(
-"Admin PWA error:",
-error
-);
-}
-);
-
-}
-);
-
-}
+checkSavedLogin();
 
 </script>
 
