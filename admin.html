@@ -7,6 +7,7 @@
 <title>Ghar Ka Khana Admin</title>
 
 <link rel="manifest" href="./admin-manifest.json">
+
 <meta name="theme-color" content="#f47b20">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,256 +18,294 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:#f6f6f6;
-  color:#171717;
+margin:0;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+background:#f6f6f6;
+color:#171717;
 }
+
 button,input,textarea,select{
-  font:inherit;
+font:inherit;
 }
+
 button{
-  cursor:pointer;
+cursor:pointer;
 }
+
 .login-page{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
 }
+
 .login-card{
-  width:100%;
-  max-width:520px;
-  background:white;
-  border-radius:30px;
-  padding:55px 35px;
-  text-align:center;
-  box-shadow:0 10px 35px rgba(0,0,0,.08);
+width:100%;
+max-width:520px;
+background:white;
+border-radius:30px;
+padding:55px 35px;
+text-align:center;
+box-shadow:0 10px 35px rgba(0,0,0,.08);
 }
+
 .logo{
-  font-size:65px;
-  margin-bottom:15px;
+font-size:65px;
+margin-bottom:15px;
 }
+
 .login-card h1{
-  font-size:40px;
-  margin:10px 0;
+font-size:40px;
+margin:10px 0;
 }
+
 .login-card p{
-  color:#777;
-  font-size:18px;
+color:#777;
+font-size:18px;
 }
+
 .pin{
-  width:100%;
-  height:58px;
-  border:2px solid #ddd;
-  border-radius:18px;
-  padding:0 20px;
-  text-align:center;
-  font-size:24px;
-  letter-spacing:8px;
-  margin:25px 0 15px;
+width:100%;
+height:58px;
+border:2px solid #ddd;
+border-radius:18px;
+padding:0 20px;
+text-align:center;
+font-size:24px;
+letter-spacing:8px;
+margin:25px 0 15px;
 }
+
 .login-btn{
-  width:100%;
-  height:60px;
-  border:0;
-  border-radius:18px;
-  background:#111;
-  color:white;
-  font-weight:700;
-  font-size:20px;
+width:100%;
+height:60px;
+border:0;
+border-radius:18px;
+background:#111;
+color:white;
+font-weight:700;
+font-size:20px;
 }
-.login-btn:active{
-  transform:scale(.98);
-}
+
 .error{
-  color:#d00;
-  margin-top:15px;
-  font-weight:600;
+color:#d00;
+margin-top:15px;
+font-weight:600;
 }
+
 .app{
-  display:none;
-  min-height:100vh;
-  padding-bottom:90px;
+display:none;
+min-height:100vh;
+padding-bottom:90px;
 }
+
 header{
-  background:white;
-  padding:20px;
-  position:sticky;
-  top:0;
-  z-index:10;
-  border-bottom:1px solid #eee;
+background:white;
+padding:20px;
+position:sticky;
+top:0;
+z-index:10;
+border-bottom:1px solid #eee;
 }
+
 .header-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
+
 .header-title{
-  font-size:24px;
-  font-weight:800;
+font-size:24px;
+font-weight:800;
 }
+
 .logout{
-  border:0;
-  background:#eee;
-  border-radius:12px;
-  padding:10px 15px;
+border:0;
+background:#eee;
+border-radius:12px;
+padding:10px 15px;
 }
+
 .content{
-  padding:20px;
-  max-width:1000px;
-  margin:auto;
+padding:20px;
+max-width:1000px;
+margin:auto;
 }
+
 .section{
-  display:none;
+display:none;
 }
+
 .section.active{
-  display:block;
+display:block;
 }
+
 .card{
-  background:white;
-  border-radius:20px;
-  padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 4px 18px rgba(0,0,0,.05);
+background:white;
+border-radius:20px;
+padding:20px;
+margin-bottom:16px;
+box-shadow:0 4px 18px rgba(0,0,0,.05);
 }
-h2{
-  margin-top:0;
-}
+
 .stat-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
 }
+
 .stat{
-  background:white;
-  padding:20px;
-  border-radius:18px;
+background:white;
+padding:20px;
+border-radius:18px;
 }
+
 .stat b{
-  display:block;
-  font-size:28px;
-  margin-top:5px;
+display:block;
+font-size:28px;
+margin-top:5px;
 }
+
 .order{
-  border:1px solid #eee;
-  border-radius:18px;
-  padding:17px;
-  margin-bottom:14px;
+border:1px solid #eee;
+border-radius:18px;
+padding:17px;
+margin-bottom:14px;
 }
+
 .order-top{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
+display:flex;
+justify-content:space-between;
+gap:10px;
 }
+
 .status{
-  padding:6px 10px;
-  border-radius:20px;
-  background:#fff1e5;
-  color:#d65f00;
-  font-size:13px;
-  font-weight:700;
+padding:6px 10px;
+border-radius:20px;
+background:#fff1e5;
+color:#d65f00;
+font-size:13px;
+font-weight:700;
 }
+
 .item{
-  padding:9px 0;
-  border-bottom:1px solid #eee;
+padding:9px 0;
+border-bottom:1px solid #eee;
 }
+
 .item:last-child{
-  border-bottom:0;
+border-bottom:0;
 }
+
 .small{
-  color:#777;
-  font-size:14px;
+color:#777;
+font-size:14px;
 }
+
 .actions{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:15px;
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:15px;
 }
+
 .actions button{
-  border:0;
-  border-radius:12px;
-  padding:10px 14px;
-  background:#111;
-  color:white;
+border:0;
+border-radius:12px;
+padding:10px 14px;
+background:#111;
+color:white;
 }
+
 .actions .light{
-  background:#eee;
-  color:#111;
+background:#eee;
+color:#111;
 }
+
 .menu-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  padding:15px 0;
-  border-bottom:1px solid #eee;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px;
+padding:15px 0;
+border-bottom:1px solid #eee;
 }
+
 .menu-row:last-child{
-  border-bottom:0;
+border-bottom:0;
 }
+
 .price{
-  font-weight:800;
+font-weight:800;
 }
+
 .bottom-nav{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:78px;
-  background:white;
-  border-top:1px solid #ddd;
-  display:flex;
-  z-index:20;
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+height:78px;
+background:white;
+border-top:1px solid #ddd;
+display:flex;
+z-index:20;
 }
+
 .nav-btn{
-  flex:1;
-  border:0;
-  background:white;
-  color:#777;
-  font-size:12px;
-  font-weight:700;
+flex:1;
+border:0;
+background:white;
+color:#777;
+font-size:12px;
+font-weight:700;
 }
+
 .nav-btn span{
-  display:block;
-  font-size:23px;
-  margin-bottom:3px;
+display:block;
+font-size:23px;
+margin-bottom:3px;
 }
+
 .nav-btn.active{
-  color:#111;
+color:#111;
 }
+
 textarea,
 .text-input{
-  width:100%;
-  border:1px solid #ddd;
-  border-radius:14px;
-  padding:13px;
+width:100%;
+border:1px solid #ddd;
+border-radius:14px;
+padding:13px;
 }
+
 .primary{
-  background:#f47b20;
-  color:white;
-  border:0;
-  border-radius:14px;
-  padding:13px 18px;
-  font-weight:700;
+background:#f47b20;
+color:white;
+border:0;
+border-radius:14px;
+padding:13px 18px;
+font-weight:700;
 }
+
 .empty{
-  text-align:center;
-  color:#777;
-  padding:30px 10px;
+text-align:center;
+color:#777;
+padding:30px 10px;
 }
+
 .loading{
-  text-align:center;
-  padding:25px;
-  color:#777;
+text-align:center;
+padding:25px;
+color:#777;
 }
+
 @media(min-width:700px){
-  .stat-grid{
-    grid-template-columns:repeat(4,1fr);
-  }
+.stat-grid{
+grid-template-columns:repeat(4,1fr);
+}
 }
 </style>
 </head>
@@ -274,177 +313,273 @@ textarea,
 <body>
 
 <!-- LOGIN -->
+
 <div id="loginPage" class="login-page">
-  <div class="login-card">
 
-    <div class="logo">🍱</div>
+<div class="login-card">
 
-    <h1>Ghar Ka Khana</h1>
-    <p>Restaurant Admin</p>
+<div class="logo">🍱</div>
 
-    <input
-      id="pinInput"
-      class="pin"
-      type="password"
-      inputmode="numeric"
-      maxlength="4"
-      placeholder="PIN"
-      autocomplete="off"
-    >
+<h1>Ghar Ka Khana</h1>
 
-    <button id="loginButton" class="login-btn">
-      Login
-    </button>
+<p>Restaurant Admin</p>
 
-    <div id="loginError" class="error"></div>
+<input
+id="pinInput"
+class="pin"
+type="password"
+inputmode="numeric"
+maxlength="4"
+placeholder="PIN"
+autocomplete="off"
+>
 
-  </div>
+<button
+id="loginButton"
+class="login-btn">
+Login
+</button>
+
+<div
+id="loginError"
+class="error">
+</div>
+
+</div>
+
 </div>
 
 
 <!-- APP -->
+
 <div id="app" class="app">
 
 <header>
-  <div class="header-row">
-    <div class="header-title">Ghar Ka Khana</div>
-    <button class="logout" onclick="logout()">Logout</button>
-  </div>
+
+<div class="header-row">
+
+<div class="header-title">
+Ghar Ka Khana
+</div>
+
+<button
+class="logout"
+onclick="logout()">
+Logout
+</button>
+
+</div>
+
 </header>
+
 
 <div class="content">
 
+
 <!-- HUB -->
+
 <section id="hub" class="section active">
-  <div class="card">
-    <h2>🏠 Dashboard</h2>
-    <p class="small">Welcome to Ghar Ka Khana Admin</p>
-  </div>
 
-  <div class="stat-grid">
-    <div class="stat">
-      Orders
-      <b id="statOrders">0</b>
-    </div>
+<div class="card">
 
-    <div class="stat">
-      Pending
-      <b id="statPending">0</b>
-    </div>
+<h2>🏠 Dashboard</h2>
 
-    <div class="stat">
-      Delivered
-      <b id="statDelivered">0</b>
-    </div>
+<p class="small">
+Welcome to Ghar Ka Khana Admin
+</p>
 
-    <div class="stat">
-      Sales
-      <b id="statSales">₹0</b>
-    </div>
-  </div>
+</div>
+
+
+<div class="stat-grid">
+
+<div class="stat">
+Orders
+<b id="statOrders">0</b>
+</div>
+
+<div class="stat">
+Pending
+<b id="statPending">0</b>
+</div>
+
+<div class="stat">
+Delivered
+<b id="statDelivered">0</b>
+</div>
+
+<div class="stat">
+Sales
+<b id="statSales">₹0</b>
+</div>
+
+</div>
+
 </section>
 
 
 <!-- ORDERS -->
+
 <section id="orders" class="section">
 
-  <div class="card">
-    <h2>📦 Orders</h2>
-    <button class="primary" onclick="loadOrders()">
-      Refresh Orders
-    </button>
-  </div>
+<div class="card">
 
-  <div id="ordersList" class="card">
-    <div class="loading">Loading orders...</div>
-  </div>
+<h2>📦 Orders</h2>
+
+<button
+class="primary"
+onclick="loadOrders()">
+Refresh Orders
+</button>
+
+</div>
+
+<div
+id="ordersList"
+class="card">
+
+<div class="loading">
+Loading orders...
+</div>
+
+</div>
 
 </section>
 
 
 <!-- GROWTH -->
+
 <section id="growth" class="section">
 
-  <div class="card">
-    <h2>📈 Growth</h2>
-    <p>Total Orders: <b id="growthOrders">0</b></p>
-    <p>Delivered Orders: <b id="growthDelivered">0</b></p>
-    <p>Total Sales: <b id="growthSales">₹0</b></p>
-  </div>
+<div class="card">
+
+<h2>📈 Growth</h2>
+
+<p>
+Total Orders:
+<b id="growthOrders">0</b>
+</p>
+
+<p>
+Delivered Orders:
+<b id="growthDelivered">0</b>
+</p>
+
+<p>
+Total Sales:
+<b id="growthSales">₹0</b>
+</p>
+
+</div>
 
 </section>
 
 
 <!-- MENU -->
+
 <section id="menu" class="section">
 
-  <div class="card">
-    <h2>🍽️ Menu</h2>
-    <button class="primary" onclick="loadMenu()">
-      Refresh Menu
-    </button>
-  </div>
+<div class="card">
 
-  <div id="menuList" class="card">
-    <div class="loading">Loading menu...</div>
-  </div>
+<h2>🍽️ Menu</h2>
+
+<button
+class="primary"
+onclick="loadMenu()">
+Refresh Menu
+</button>
+
+</div>
+
+<div
+id="menuList"
+class="card">
+
+<div class="loading">
+Loading menu...
+</div>
+
+</div>
 
 </section>
 
 
 <!-- FINANCE -->
+
 <section id="finance" class="section">
 
-  <div class="card">
-    <h2>💰 Finance</h2>
-    <p>Total sales</p>
-    <h1 id="financeSales">₹0</h1>
-  </div>
+<div class="card">
 
-  <div class="card">
-    <h3>Add Expense</h3>
+<h2>💰 Finance</h2>
 
-    <input
-      id="expenseName"
-      class="text-input"
-      placeholder="Expense name"
-    >
+<p>
+Total Sales
+</p>
 
-    <br><br>
+<h1 id="financeSales">
+₹0
+</h1>
 
-    <input
-      id="expenseAmount"
-      class="text-input"
-      type="number"
-      placeholder="Amount"
-    >
+</div>
 
-    <br><br>
 
-    <button class="primary" onclick="addExpense()">
-      Add Expense
-    </button>
+<div class="card">
 
-  </div>
+<h3>Add Expense</h3>
 
-  <div id="expenseList" class="card"></div>
+<input
+id="expenseName"
+class="text-input"
+placeholder="Expense name"
+>
+
+<br><br>
+
+<input
+id="expenseAmount"
+class="text-input"
+type="number"
+placeholder="Amount"
+>
+
+<br><br>
+
+<button
+class="primary"
+onclick="addExpense()">
+Add Expense
+</button>
+
+</div>
+
+
+<div
+id="expenseList"
+class="card">
+</div>
 
 </section>
 
 
 <!-- SETTINGS -->
+
 <section id="settings" class="section">
 
-  <div class="card">
-    <h2>⚙️ Settings</h2>
-    <p class="small">
-      Ghar Ka Khana Admin Panel
-    </p>
+<div class="card">
 
-    <button class="primary" onclick="refreshAll()">
-      Refresh Everything
-    </button>
-  </div>
+<h2>⚙️ Settings</h2>
+
+<p class="small">
+Ghar Ka Khana Admin Panel
+</p>
+
+<button
+class="primary"
+onclick="refreshAll()">
+Refresh Everything
+</button>
+
+</div>
 
 </section>
 
@@ -452,32 +587,57 @@ textarea,
 
 
 <!-- BOTTOM NAV -->
+
 <nav class="bottom-nav">
 
-  <button class="nav-btn active" onclick="showSection('orders',this)">
-    <span>📦</span>
-    Orders
-  </button>
+<button
+class="nav-btn"
+onclick="showSection('orders',this)">
 
-  <button class="nav-btn" onclick="showSection('hub',this)">
-    <span>🏠</span>
-    Hub
-  </button>
+<span>📦</span>
+Orders
 
-  <button class="nav-btn" onclick="showSection('growth',this)">
-    <span>📈</span>
-    Growth
-  </button>
+</button>
 
-  <button class="nav-btn" onclick="showSection('menu',this)">
-    <span>🍽️</span>
-    Menu
-  </button>
 
-  <button class="nav-btn" onclick="showSection('finance',this)">
-    <span>₹</span>
-    Finance
-  </button>
+<button
+class="nav-btn active"
+onclick="showSection('hub',this)">
+
+<span>🏠</span>
+Hub
+
+</button>
+
+
+<button
+class="nav-btn"
+onclick="showSection('growth',this)">
+
+<span>📈</span>
+Growth
+
+</button>
+
+
+<button
+class="nav-btn"
+onclick="showSection('menu',this)">
+
+<span>🍽️</span>
+Menu
+
+</button>
+
+
+<button
+class="nav-btn"
+onclick="showSection('finance',this)">
+
+<span>₹</span>
+Finance
+
+</button>
 
 </nav>
 
@@ -487,7 +647,7 @@ textarea,
 <script>
 
 /* =========================
-   SUPABASE
+SUPABASE
 ========================= */
 
 const SUPABASE_URL =
@@ -498,776 +658,1182 @@ const SUPABASE_KEY =
 
 const db =
 supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
 
 /* =========================
-   ADMIN PIN
+ADMIN
 ========================= */
 
 const ADMIN_PIN = "7869";
 
 let pin = "";
+
 let orders = [];
+
 let menu = [];
+
 let data = {
-  expenses: [],
-  inventory: [],
-  settings: {}
+expenses:[],
+inventory:[],
+settings:{}
 };
 
 
 /* =========================
-   LOGIN
+LOGIN
 ========================= */
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener(
+"DOMContentLoaded",
+function(){
 
-  const input =
-    document.getElementById("pinInput");
+const input =
+document.getElementById("pinInput");
 
-  const button =
-    document.getElementById("loginButton");
+const button =
+document.getElementById("loginButton");
 
-  input.addEventListener("keydown", function(e){
-    if(e.key === "Enter"){
-      login();
-    }
-  });
 
-  button.addEventListener("click", function(){
-    login();
-  });
+input.addEventListener(
+"keydown",
+function(e){
+
+if(e.key === "Enter"){
+login();
+}
+
+});
+
+
+button.addEventListener(
+"click",
+function(){
+login();
+});
+
+
+checkSavedLogin();
 
 });
 
 
 async function login(){
 
-  const input =
-    document.getElementById("pinInput");
+const input =
+document.getElementById("pinInput");
 
-  const error =
-    document.getElementById("loginError");
+const error =
+document.getElementById("loginError");
 
-  const button =
-    document.getElementById("loginButton");
+const button =
+document.getElementById("loginButton");
 
-  pin = input.value.trim();
+pin =
+input.value.trim();
 
-  error.textContent = "";
+error.textContent = "";
 
-  if(pin.length !== 4){
-    error.textContent = "Please enter 4 digit PIN";
-    return;
-  }
+if(pin !== ADMIN_PIN){
 
-  button.disabled = true;
-  button.textContent = "Logging in...";
+error.textContent =
+"Invalid PIN";
 
-  try{
+return;
 
-    /* First verify locally */
-    if(pin !== ADMIN_PIN){
-      throw new Error("Invalid PIN");
-    }
+}
 
-    /*
-      Verify through Supabase RPC too.
-      This keeps the existing admin authentication.
-    */
-    const result =
-      await db.rpc("admin_login", {
-        pin: pin
-      });
+button.disabled = true;
 
-    if(result.error){
-      console.error(result.error);
+button.textContent =
+"Logging in...";
 
-      /*
-        If RPC is unavailable, don't silently fail.
-      */
-      throw new Error(result.error.message);
-    }
+try{
 
-    localStorage.setItem(
-      "gk_admin_login",
-      "7869"
-    );
+const r =
+await db.rpc(
+"admin_login",
+{
+pin:pin
+}
+);
 
-    document.getElementById("loginPage").style.display =
-      "none";
+if(r.error){
 
-    document.getElementById("app").style.display =
-      "block";
+throw r.error;
 
-    await refreshAll();
+}
 
-  }catch(err){
+localStorage.setItem(
+"gk_admin_login",
+pin
+);
 
-    console.error("LOGIN ERROR:", err);
+document.getElementById(
+"loginPage"
+).style.display =
+"none";
 
-    error.textContent =
-      err.message || "Login failed";
+document.getElementById(
+"app"
+).style.display =
+"block";
 
-  }finally{
+await refreshAll();
 
-    button.disabled = false;
-    button.textContent = "Login";
+}
+catch(err){
 
-  }
+console.error(
+"LOGIN ERROR",
+err
+);
+
+error.textContent =
+err.message ||
+"Login failed";
+
+}
+finally{
+
+button.disabled = false;
+
+button.textContent =
+"Login";
+
+}
+
 }
 
 
 /* =========================
-   LOGOUT
-========================= */
-
-function logout(){
-
-  localStorage.removeItem(
-    "gk_admin_login"
-  );
-
-  location.reload();
-}
-
-
-/* =========================
-   AUTO LOGIN
+AUTO LOGIN
 ========================= */
 
 async function checkSavedLogin(){
 
-  const saved =
-    localStorage.getItem("gk_admin_login");
+const saved =
+localStorage.getItem(
+"gk_admin_login"
+);
 
-  if(saved === ADMIN_PIN){
+if(saved !== ADMIN_PIN){
+return;
+}
 
-    pin = ADMIN_PIN;
+pin = saved;
 
-    document.getElementById("loginPage").style.display =
-      "none";
+document.getElementById(
+"loginPage"
+).style.display =
+"none";
 
-    document.getElementById("app").style.display =
-      "block";
+document.getElementById(
+"app"
+).style.display =
+"block";
 
-    await refreshAll();
-  }
+await refreshAll();
+
 }
 
 
 /* =========================
-   NAVIGATION
+LOGOUT
 ========================= */
 
-function showSection(id, button){
+function logout(){
 
-  document
-    .querySelectorAll(".section")
-    .forEach(x =>
-      x.classList.remove("active")
-    );
+localStorage.removeItem(
+"gk_admin_login"
+);
 
-  document
-    .getElementById(id)
-    .classList.add("active");
+location.reload();
 
-  document
-    .querySelectorAll(".nav-btn")
-    .forEach(x =>
-      x.classList.remove("active")
-    );
-
-  if(button){
-    button.classList.add("active");
-  }
 }
 
 
 /* =========================
-   ORDERS
+NAVIGATION
+========================= */
+
+function showSection(
+id,
+button
+){
+
+document
+.querySelectorAll(".section")
+.forEach(function(x){
+x.classList.remove("active");
+});
+
+
+document
+.getElementById(id)
+.classList.add("active");
+
+
+document
+.querySelectorAll(".nav-btn")
+.forEach(function(x){
+x.classList.remove("active");
+});
+
+
+if(button){
+button.classList.add("active");
+}
+
+}
+
+
+/* =========================
+ORDERS
 ========================= */
 
 async function loadOrders(){
 
-  const box =
-    document.getElementById("ordersList");
+const box =
+document.getElementById(
+"ordersList"
+);
 
-  box.innerHTML =
-    '<div class="loading">Loading orders...</div>';
+box.innerHTML =
+'<div class="loading">Loading orders...</div>';
 
-  try{
+try{
 
-    const r =
-      await db.rpc("admin_get_orders", {
-        pin: pin
-      });
+const r =
+await db.rpc(
+"admin_get_orders",
+{
+pin:pin
+}
+);
 
-    if(r.error){
-      throw r.error;
-    }
-
-    orders =
-      Array.isArray(r.data)
-        ? r.data
-        : [];
-
-    renderOrders();
-    updateStats();
-
-  }catch(err){
-
-    console.error(err);
-
-    box.innerHTML =
-      `<div class="empty">
-        Unable to load orders.<br><br>
-        ${escapeHtml(err.message || "")}
-      </div>`;
-
-  }
+if(r.error){
+throw r.error;
 }
 
+orders =
+Array.isArray(r.data)
+? r.data
+: [];
+
+renderOrders();
+
+updateStats();
+
+}
+catch(err){
+
+console.error(err);
+
+box.innerHTML =
+`
+<div class="empty">
+Unable to load orders.
+<br><br>
+${escapeHtml(
+err.message || ""
+)}
+</div>
+`;
+
+}
+
+}
+
+
+/* =========================
+RENDER ORDERS
+========================= */
 
 function renderOrders(){
 
-  const box =
-    document.getElementById("ordersList");
+const box =
+document.getElementById(
+"ordersList"
+);
 
-  if(!orders.length){
+if(!orders.length){
 
-    box.innerHTML =
-      '<div class="empty">No orders yet.</div>';
+box.innerHTML =
+`
+<div class="empty">
+No orders yet.
+</div>
+`;
 
-    return;
-  }
+return;
 
-  box.innerHTML =
-    orders.map(o => {
+}
 
-      const status =
-        o.status || "pending";
 
-      const date =
-        o.created_at
-          ? new Date(o.created_at).toLocaleString("en-IN")
-          : "";
+box.innerHTML =
+orders.map(function(o){
 
-      let items = "";
+const status =
+o.status || "pending";
 
-      if(Array.isArray(o.items) && o.items.length){
+const date =
+o.created_at
+? new Date(
+o.created_at
+).toLocaleString("en-IN")
+: "";
 
-        items =
-          o.items.map(i => `
-            <div class="item">
-              <b>${escapeHtml(i.item_name || "")}</b>
-              × ${i.quantity || 1}
-              <span style="float:right">
-                ₹${Number(i.price || 0) *
-                    Number(i.quantity || 1)}
-              </span>
-              ${
-                i.description
-                  ? `<div class="small">
-                      ${escapeHtml(i.description)}
-                    </div>`
-                  : ""
-              }
-            </div>
-          `).join("");
 
-      }else{
+let items = "";
 
-        items =
-          `<div class="small">
-            Item details will appear here.
-          </div>`;
+if(
+Array.isArray(o.items)
+&&
+o.items.length
+){
 
-      }
+items =
+o.items.map(function(i){
 
-      return `
-        <div class="order">
+return `
+<div class="item">
 
-          <div class="order-top">
-            <div>
-              <b>Order #${o.id}</b>
-              <div class="small">${date}</div>
-            </div>
+<b>
+${escapeHtml(
+i.item_name || ""
+)}
+</b>
 
-            <span class="status">
-              ${escapeHtml(status)}
-            </span>
-          </div>
+× ${i.quantity || 1}
 
-          <br>
+<span style="float:right">
+₹${
+Number(i.price || 0) *
+Number(i.quantity || 1)
+}
+</span>
 
-          <b>${escapeHtml(o.customer_name || "")}</b>
+${
+i.description
+?
+`
+<div class="small">
+${escapeHtml(
+i.description
+)}
+</div>
+`
+:
+""
+}
 
-          <div class="small">
-            📞 ${escapeHtml(o.customer_phone || "")}
-          </div>
+</div>
+`;
 
-          <div class="small">
-            📍 ${escapeHtml(o.delivery_address || "")}
-          </div>
+}).join("");
 
-          <hr>
+}
+else{
 
-          ${items}
+items =
+`
+<div class="small">
+Item details can be viewed below.
+</div>
+`;
 
-          <hr>
+}
 
-          <b>Total: ₹${Number(o.total_amount || 0)}</b>
 
-          <div class="actions">
+return `
+<div class="order">
 
-            ${
-              status !== "delivered"
-              ? `
-                <button
-                  onclick="markDelivered(${Number(o.id)})">
-                  Mark Delivered
-                </button>
-              `
-              : ""
-            }
+<div class="order-top">
 
-            <button
-              class="light"
-              onclick="loadOrderItems(${Number(o.id)})">
-              View Items
-            </button>
+<div>
 
-          </div>
+<b>
+Order #${o.id}
+</b>
 
-        </div>
-      `;
+<div class="small">
+${date}
+</div>
 
-    }).join("");
+</div>
+
+<span class="status">
+${escapeHtml(status)}
+</span>
+
+</div>
+
+
+<br>
+
+
+<b>
+${escapeHtml(
+o.customer_name || ""
+)}
+</b>
+
+
+<div class="small">
+📞 ${escapeHtml(
+o.customer_phone || ""
+)}
+</div>
+
+
+<div class="small">
+📍 ${escapeHtml(
+o.delivery_address || ""
+)}
+</div>
+
+
+<hr>
+
+
+${items}
+
+
+<hr>
+
+
+<b>
+Total:
+₹${Number(
+o.total_amount || 0
+)}
+</b>
+
+
+<div class="actions">
+
+${
+status !== "delivered"
+?
+`
+<button
+onclick="markDelivered(${Number(o.id)})">
+Mark Delivered
+</button>
+`
+:
+""
+}
+
+
+<button
+class="light"
+onclick="loadOrderItems(${Number(o.id)})">
+View Items
+</button>
+
+</div>
+
+</div>
+`;
+
+}).join("");
+
 }
 
 
 /* =========================
-   ORDER ITEMS
+ORDER ITEMS
 ========================= */
 
-async function loadOrderItems(orderId){
+async function loadOrderItems(
+orderId
+){
 
-  try{
+try{
 
-    const r =
-      await db.rpc("admin_get_order_items", {
-        pin: pin,
-        p_order_id: Number(orderId)
-      });
+const r =
+await db.rpc(
+"admin_get_order_items",
+{
+pin:pin,
+p_order_id:Number(orderId)
+}
+);
 
-    if(r.error){
-      throw r.error;
-    }
+if(r.error){
+throw r.error;
+}
 
-    const items =
-      Array.isArray(r.data)
-        ? r.data
-        : [];
+const items =
+Array.isArray(r.data)
+? r.data
+: [];
 
-    if(!items.length){
-      alert("No item details found.");
-      return;
-    }
 
-    const text =
-      items.map(i =>
-        `${i.item_name} × ${i.quantity || 1} — ₹${Number(i.price || 0) * Number(i.quantity || 1)}`
-      ).join("\n");
+if(!items.length){
 
-    alert(
-      "Order #" + orderId +
-      "\n\n" + text
-    );
+alert(
+"No item details found."
+);
 
-  }catch(err){
+return;
 
-    alert(
-      "Unable to load item details:\n" +
-      (err.message || "")
-    );
+}
 
-  }
+
+const text =
+items.map(function(i){
+
+return `
+${i.item_name}
+× ${i.quantity || 1}
+— ₹${
+Number(i.price || 0) *
+Number(i.quantity || 1)
+}
+`;
+
+}).join("\n");
+
+
+alert(
+"Order #" +
+orderId +
+"\n\n" +
+text
+);
+
+}
+catch(err){
+
+alert(
+"Unable to load item details:\n" +
+(err.message || "")
+);
+
+}
+
 }
 
 
 /* =========================
-   DELIVERED
+MARK DELIVERED
 ========================= */
 
-async function markDelivered(orderId){
+async function markDelivered(
+orderId
+){
 
-  if(!confirm("Mark this order as delivered?")){
-    return;
-  }
+if(
+!confirm(
+"Mark this order as delivered?"
+)
+){
+return;
+}
 
-  try{
 
-    const r =
-      await db.rpc(
-        "admin_mark_delivered",
-        {
-          pin: pin,
-          order_id: Number(orderId)
-        }
-      );
+try{
 
-    if(r.error){
-      throw r.error;
-    }
+const r =
+await db.rpc(
+"admin_mark_delivered",
+{
+pin:pin,
+order_id:Number(orderId)
+}
+);
 
-    await loadOrders();
+if(r.error){
+throw r.error;
+}
 
-  }catch(err){
+await loadOrders();
 
-    alert(
-      err.message || "Unable to update order"
-    );
+}
+catch(err){
 
-  }
+alert(
+err.message ||
+"Unable to update order"
+);
+
+}
+
 }
 
 
 /* =========================
-   MENU
+MENU
 ========================= */
 
 async function loadMenu(){
 
-  const box =
-    document.getElementById("menuList");
+const box =
+document.getElementById(
+"menuList"
+);
 
-  box.innerHTML =
-    '<div class="loading">Loading menu...</div>';
+box.innerHTML =
+`
+<div class="loading">
+Loading menu...
+</div>
+`;
 
-  try{
 
-    const r =
-      await db.rpc("admin_get_menu");
+try{
 
-    if(r.error){
-      throw r.error;
-    }
+/*
+IMPORTANT:
+admin_get_menu requires PIN
+*/
 
-    menu =
-      Array.isArray(r.data)
-        ? r.data
-        : [];
+const r =
+await db.rpc(
+"admin_get_menu",
+{
+pin:pin
+}
+);
 
-    renderMenu();
 
-  }catch(err){
+if(r.error){
 
-    console.error(err);
+throw r.error;
 
-    box.innerHTML =
-      `<div class="empty">
-        Unable to load menu.<br><br>
-        ${escapeHtml(err.message || "")}
-      </div>`;
-
-  }
 }
 
 
-function renderMenu(){
+menu =
+Array.isArray(r.data)
+? r.data
+: [];
 
-  const box =
-    document.getElementById("menuList");
 
-  if(!menu.length){
+renderMenu();
 
-    box.innerHTML =
-      '<div class="empty">No menu items.</div>';
+}
+catch(err){
 
-    return;
-  }
+console.error(
+"MENU ERROR",
+err
+);
 
-  box.innerHTML =
-    menu.map(m => `
+box.innerHTML =
+`
+<div class="empty">
 
-      <div class="menu-row">
+Unable to load menu.
 
-        <div>
-          <b>${escapeHtml(m.name || "")}</b>
+<br><br>
 
-          <div class="small">
-            ${escapeHtml(m.category || "")}
-          </div>
+${escapeHtml(
+err.message || ""
+)}
 
-          ${
-            m.description
-              ? `<div class="small">
-                   ${escapeHtml(m.description)}
-                 </div>`
-              : ""
-          }
-        </div>
+</div>
+`;
 
-        <div class="price">
-          ₹${Number(m.price || 0)}
-        </div>
+}
 
-      </div>
-
-    `).join("");
 }
 
 
 /* =========================
-   STATS
+RENDER MENU
+========================= */
+
+function renderMenu(){
+
+const box =
+document.getElementById(
+"menuList"
+);
+
+
+if(!menu.length){
+
+box.innerHTML =
+`
+<div class="empty">
+No menu items.
+</div>
+`;
+
+return;
+
+}
+
+
+box.innerHTML =
+menu.map(function(m){
+
+return `
+<div class="menu-row">
+
+<div>
+
+<b>
+${escapeHtml(
+m.name || ""
+)}
+</b>
+
+<div class="small">
+${escapeHtml(
+m.category || ""
+)}
+</div>
+
+${
+m.description
+?
+`
+<div class="small">
+${escapeHtml(
+m.description
+)}
+</div>
+`
+:
+""
+}
+
+</div>
+
+
+<div class="price">
+₹${Number(
+m.price || 0
+)}
+</div>
+
+</div>
+`;
+
+}).join("");
+
+}
+
+
+/* =========================
+STATS
 ========================= */
 
 function updateStats(){
 
-  const total =
-    orders.length;
+const total =
+orders.length;
 
-  const pending =
-    orders.filter(o =>
-      String(o.status || "").toLowerCase()
-      === "pending"
-    ).length;
 
-  const delivered =
-    orders.filter(o =>
-      String(o.status || "").toLowerCase()
-      === "delivered"
-    ).length;
+const pending =
+orders.filter(function(o){
 
-  const sales =
-    orders.reduce(
-      (sum,o) =>
-        sum + Number(o.total_amount || 0),
-      0
-    );
+return String(
+o.status || ""
+).toLowerCase()
+===
+"pending";
 
-  document.getElementById("statOrders")
-    .textContent = total;
+}).length;
 
-  document.getElementById("statPending")
-    .textContent = pending;
 
-  document.getElementById("statDelivered")
-    .textContent = delivered;
+const delivered =
+orders.filter(function(o){
 
-  document.getElementById("statSales")
-    .textContent = "₹" + sales;
+return String(
+o.status || ""
+).toLowerCase()
+===
+"delivered";
 
-  document.getElementById("growthOrders")
-    .textContent = total;
+}).length;
 
-  document.getElementById("growthDelivered")
-    .textContent = delivered;
 
-  document.getElementById("growthSales")
-    .textContent = "₹" + sales;
+const sales =
+orders.reduce(
+function(sum,o){
 
-  document.getElementById("financeSales")
-    .textContent = "₹" + sales;
+return sum +
+Number(
+o.total_amount || 0
+);
+
+},
+0
+);
+
+
+document.getElementById(
+"statOrders"
+).textContent =
+total;
+
+
+document.getElementById(
+"statPending"
+).textContent =
+pending;
+
+
+document.getElementById(
+"statDelivered"
+).textContent =
+delivered;
+
+
+document.getElementById(
+"statSales"
+).textContent =
+"₹" + sales;
+
+
+document.getElementById(
+"growthOrders"
+).textContent =
+total;
+
+
+document.getElementById(
+"growthDelivered"
+).textContent =
+delivered;
+
+
+document.getElementById(
+"growthSales"
+).textContent =
+"₹" + sales;
+
+
+document.getElementById(
+"financeSales"
+).textContent =
+"₹" + sales;
+
 }
 
 
 /* =========================
-   FINANCE
+DATA
 ========================= */
 
 async function loadData(){
 
-  try{
+try{
 
-    const r =
-      await db.rpc("admin_get_data", {
-        pin: pin
-      });
+const r =
+await db.rpc(
+"admin_get_data",
+{
+pin:pin
+}
+);
 
-    if(r.error){
-      console.error(r.error);
-      return;
-    }
 
-    if(r.data){
-      data = r.data;
-    }
+if(r.error){
 
-    if(!Array.isArray(data.expenses)){
-      data.expenses = [];
-    }
+console.error(r.error);
 
-    renderExpenses();
+return;
 
-  }catch(err){
-
-    console.error(err);
-
-  }
 }
 
 
-async function addExpense(){
+if(r.data){
 
-  const name =
-    document
-      .getElementById("expenseName")
-      .value
-      .trim();
+data = r.data;
 
-  const amount =
-    Number(
-      document
-        .getElementById("expenseAmount")
-        .value
-    );
-
-  if(!name || !amount){
-    alert("Enter expense name and amount.");
-    return;
-  }
-
-  if(!Array.isArray(data.expenses)){
-    data.expenses = [];
-  }
-
-  data.expenses.push({
-    name:name,
-    amount:amount,
-    date:new Date().toISOString()
-  });
-
-  try{
-
-    const r =
-      await db.rpc("admin_save_data", {
-        pin: pin,
-        payload: data
-      });
-
-    if(r.error){
-      throw r.error;
-    }
-
-    document.getElementById("expenseName").value = "";
-    document.getElementById("expenseAmount").value = "";
-
-    renderExpenses();
-
-  }catch(err){
-
-    alert(
-      err.message || "Unable to save expense"
-    );
-
-  }
 }
 
 
-function renderExpenses(){
+if(
+!Array.isArray(
+data.expenses
+)
+){
 
-  const box =
-    document.getElementById("expenseList");
+data.expenses = [];
 
-  const expenses =
-    Array.isArray(data.expenses)
-      ? data.expenses
-      : [];
+}
 
-  if(!expenses.length){
 
-    box.innerHTML =
-      '<div class="empty">No expenses added.</div>';
+renderExpenses();
 
-    return;
-  }
+}
+catch(err){
 
-  box.innerHTML =
-    "<h3>Expenses</h3>" +
-    expenses.map(e => `
-      <div class="menu-row">
-        <div>
-          <b>${escapeHtml(e.name || "")}</b>
-          <div class="small">
-            ${e.date
-              ? new Date(e.date).toLocaleDateString("en-IN")
-              : ""}
-          </div>
-        </div>
-        <b>₹${Number(e.amount || 0)}</b>
-      </div>
-    `).join("");
+console.error(err);
+
+}
+
 }
 
 
 /* =========================
-   REFRESH
+ADD EXPENSE
+========================= */
+
+async function addExpense(){
+
+const name =
+document.getElementById(
+"expenseName"
+).value.trim();
+
+
+const amount =
+Number(
+document.getElementById(
+"expenseAmount"
+).value
+);
+
+
+if(!name || !amount){
+
+alert(
+"Enter expense name and amount."
+);
+
+return;
+
+}
+
+
+if(
+!Array.isArray(
+data.expenses
+)
+){
+
+data.expenses = [];
+
+}
+
+
+data.expenses.push({
+
+name:name,
+
+amount:amount,
+
+date:new Date().toISOString()
+
+});
+
+
+try{
+
+const r =
+await db.rpc(
+"admin_save_data",
+{
+pin:pin,
+payload:data
+}
+);
+
+
+if(r.error){
+
+throw r.error;
+
+}
+
+
+document.getElementById(
+"expenseName"
+).value = "";
+
+
+document.getElementById(
+"expenseAmount"
+).value = "";
+
+
+renderExpenses();
+
+}
+catch(err){
+
+alert(
+err.message ||
+"Unable to save expense"
+);
+
+}
+
+}
+
+
+/* =========================
+EXPENSES
+========================= */
+
+function renderExpenses(){
+
+const box =
+document.getElementById(
+"expenseList"
+);
+
+
+const expenses =
+Array.isArray(
+data.expenses
+)
+?
+data.expenses
+:
+[];
+
+
+if(!expenses.length){
+
+box.innerHTML =
+`
+<div class="empty">
+No expenses added.
+</div>
+`;
+
+return;
+
+}
+
+
+box.innerHTML =
+`
+<h3>Expenses</h3>
+` +
+
+expenses.map(function(e){
+
+return `
+<div class="menu-row">
+
+<div>
+
+<b>
+${escapeHtml(
+e.name || ""
+)}
+</b>
+
+<div class="small">
+${
+e.date
+?
+new Date(
+e.date
+).toLocaleDateString(
+"en-IN"
+)
+:
+""
+}
+</div>
+
+</div>
+
+<b>
+₹${Number(
+e.amount || 0
+)}
+</b>
+
+</div>
+`;
+
+}).join("");
+
+}
+
+
+/* =========================
+REFRESH
 ========================= */
 
 async function refreshAll(){
 
-  await Promise.all([
-    loadOrders(),
-    loadMenu(),
-    loadData()
-  ]);
+await Promise.all([
 
-  updateStats();
-}
+loadOrders(),
 
+loadMenu(),
 
-/* =========================
-   ESCAPE HTML
-========================= */
+loadData()
 
-function escapeHtml(value){
+]);
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-
-/* =========================
-   PWA
-========================= */
-
-if("serviceWorker" in navigator){
-
-  window.addEventListener("load", function(){
-
-    navigator.serviceWorker
-      .register("./admin-sw.js")
-      .then(function(){
-        console.log(
-          "Ghar Ka Khana Admin PWA ready"
-        );
-      })
-      .catch(function(error){
-        console.log(
-          "Admin PWA error:",
-          error
-        );
-      });
-
-  });
+updateStats();
 
 }
 
 
 /* =========================
-   START
+ESCAPE HTML
 ========================= */
 
-checkSavedLogin();
+function escapeHtml(
+value
+){
+
+return String(
+value ?? ""
+)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+PWA
+========================= */
+
+if(
+"serviceWorker"
+in navigator
+){
+
+window.addEventListener(
+"load",
+function(){
+
+navigator.serviceWorker
+.register(
+"./admin-sw.js"
+)
+.then(function(){
+
+console.log(
+"Ghar Ka Khana Admin PWA ready"
+);
+
+})
+.catch(function(error){
+
+console.log(
+"Admin PWA error:",
+error
+);
+
+});
+
+});
+
+}
 
 </script>
 
