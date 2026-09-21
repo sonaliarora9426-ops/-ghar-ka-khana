@@ -6,120 +6,90 @@
 
 <title>Ghar Ka Khana - Admin</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#f6f6f6;
+  background:#f5f5f5;
   color:#222;
 }
 
 .header{
   background:#111;
   color:white;
-  padding:18px;
+  padding:20px;
   text-align:center;
 }
 
-.header h1{
-  margin:0;
-  font-size:25px;
-}
-
-.header p{
-  margin:6px 0 0;
-}
-
 .container{
-  max-width:800px;
+  max-width:850px;
   margin:auto;
   padding:15px;
 }
 
 .card{
   background:white;
-  padding:18px;
-  margin-bottom:15px;
+  padding:20px;
+  margin:15px 0;
   border-radius:15px;
-  box-shadow:0 2px 10px rgba(0,0,0,.08);
+  box-shadow:0 2px 10px #ddd;
 }
 
-input,select,button{
+input,button,select{
   width:100%;
   padding:13px;
   margin:7px 0;
-  border-radius:9px;
+  border-radius:8px;
   border:1px solid #ccc;
-  font-size:15px;
+  font-size:16px;
 }
 
 button{
   background:#111;
   color:white;
-  border:none;
+  border:0;
   font-weight:bold;
 }
 
-button.green{
-  background:#16833b;
-}
-
-button.red{
-  background:#c62828;
-}
-
-button.blue{
-  background:#1769aa;
-}
+.green{background:#16833b}
+.blue{background:#1769aa}
+.red{background:#c62828}
+.gray{background:#555}
 
 .order{
   border:1px solid #ddd;
+  border-radius:12px;
   padding:15px;
   margin:12px 0;
-  border-radius:12px;
-}
-
-.order h3{
-  margin-top:0;
+  background:#fff;
 }
 
 .item{
-  padding:6px 0;
+  padding:7px 0;
   border-bottom:1px solid #eee;
+}
+
+.error{
+  color:#d00;
+  font-weight:bold;
+}
+
+.success{
+  color:green;
+  font-weight:bold;
 }
 
 .hidden{
   display:none;
 }
 
-.error{
-  color:#d00;
-  text-align:center;
-  font-weight:bold;
-}
-
-.success{
-  color:green;
-  text-align:center;
-  font-weight:bold;
-}
-
-.total{
-  font-size:19px;
-  font-weight:bold;
-}
-
-.logout{
-  background:#555;
-}
-
 .small{
-  font-size:13px;
   color:#666;
+  font-size:13px;
 }
 </style>
 </head>
@@ -132,32 +102,33 @@ button.blue{
 
   <div class="header">
     <h1>🍲 Ghar Ka Khana</h1>
-    <p>Admin Panel</p>
+    <p>Admin Login</p>
   </div>
 
   <div class="container">
 
     <div class="card">
 
-      <h2>🔐 Admin Login</h2>
-
-      <p class="small">
-        Enter your 4 digit admin PIN
-      </p>
+      <h2>🔐 Login</h2>
 
       <input
-        id="pin"
+        type="email"
+        id="email"
+        value="sonaliarora9426@gmail.com"
+        placeholder="Admin Email"
+      >
+
+      <input
         type="password"
-        inputmode="numeric"
-        maxlength="4"
-        placeholder="Enter PIN"
+        id="password"
+        placeholder="Password"
       >
 
       <button onclick="login()">
         Login
       </button>
 
-      <p id="loginError" class="error"></p>
+      <p id="loginMessage"></p>
 
     </div>
 
@@ -171,11 +142,8 @@ button.blue{
 <div id="adminScreen" class="hidden">
 
   <div class="header">
-
     <h1>🍲 Ghar Ka Khana</h1>
-
     <p>Admin Dashboard</p>
-
   </div>
 
   <div class="container">
@@ -186,7 +154,7 @@ button.blue{
         🔄 Refresh Orders
       </button>
 
-      <button class="logout" onclick="logout()">
+      <button class="gray" onclick="logout()">
         🔒 Logout
       </button>
 
@@ -198,7 +166,7 @@ button.blue{
       <h2>📦 Orders</h2>
 
       <div id="orders">
-        Loading orders...
+        Loading...
       </div>
 
     </div>
@@ -210,16 +178,9 @@ button.blue{
 
 <script>
 
-/* ======================================
-   ADMIN PIN
-   ====================================== */
-
-const ADMIN_PIN = "7869";
-
-
-/* ======================================
+/* =========================
    SUPABASE
-   ====================================== */
+========================= */
 
 const SUPABASE_URL =
 "https://oxfuccrgitckvozmnyss.supabase.co";
@@ -227,46 +188,167 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
 "sb_publishable_DwZtFpmfTwDnlAp6fYbjpA_upTa3khj";
 
+const supabaseClient =
+supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 
-/* ======================================
-   LOGIN
-   ====================================== */
 
-function login(){
+/* =========================
+   START
+========================= */
 
-  const pin =
-    document.getElementById("pin").value;
+checkLogin();
 
-  if(pin === ADMIN_PIN){
 
-    localStorage.setItem(
-      "ghar_ka_khana_admin",
-      "true"
-    );
+/* =========================
+   CHECK LOGIN
+========================= */
 
-    showAdmin();
+async function checkLogin(){
+
+  const {
+    data,
+    error
+  } = await supabaseClient.auth.getSession();
+
+  if(error){
+
+    showLogin();
+
+    return;
+
+  }
+
+  if(data.session){
+
+    const user =
+      data.session.user;
+
+    const {
+      data:profile,
+      error:profileError
+    } = await supabaseClient
+      .from("profiles")
+      .select("role,name")
+      .eq("id",user.id)
+      .single();
+
+    if(
+      !profileError &&
+      profile &&
+      profile.role === "admin"
+    ){
+
+      showAdmin();
+
+    }else{
+
+      await supabaseClient.auth.signOut();
+
+      showLogin();
+
+      document.getElementById(
+        "loginMessage"
+      ).innerText =
+        "❌ This account is not an admin.";
+
+    }
 
   }else{
 
-    document.getElementById("loginError")
-      .innerText =
-      "❌ Wrong PIN";
+    showLogin();
 
   }
 
 }
 
 
-/* ======================================
+/* =========================
+   LOGIN
+========================= */
+
+async function login(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const message =
+    document.getElementById("loginMessage");
+
+  message.className="";
+  message.innerText="Logging in...";
+
+  const {
+    data,
+    error
+  } = await supabaseClient.auth
+    .signInWithPassword({
+      email:email,
+      password:password
+    });
+
+  if(error){
+
+    message.className="error";
+
+    message.innerText =
+      "❌ " + error.message;
+
+    return;
+
+  }
+
+  const user =
+    data.user;
+
+  const {
+    data:profile,
+    error:profileError
+  } = await supabaseClient
+    .from("profiles")
+    .select("role,name")
+    .eq("id",user.id)
+    .single();
+
+  if(
+    profileError ||
+    !profile ||
+    profile.role !== "admin"
+  ){
+
+    await supabaseClient.auth.signOut();
+
+    message.className="error";
+
+    message.innerText =
+      "❌ Admin profile/role not found.";
+
+    return;
+
+  }
+
+  showAdmin();
+
+}
+
+
+/* =========================
    SHOW ADMIN
-   ====================================== */
+========================= */
 
 function showAdmin(){
 
-  document.getElementById("loginScreen")
+  document
+    .getElementById("loginScreen")
     .classList.add("hidden");
 
-  document.getElementById("adminScreen")
+  document
+    .getElementById("adminScreen")
     .classList.remove("hidden");
 
   loadOrders();
@@ -274,39 +356,39 @@ function showAdmin(){
 }
 
 
-/* ======================================
+/* =========================
+   SHOW LOGIN
+========================= */
+
+function showLogin(){
+
+  document
+    .getElementById("loginScreen")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("adminScreen")
+    .classList.add("hidden");
+
+}
+
+
+/* =========================
    LOGOUT
-   ====================================== */
+========================= */
 
-function logout(){
+async function logout(){
 
-  localStorage.removeItem(
-    "ghar_ka_khana_admin"
-  );
+  await supabaseClient.auth.signOut();
 
   location.reload();
 
 }
 
 
-/* ======================================
-   CHECK LOGIN
-   ====================================== */
-
-if(
-  localStorage.getItem(
-    "ghar_ka_khana_admin"
-  ) === "true"
-){
-
-  showAdmin();
-
-}
-
-
-/* ======================================
+/* =========================
    LOAD ORDERS
-   ====================================== */
+========================= */
 
 async function loadOrders(){
 
@@ -317,344 +399,227 @@ async function loadOrders(){
     "⏳ Loading orders...";
 
 
-  try{
-
-    const response =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/orders" +
-        "?select=*" +
-        "&order=created_at.desc",
-        {
-          method:"GET",
-
-          headers:{
-            "apikey":SUPABASE_KEY,
-            "Authorization":
-              "Bearer " + SUPABASE_KEY
-          }
-        }
-      );
+  const {
+    data:orders,
+    error
+  } = await supabaseClient
+    .from("orders")
+    .select("*")
+    .order("created_at",{ascending:false});
 
 
-    if(!response.ok){
-
-      throw new Error(
-        "Orders access denied"
-      );
-
-    }
-
-
-    const orders =
-      await response.json();
-
-
-    if(!orders.length){
-
-      box.innerHTML =
-        "<p>No orders yet.</p>";
-
-      return;
-
-    }
-
-
-    box.innerHTML = "";
-
-
-    for(const order of orders){
-
-      const div =
-        document.createElement("div");
-
-      div.className = "order";
-
-
-      let itemsHTML =
-        "<p>Loading items...</p>";
-
-
-      div.innerHTML = `
-
-        <h3>
-          🧾 Order #${order.id}
-        </h3>
-
-        <p>
-          <b>👤 Customer:</b>
-          ${escapeHTML(order.customer_name)}
-        </p>
-
-        <p>
-          <b>📞 Phone:</b>
-          ${escapeHTML(order.customer_phone)}
-        </p>
-
-        <p>
-          <b>📍 Address:</b>
-          ${escapeHTML(order.delivery_address)}
-        </p>
-
-        <p>
-          <b>💳 Payment:</b>
-          ${escapeHTML(
-            order.payment_method || "COD"
-          )}
-        </p>
-
-        <p>
-          <b>💰 Total:</b>
-          ₹${order.total_amount}
-        </p>
-
-        <p>
-          <b>📌 Status:</b>
-          ${escapeHTML(
-            order.status || "pending"
-          )}
-        </p>
-
-        <hr>
-
-        <b>🍽️ Items</b>
-
-        <div id="items-${order.id}">
-          ${itemsHTML}
-        </div>
-
-        <br>
-
-        <button
-          class="green"
-          onclick="markDelivered(${order.id})">
-
-          ✅ Mark Delivered
-
-        </button>
-
-
-        <button
-          class="blue"
-          onclick="callCustomer('${encodeURIComponent(order.customer_phone)}')">
-
-          📞 Call Customer
-
-        </button>
-
-
-        <button
-          onclick="navigate('${encodeURIComponent(order.delivery_address)}')">
-
-          🗺️ Navigate
-
-        </button>
-
-      `;
-
-
-      box.appendChild(div);
-
-
-      loadOrderItems(order.id);
-
-    }
-
-
-  }catch(error){
+  if(error){
 
     console.error(error);
 
     box.innerHTML = `
-
       <p class="error">
         ❌ Orders load nahi ho rahe.
       </p>
-
       <p class="small">
-        Supabase RLS/Admin authorization
-        check karni hogi.
+        ${error.message}
       </p>
-
     `;
-
-  }
-
-}
-
-
-/* ======================================
-   LOAD ORDER ITEMS
-   ====================================== */
-
-async function loadOrderItems(orderId){
-
-  const box =
-    document.getElementById(
-      "items-" + orderId
-    );
-
-  try{
-
-    const response =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/order_items" +
-        "?order_id=eq." +
-        orderId +
-        "&select=*",
-        {
-          headers:{
-            "apikey":SUPABASE_KEY,
-            "Authorization":
-              "Bearer " + SUPABASE_KEY
-          }
-        }
-      );
-
-
-    if(!response.ok){
-
-      box.innerHTML =
-        "<p>Items unavailable</p>";
-
-      return;
-
-    }
-
-
-    const items =
-      await response.json();
-
-
-    if(!items.length){
-
-      box.innerHTML =
-        "<p>No item details.</p>";
-
-      return;
-
-    }
-
-
-    box.innerHTML = "";
-
-
-    items.forEach(item=>{
-
-      const div =
-        document.createElement("div");
-
-      div.className = "item";
-
-
-      div.innerHTML = `
-
-        ${escapeHTML(
-          item.item_name || "Item"
-        )}
-
-        × ${item.quantity || 1}
-
-        — ₹${item.price || 0}
-
-      `;
-
-
-      box.appendChild(div);
-
-    });
-
-
-  }catch(error){
-
-    box.innerHTML =
-      "<p>Items unavailable.</p>";
-
-  }
-
-}
-
-
-/* ======================================
-   MARK DELIVERED
-   ====================================== */
-
-async function markDelivered(id){
-
-  if(
-    !confirm(
-      "Mark this order as delivered?"
-    )
-  ){
 
     return;
 
   }
 
 
-  try{
+  if(!orders || orders.length === 0){
 
-    const response =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/orders?id=eq." +
-        id,
-        {
-          method:"PATCH",
+    box.innerHTML =
+      "<p>No orders yet.</p>";
 
-          headers:{
-            "apikey":SUPABASE_KEY,
-            "Authorization":
-              "Bearer " + SUPABASE_KEY,
+    return;
 
-            "Content-Type":
-              "application/json",
-
-            "Prefer":
-              "return=minimal"
-          },
-
-          body:JSON.stringify({
-            status:"delivered"
-          })
-        }
-      );
+  }
 
 
-    if(!response.ok){
-
-      alert(
-        "❌ Status update nahi hua."
-      );
-
-      return;
-
-    }
+  box.innerHTML="";
 
 
-    alert(
-      "✅ Order delivered!"
-    );
+  for(const order of orders){
+
+    const div =
+      document.createElement("div");
+
+    div.className="order";
 
 
-    loadOrders();
+    div.innerHTML = `
+
+      <h3>🧾 Order #${order.id}</h3>
+
+      <p>
+        👤 <b>${escapeHTML(order.customer_name)}</b>
+      </p>
+
+      <p>
+        📞 ${escapeHTML(order.customer_phone)}
+      </p>
+
+      <p>
+        📍 ${escapeHTML(order.delivery_address)}
+      </p>
+
+      <p>
+        💰 <b>₹${order.total_amount}</b>
+      </p>
+
+      <p>
+        💳 ${escapeHTML(
+          order.payment_method || "COD"
+        )}
+      </p>
+
+      <p>
+        📌 Status:
+        <b>${escapeHTML(
+          order.status || "pending"
+        )}</b>
+      </p>
+
+      <hr>
+
+      <b>🍽️ Order Items</b>
+
+      <div id="items-${order.id}">
+        Loading items...
+      </div>
+
+      <button
+        class="green"
+        onclick="markDelivered(${order.id})">
+        ✅ Mark Delivered
+      </button>
+
+      <button
+        class="blue"
+        onclick="callCustomer('${encodeURIComponent(order.customer_phone)}')">
+        📞 Call Customer
+      </button>
+
+      <button
+        onclick="navigate('${encodeURIComponent(order.delivery_address)}')">
+        🗺️ Navigate
+      </button>
+
+    `;
 
 
-  }catch(error){
+    box.appendChild(div);
 
-    alert(
-      "❌ Something went wrong."
-    );
+    loadItems(order.id);
 
   }
 
 }
 
 
-/* ======================================
-   CALL CUSTOMER
-   ====================================== */
+/* =========================
+   LOAD ORDER ITEMS
+========================= */
+
+async function loadItems(orderId){
+
+  const box =
+    document.getElementById(
+      "items-" + orderId
+    );
+
+
+  const {
+    data:items,
+    error
+  } = await supabaseClient
+    .from("order_items")
+    .select("*")
+    .eq("order_id",orderId);
+
+
+  if(error){
+
+    box.innerHTML =
+      "<p>Items unavailable.</p>";
+
+    return;
+
+  }
+
+
+  if(!items || items.length === 0){
+
+    box.innerHTML =
+      "<p>No item details.</p>";
+
+    return;
+
+  }
+
+
+  box.innerHTML="";
+
+
+  items.forEach(item=>{
+
+    const div =
+      document.createElement("div");
+
+    div.className="item";
+
+    div.innerHTML = `
+      ${escapeHTML(item.item_name || "Item")}
+      × ${item.quantity || 1}
+      — ₹${item.price || 0}
+    `;
+
+    box.appendChild(div);
+
+  });
+
+}
+
+
+/* =========================
+   MARK DELIVERED
+========================= */
+
+async function markDelivered(id){
+
+  const {
+    error
+  } = await supabaseClient
+    .from("orders")
+    .update({
+      status:"delivered"
+    })
+    .eq("id",id);
+
+
+  if(error){
+
+    alert(
+      "❌ " + error.message
+    );
+
+    return;
+
+  }
+
+
+  alert(
+    "✅ Order marked as delivered!"
+  );
+
+  loadOrders();
+
+}
+
+
+/* =========================
+   CALL
+========================= */
 
 function callCustomer(phone){
 
@@ -665,32 +630,31 @@ function callCustomer(phone){
 }
 
 
-/* ======================================
-   GOOGLE MAPS
-   ====================================== */
+/* =========================
+   MAPS
+========================= */
 
 function navigate(address){
 
-  const url =
-    "https://www.google.com/maps/search/?api=1&query=" +
-    address;
-
   window.open(
-    url,
+    "https://www.google.com/maps/search/?api=1&query=" +
+    address,
     "_blank"
   );
 
 }
 
 
-/* ======================================
-   SECURITY HELPER
-   ====================================== */
+/* =========================
+   HTML SECURITY
+========================= */
 
 function escapeHTML(value){
 
-  if(value === null ||
-     value === undefined){
+  if(
+    value === null ||
+    value === undefined
+  ){
 
     return "";
 
