@@ -1,7 +1,7 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ghar Ka Khana Admin</title>
 
@@ -9,111 +9,71 @@
 
 <style>
 *{box-sizing:border-box}
-
 body{
 margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 background:#f5f6f8;
-color:#151515
+color:#111;
 }
-
 .hidden{display:none!important}
-
-.app{
-max-width:720px;
-margin:auto;
-padding-bottom:90px
-}
-
+.app{max-width:720px;margin:auto;padding-bottom:100px}
 .top{
-position:sticky;
-top:0;
-z-index:5;
-background:#fff;
-padding:14px 16px;
-border-bottom:1px solid #eee
+position:sticky;top:0;z-index:5;
+background:#fff;padding:15px;
+border-bottom:1px solid #ddd;
 }
-
-.brand{
-font-size:21px;
-font-weight:800
-}
-
-.muted{
-color:#777;
-font-size:13px
-}
-
+.brand{font-size:22px;font-weight:800}
+.muted{color:#777;font-size:13px}
 .card{
 background:#fff;
-border-radius:18px;
 margin:12px;
 padding:16px;
-box-shadow:0 2px 12px #0000000a
+border-radius:18px;
+box-shadow:0 2px 12px #00000010;
 }
-
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:10px
+gap:10px;
 }
-
 .stat{
-padding:15px;
 border:1px solid #eee;
-border-radius:15px
+border-radius:15px;
+padding:15px;
 }
-
 .stat b{
 display:block;
 font-size:25px;
-margin-top:4px
+margin-top:5px;
 }
-
-.title{
-font-size:18px;
-font-weight:800;
-margin-bottom:12px
-}
-
+.title{font-size:19px;font-weight:800;margin-bottom:12px}
 .row{
 display:flex;
 justify-content:space-between;
 align-items:center;
-gap:8px
+gap:8px;
 }
-
 .btn{
 border:0;
 border-radius:11px;
 padding:10px 13px;
-font-weight:700
+font-weight:700;
+font-size:14px;
 }
-
-.black{
-background:#111;
-color:#fff
-}
-
-.gray{
-background:#eee;
-color:#111
-}
-
-.red{
-background:#ffe6e6;
-color:#a00000
-}
-
+.black{background:#111;color:white}
+.gray{background:#eee;color:#111}
+.red{background:#ffe5e5;color:#a00000}
+.green{background:#e4f8ea;color:#08752e}
 .input{
 width:100%;
 padding:12px;
 border:1px solid #ddd;
 border-radius:11px;
 margin:6px 0 10px;
-background:white
+font-size:15px;
+background:#fff;
 }
-
+textarea.input{min-height:80px}
 .nav{
 position:fixed;
 bottom:0;
@@ -121,103 +81,96 @@ left:0;
 right:0;
 background:#fff;
 border-top:1px solid #ddd;
-z-index:10
+z-index:10;
 }
-
 .navin{
 max-width:720px;
 margin:auto;
 display:grid;
-grid-template-columns:repeat(5,1fr)
+grid-template-columns:repeat(5,1fr);
 }
-
 .nav button{
 border:0;
 background:#fff;
 padding:8px 2px;
 color:#777;
-font-size:11px
+font-size:11px;
 }
-
 .nav button b{
 display:block;
-font-size:20px
+font-size:20px;
+margin-bottom:2px;
 }
-
 .nav button.active{
 color:#111;
-font-weight:800
+font-weight:800;
 }
-
-.section{
-display:none
-}
-
-.section.active{
-display:block
-}
-
+.section{display:none}
+.section.active{display:block}
 .item{
 border:1px solid #eee;
 border-radius:14px;
 padding:12px;
-margin:9px 0
+margin:9px 0;
 }
-
 .pill{
 font-size:11px;
-padding:5px 8px;
+padding:5px 9px;
 border-radius:20px;
-background:#eee
+background:#eee;
 }
-
-.on{
-background:#e6f8ed;
-color:#13733b
-}
-
-.off{
-background:#ffe7e7;
-color:#a00
-}
-
+.on{background:#e5f8eb;color:#08752e}
+.off{background:#ffe5e5;color:#a00000}
 .actions{
 display:flex;
 gap:7px;
 flex-wrap:wrap;
-margin-top:9px
+margin-top:10px;
 }
-
+.quick{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:9px;
+}
+.quick button{
+border:0;
+background:#f3f3f3;
+border-radius:14px;
+padding:13px 5px;
+font-size:13px;
+}
+.quick b{
+display:block;
+margin-top:5px;
+}
+.empty{
+text-align:center;
+padding:25px;
+color:#888;
+}
 .login{
 min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
 padding:20px;
-background:#f3f4f6
+background:#f3f4f6;
 }
-
 .loginbox{
 background:#fff;
 width:min(400px,100%);
 padding:28px;
-border-radius:22px
+border-radius:22px;
 }
-
-.logo{
-text-align:center;
-font-size:50px
-}
-
+.logo{text-align:center;font-size:50px}
 .modal{
 position:fixed;
 inset:0;
 background:#0008;
 z-index:20;
 display:flex;
-align-items:flex-end
+align-items:flex-end;
 }
-
 .sheet{
 background:#fff;
 width:100%;
@@ -226,31 +179,7 @@ margin:auto;
 border-radius:22px 22px 0 0;
 padding:20px;
 max-height:90vh;
-overflow:auto
-}
-
-.quick{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:9px
-}
-
-.quick button{
-border:0;
-background:#f3f3f3;
-border-radius:14px;
-padding:12px
-}
-
-.quick b{
-display:block;
-margin-top:5px
-}
-
-.empty{
-text-align:center;
-padding:25px;
-color:#888
+overflow:auto;
 }
 </style>
 </head>
@@ -258,9 +187,7 @@ color:#888
 <body>
 
 <!-- LOGIN -->
-
 <div id="login" class="login">
-
 <div class="loginbox">
 
 <div class="logo">🍱</div>
@@ -279,149 +206,78 @@ class="input"
 type="password"
 inputmode="numeric"
 maxlength="4"
-placeholder="Enter 4-digit PIN"
->
+placeholder="Enter 4-digit PIN">
 
 <button
 class="btn black"
 style="width:100%"
-onclick="login()"
->
+onclick="login()">
 Login
 </button>
 
-<p
-id="msg"
-class="muted"
-style="text-align:center"
-></p>
+<p id="msg" class="muted" style="text-align:center"></p>
 
 </div>
-
 </div>
 
 
 <!-- APP -->
-
 <div id="app" class="app hidden">
 
-<!-- TOP -->
-
 <div class="top">
-
 <div class="row">
-
 <div>
-
-<div class="brand">
-🍱 Ghar Ka Khana
+<div class="brand">🍱 Ghar Ka Khana</div>
+<div class="muted">Independent Restaurant App</div>
 </div>
 
-<div class="muted">
-Independent Restaurant App
-</div>
-
-</div>
-
-<button
-class="btn gray"
-onclick="logout()"
->
+<button class="btn gray" onclick="logout()">
 Logout
 </button>
-
 </div>
-
 </div>
 
 
 <!-- HUB -->
-
 <section id="hub" class="section active">
 
 <div class="card">
-
 <div class="row">
-
 <b>🟢 Restaurant LIVE</b>
-
-<span class="pill on">
-ONLINE
-</span>
-
+<span class="pill on">ONLINE</span>
 </div>
-
-<div
-class="muted"
-style="margin-top:6px"
->
+<div class="muted" style="margin-top:6px">
 Your own restaurant management system
 </div>
-
 </div>
-
 
 <div class="grid">
 
 <div class="stat">
-
-<span class="muted">
-Today's Sales
-</span>
-
-<b id="sales">
-₹0
-</b>
-
+<span class="muted">Today's Sales</span>
+<b id="sales">₹0</b>
 </div>
-
 
 <div class="stat">
-
-<span class="muted">
-Today's Orders
-</span>
-
-<b id="ordersToday">
-0
-</b>
-
+<span class="muted">Today's Orders</span>
+<b id="ordersToday">0</b>
 </div>
-
 
 <div class="stat">
-
-<span class="muted">
-Pending
-</span>
-
-<b id="pending">
-0
-</b>
-
+<span class="muted">Pending</span>
+<b id="pending">0</b>
 </div>
-
 
 <div class="stat">
-
-<span class="muted">
-Delivered
-</span>
-
-<b id="delivered">
-0
-</b>
-
+<span class="muted">Delivered</span>
+<b id="delivered">0</b>
 </div>
 
 </div>
-
 
 <div class="card">
 
-<div class="title">
-Quick Links
-</div>
+<div class="title">Quick Links</div>
 
 <div class="quick">
 
@@ -456,53 +312,36 @@ Quick Links
 </button>
 
 </div>
-
 </div>
-
 
 <div class="card">
-
-<div class="title">
-Recent Orders
-</div>
-
+<div class="title">Recent Orders</div>
 <div id="recent"></div>
-
 </div>
 
 </section>
 
 
 <!-- ORDERS -->
-
 <section id="orders" class="section">
 
 <div class="card">
 
 <div class="row">
+<div class="title">Orders</div>
 
-<div class="title">
-Orders
-</div>
-
-<button
-class="btn gray"
-onclick="loadOrders()"
->
+<button class="btn gray" onclick="loadOrders()">
 ↻
 </button>
-
 </div>
 
 <div id="orderList"></div>
 
 </div>
-
 </section>
 
 
 <!-- MENU -->
-
 <section id="menu" class="section">
 
 <div class="card">
@@ -510,195 +349,107 @@ onclick="loadOrders()"
 <div class="row">
 
 <div>
-
-<div
-class="title"
-style="margin:0"
->
-Menu Management
+<div class="title" style="margin:0">
+🍽️ Menu Management
 </div>
 
 <div class="muted">
-Changes show on customer website.
+Add, edit and manage your restaurant menu
+</div>
 </div>
 
-</div>
-
-<button
-class="btn black"
-onclick="openMenu()"
->
+<button class="btn black" onclick="openMenu()">
 ＋ Add
 </button>
 
 </div>
 
-
 <input
 id="search"
 class="input"
-placeholder="Search item..."
-oninput="renderMenu()"
->
-
+placeholder="🔍 Search menu item..."
+oninput="renderMenu()">
 
 <div id="menuList"></div>
 
 </div>
-
 </section>
 
 
 <!-- GROWTH -->
-
 <section id="growth" class="section">
 
 <div class="card">
 
-<div class="title">
-Business Insights
-</div>
+<div class="title">📈 Business Insights</div>
 
 <div class="grid">
 
 <div class="stat">
-
-<span class="muted">
-Total Sales
-</span>
-
-<b id="totalSales">
-₹0
-</b>
-
+<span class="muted">Total Sales</span>
+<b id="totalSales">₹0</b>
 </div>
-
 
 <div class="stat">
-
-<span class="muted">
-Avg Order
-</span>
-
-<b id="avg">
-₹0
-</b>
-
+<span class="muted">Average Order</span>
+<b id="avg">₹0</b>
 </div>
-
 
 <div class="stat">
-
-<span class="muted">
-Menu Items
-</span>
-
-<b id="mc">
-0
-</b>
-
+<span class="muted">Menu Items</span>
+<b id="mc">0</b>
 </div>
-
 
 <div class="stat">
-
-<span class="muted">
-Available
-</span>
-
-<b id="ac">
-0
-</b>
-
+<span class="muted">Available</span>
+<b id="ac">0</b>
 </div>
 
 </div>
-
 </div>
 
 </section>
 
 
 <!-- FINANCE -->
-
 <section id="finance" class="section">
 
 <div class="card">
 
-<div class="title">
-Finance
-</div>
+<div class="title">₹ Finance</div>
 
 <div class="grid">
 
 <div class="stat">
-
-<span class="muted">
-Revenue
-</span>
-
-<b id="rev">
-₹0
-</b>
-
+<span class="muted">Revenue</span>
+<b id="rev">₹0</b>
 </div>
-
 
 <div class="stat">
-
-<span class="muted">
-Expenses
-</span>
-
-<b id="exp">
-₹0
-</b>
-
+<span class="muted">Expenses</span>
+<b id="exp">₹0</b>
 </div>
-
 
 <div class="stat">
-
-<span class="muted">
-Profit
-</span>
-
-<b id="profit">
-₹0
-</b>
-
+<span class="muted">Profit</span>
+<b id="profit">₹0</b>
 </div>
-
 
 <div class="stat">
-
-<span class="muted">
-COD Revenue
-</span>
-
-<b id="cod">
-₹0
-</b>
-
+<span class="muted">COD Revenue</span>
+<b id="cod">₹0</b>
 </div>
 
 </div>
-
 </div>
-
 
 <div class="card">
 
-<div class="title">
-Expenses
-</div>
+<div class="title">Expenses</div>
 
 <div id="expenseList"></div>
 
-<button
-class="btn black"
-onclick="addExpense()"
->
+<button class="btn black" onclick="addExpense()">
 ＋ Add Expense
 </button>
 
@@ -708,87 +459,64 @@ onclick="addExpense()"
 
 
 <!-- INVENTORY -->
-
 <section id="inventory" class="section">
 
 <div class="card">
 
-<div class="title">
-Inventory
-</div>
+<div class="title">📦 Inventory</div>
 
 <div id="inventoryList"></div>
 
-<button
-class="btn black"
-onclick="addInventory()"
->
+<button class="btn black" onclick="addInventory()">
 ＋ Add Stock
 </button>
 
 </div>
-
 </section>
 
 
 <!-- SETTINGS -->
-
 <section id="settings" class="section">
 
 <div class="card">
 
-<div class="title">
-Settings
-</div>
+<div class="title">⚙️ Settings</div>
 
 <input
 id="sname"
 class="input"
 value="Ghar Ka Khana"
-placeholder="Restaurant name"
->
+placeholder="Restaurant name">
 
 <input
 id="sphone"
 class="input"
 value="9877663522"
-placeholder="Phone"
->
+placeholder="Phone">
 
 <textarea
 id="saddress"
 class="input"
-placeholder="Address"
-></textarea>
+placeholder="Restaurant address"></textarea>
 
 <input
 id="shours"
 class="input"
 value="10 AM - 10 PM"
-placeholder="Hours"
->
+placeholder="Opening hours">
 
-<button
-class="btn black"
-onclick="saveSettings()"
->
-Save
+<button class="btn black" onclick="saveSettings()">
+Save Settings
 </button>
 
 </div>
 
-
 <div class="card">
-
-<b>
-About
-</b>
-
+<b>About</b>
 <p class="muted">
 Independent Ghar Ka Khana app.
-No Zomato/Swiggy integration.
+No Zomato or Swiggy integration.
 </p>
-
 </div>
 
 </section>
@@ -797,199 +525,96 @@ No Zomato/Swiggy integration.
 
 
 <!-- MENU MODAL -->
-
-<div
-id="modal"
-class="modal hidden"
->
+<div id="modal" class="modal hidden">
 
 <div class="sheet">
 
-<h2 id="mtitle">
-Add Menu Item
-</h2>
+<h2 id="mtitle">Add Menu Item</h2>
 
-<input
-id="mid"
-type="hidden"
->
+<input id="mid" type="hidden">
 
 <input
 id="mname"
 class="input"
-placeholder="Item name"
->
+placeholder="Item name">
 
 <input
 id="mprice"
 class="input"
 type="number"
-placeholder="Price ₹"
->
+placeholder="Price ₹">
 
-<select
-id="mcat"
-class="input"
->
+<select id="mcat" class="input">
 
-<option>
-Main Course
-</option>
-
-<option>
-Parathas & Roti
-</option>
-
-<option>
-Snacks
-</option>
-
-<option>
-Chaat
-</option>
-
-<option>
-Breakfast
-</option>
-
-<option>
-Lunch
-</option>
-
-<option>
-Dinner
-</option>
-
-<option>
-Drinks
-</option>
-
-<option>
-Combo
-</option>
+<option>Main Course</option>
+<option>Parathas & Roti</option>
+<option>Snacks</option>
+<option>Chaat</option>
+<option>Breakfast</option>
+<option>Lunch</option>
+<option>Dinner</option>
+<option>Drinks</option>
+<option>Combo</option>
 
 </select>
 
 <textarea
 id="mdesc"
 class="input"
-placeholder="Description"
-></textarea>
+placeholder="Description"></textarea>
 
 <label>
-
-<input
-id="mavail"
-type="checkbox"
-checked
->
-
+<input id="mavail" type="checkbox" checked>
 Available
-
 </label>
-
 
 <div class="actions">
 
-<button
-class="btn black"
-onclick="saveMenu()"
->
+<button class="btn black" onclick="saveMenu()">
 Save
 </button>
 
-<button
-class="btn gray"
-onclick="closeModal()"
->
+<button class="btn gray" onclick="closeModal()">
 Cancel
 </button>
 
 </div>
 
 </div>
-
 </div>
 
 
 <!-- BOTTOM NAV -->
-
 <div class="nav">
 
 <div class="navin">
 
-<button
-id="n-orders"
-onclick="go('orders')"
->
-
+<button id="n-orders" onclick="go('orders')">
 📦
-
-<b>
-Orders
-</b>
-
+<b>Orders</b>
 </button>
 
-
-<button
-id="n-hub"
-class="active"
-onclick="go('hub')"
->
-
+<button id="n-hub" class="active" onclick="go('hub')">
 🏠
-
-<b>
-Hub
-</b>
-
+<b>Hub</b>
 </button>
 
-
-<button
-id="n-growth"
-onclick="go('growth')"
->
-
+<button id="n-growth" onclick="go('growth')">
 📈
-
-<b>
-Growth
-</b>
-
+<b>Growth</b>
 </button>
 
-
-<button
-id="n-menu"
-onclick="go('menu')"
->
-
+<button id="n-menu" onclick="go('menu')">
 🍽️
-
-<b>
-Menu
-</b>
-
+<b>Menu</b>
 </button>
 
-
-<button
-id="n-finance"
-onclick="go('finance')"
->
-
+<button id="n-finance" onclick="go('finance')">
 ₹
-
-<b>
-Finance
-</b>
-
+<b>Finance</b>
 </button>
 
 </div>
-
 </div>
 
 
@@ -1004,11 +629,8 @@ const KEY =
 const db =
 supabase.createClient(URL,KEY);
 
-
 let pin="";
-
 let orders=[];
-
 let menu=[];
 
 let data={
@@ -1017,33 +639,21 @@ inventory:[],
 settings:{}
 };
 
-
-const $ =
-x => document.getElementById(x);
-
+const $=id=>document.getElementById(id);
 
 function money(n){
-
-return "₹"+
-Number(n||0)
-.toLocaleString("en-IN");
-
+return "₹"+Number(n||0).toLocaleString("en-IN");
 }
 
-
 function esc(x){
-
 return String(x??"")
 .replace(/[&<>"']/g,m=>({
-
 "&":"&amp;",
 "<":"&lt;",
 ">":"&gt;",
 '"':"&quot;",
 "'":"&#39;"
-
 }[m]));
-
 }
 
 
@@ -1051,52 +661,33 @@ return String(x??"")
 
 async function login(){
 
-pin =
-$("pin").value.trim();
+pin=$("pin").value.trim();
 
 if(pin!=="7869"){
-
-$("msg").textContent =
-"Wrong PIN";
-
+$("msg").textContent="Wrong PIN";
 return;
-
 }
 
-sessionStorage.setItem(
-"gkpin",
-pin
-);
+sessionStorage.setItem("gkpin",pin);
 
-$("login").classList.add(
-"hidden"
-);
-
-$("app").classList.remove(
-"hidden"
-);
+$("login").classList.add("hidden");
+$("app").classList.remove("hidden");
 
 await loadAll();
-
 }
 
 
-/* LOAD EVERYTHING */
+/* LOAD */
 
 async function loadAll(){
 
 await Promise.all([
-
 loadOrders(),
-
 loadMenu(),
-
 loadData()
-
 ]);
 
 refresh();
-
 }
 
 
@@ -1104,19 +695,13 @@ refresh();
 
 async function loadOrders(){
 
-let r =
-await db.rpc(
+const r=await db.rpc(
 "admin_get_orders",
 {pin}
 );
 
 if(!r.error){
-
-orders =
-Array.isArray(r.data)
-?r.data
-:[];
-
+orders=Array.isArray(r.data)?r.data:[];
 }
 
 }
@@ -1126,20 +711,21 @@ Array.isArray(r.data)
 
 async function loadMenu(){
 
-let r =
-await db.rpc(
+const r=await db.rpc(
 "admin_get_menu",
 {pin}
 );
 
-if(!r.error){
+if(r.error){
 
-menu =
-Array.isArray(r.data)
-?r.data
-:[];
+console.log("Menu error:",r.error);
 
+menu=[];
+
+return;
 }
+
+menu=Array.isArray(r.data)?r.data:[];
 
 }
 
@@ -1148,17 +734,13 @@ Array.isArray(r.data)
 
 async function loadData(){
 
-let r =
-await db.rpc(
+const r=await db.rpc(
 "admin_get_data",
 {pin}
 );
 
 if(!r.error && r.data){
-
-data =
-r.data;
-
+data=r.data;
 }
 
 }
@@ -1168,51 +750,25 @@ r.data;
 
 function go(id){
 
-document
-.querySelectorAll(".section")
-.forEach(x=>
-x.classList.remove("active")
-);
+document.querySelectorAll(".section")
+.forEach(x=>x.classList.remove("active"));
 
 $(id).classList.add("active");
 
+document.querySelectorAll(".nav button")
+.forEach(x=>x.classList.remove("active"));
 
-document
-.querySelectorAll(".nav button")
-.forEach(x=>
-x.classList.remove("active")
-);
+const n=$("n-"+id);
 
+if(n)n.classList.add("active");
 
-let n =
-$("n-"+id);
+if(id==="menu")renderMenu();
+if(id==="orders")renderOrders();
+if(id==="finance")renderFinance();
+if(id==="inventory")renderInventory();
+if(id==="growth")renderGrowth();
 
-if(n){
-
-n.classList.add("active");
-
-}
-
-
-if(id==="menu")
-renderMenu();
-
-if(id==="orders")
-renderOrders();
-
-if(id==="finance")
-renderFinance();
-
-if(id==="inventory")
-renderInventory();
-
-if(id==="growth")
-renderGrowth();
-
-window.scrollTo(
-0,0
-);
-
+window.scrollTo(0,0);
 }
 
 
@@ -1221,15 +777,10 @@ window.scrollTo(
 function refresh(){
 
 renderHub();
-
 renderOrders();
-
 renderMenu();
-
 renderGrowth();
-
 renderFinance();
-
 renderInventory();
 
 }
@@ -1239,75 +790,41 @@ renderInventory();
 
 function renderHub(){
 
-let today =
-new Date()
-.toDateString();
+const today=new Date().toDateString();
 
-
-let todayOrders =
-orders.filter(o=>
-new Date(
-o.created_at
-).toDateString()
-===today
+const todayOrders=orders.filter(o=>
+new Date(o.created_at).toDateString()===today
 );
 
-
-let sales =
-todayOrders.reduce(
-(s,o)=>
-s+
-Number(
-o.total_amount||0
-),
-0
+const sales=todayOrders.reduce(
+(s,o)=>s+Number(o.total_amount||0),0
 );
 
+$("sales").textContent=money(sales);
+$("ordersToday").textContent=todayOrders.length;
 
-$("sales")
-.textContent =
-money(sales);
-
-
-$("ordersToday")
-.textContent =
-todayOrders.length;
-
-
-$("pending")
-.textContent =
+$("pending").textContent=
 orders.filter(o=>
 [
 "pending",
 "preparing",
 "ready",
 "out_for_delivery"
-]
-.includes(o.status)
+].includes(o.status)
 ).length;
 
+$("delivered").textContent=
+orders.filter(o=>o.status==="delivered").length;
 
-$("delivered")
-.textContent =
-orders.filter(o=>
-o.status==="delivered"
-).length;
-
-
-$("recent").innerHTML =
-
-orders
-.slice(0,5)
-.map(o=>`
+$("recent").innerHTML=
+orders.slice(0,5).map(o=>`
 
 <div class="item">
 
 <div class="row">
 
 <b>
-#${o.id}
-•
-${esc(o.customer_name)}
+#${o.id} • ${esc(o.customer_name)}
 </b>
 
 <span class="pill">
@@ -1317,18 +834,13 @@ ${esc(o.status)}
 </div>
 
 <div class="muted">
-
-${money(o.total_amount)}
-•
+${money(o.total_amount)} •
 ${esc(o.payment_method||"COD")}
-
 </div>
 
 </div>
 
-`)
-.join("")
-
+`).join("")
 ||
 '<div class="empty">No orders</div>';
 
@@ -1339,8 +851,7 @@ ${esc(o.payment_method||"COD")}
 
 function renderOrders(){
 
-$("orderList").innerHTML =
-
+$("orderList").innerHTML=
 orders.map(o=>`
 
 <div class="item">
@@ -1348,9 +859,7 @@ orders.map(o=>`
 <div class="row">
 
 <b>
-#${o.id}
-•
-${esc(o.customer_name)}
+#${o.id} • ${esc(o.customer_name)}
 </b>
 
 <span class="pill">
@@ -1359,38 +868,26 @@ ${esc(o.status)}
 
 </div>
 
-
 <div class="muted">
 
 📞 ${esc(o.customer_phone)}
-
 <br>
-
 📍 ${esc(o.delivery_address)}
 
 </div>
 
-
 <p>
-
-<b>
-${money(o.total_amount)}
-</b>
-
+<b>${money(o.total_amount)}</b>
 •
-
 ${esc(o.payment_method||"COD")}
-
 </p>
-
 
 <div class="muted">
 
 ${
 (o.items||[])
 .map(i=>
-`${esc(i.item_name)}
-× ${i.quantity}`
+`${esc(i.item_name)} × ${i.quantity}`
 )
 .join(" • ")
 ||
@@ -1399,53 +896,36 @@ ${
 
 </div>
 
-
 <div class="actions">
 
 <a
 class="btn gray"
-href="tel:${esc(o.customer_phone)}"
->
+href="tel:${esc(o.customer_phone)}">
 Call
 </a>
 
-
-<button
-class="btn black"
-onclick="nextStatus(${o.id},'preparing')"
->
+<button class="btn black"
+onclick="nextStatus(${o.id},'preparing')">
 Preparing
 </button>
 
-
-<button
-class="btn black"
-onclick="nextStatus(${o.id},'ready')"
->
+<button class="btn black"
+onclick="nextStatus(${o.id},'ready')">
 Ready
 </button>
 
-
-<button
-class="btn black"
-onclick="nextStatus(${o.id},'out_for_delivery')"
->
+<button class="btn black"
+onclick="nextStatus(${o.id},'out_for_delivery')">
 Out
 </button>
 
-
-<button
-class="btn black"
-onclick="nextStatus(${o.id},'delivered')"
->
+<button class="btn green"
+onclick="nextStatus(${o.id},'delivered')">
 Delivered
 </button>
 
-
-<button
-class="btn red"
-onclick="nextStatus(${o.id},'cancelled')"
->
+<button class="btn red"
+onclick="nextStatus(${o.id},'cancelled')">
 Cancel
 </button>
 
@@ -1453,24 +933,18 @@ Cancel
 
 </div>
 
-`)
-.join("")
-
+`).join("")
 ||
 '<div class="empty">No orders yet</div>';
 
 }
 
 
-/* CHANGE ORDER STATUS */
+/* ORDER STATUS */
 
-async function nextStatus(
-id,
-status
-){
+async function nextStatus(id,status){
 
-let r =
-await db.rpc(
+const r=await db.rpc(
 "admin_update_order_status",
 {
 pin,
@@ -1480,15 +954,11 @@ p_status:status
 );
 
 if(r.error){
-
 alert(r.error.message);
-
 return;
-
 }
 
 await loadOrders();
-
 refresh();
 
 }
@@ -1498,20 +968,13 @@ refresh();
 
 function renderMenu(){
 
-let q =
-($("search")?.value||"")
-.toLowerCase();
+const q=($("search")?.value||"").toLowerCase();
 
-
-let list =
-menu.filter(x=>
-x.name
-.toLowerCase()
-.includes(q)
+const list=menu.filter(x=>
+String(x.name||"").toLowerCase().includes(q)
 );
 
-
-$("menuList").innerHTML =
+$("menuList").innerHTML=
 
 list.map(x=>`
 
@@ -1521,89 +984,57 @@ list.map(x=>`
 
 <div>
 
-<b>
-${esc(x.name)}
-</b>
+<b>${esc(x.name)}</b>
 
 <div class="muted">
-${esc(x.category)}
+${esc(x.category||"Main Course")}
 </div>
 
 </div>
 
-
-<b>
-${money(x.price)}
-</b>
+<b>${money(x.price)}</b>
 
 </div>
 
-
-<div class="muted">
-
+<div class="muted" style="margin-top:6px">
 ${esc(x.description||"")}
-
 </div>
-
 
 <div class="actions">
 
-<span class="pill ${
-x.is_available
-?"on"
-:"off"
-}">
+<span class="pill ${x.is_available?"on":"off"}">
 
-${
-x.is_available
-?"Available"
-:"Out of stock"
-}
+${x.is_available?"✅ Available":"❌ Out of stock"}
 
 </span>
 
+<button
+class="btn gray"
+onclick="editMenu(${x.id})">
+✏️ Edit
+</button>
 
 <button
 class="btn gray"
-onclick="editMenu(${x.id})"
->
-Edit
-</button>
+onclick="toggleMenu(${x.id},${!x.is_available})">
 
-
-<button
-class="btn gray"
-onclick="toggleMenu(
-${x.id},
-${!x.is_available}
-)"
->
-
-${
-x.is_available
-?"Hide"
-:"Show"
-}
+${x.is_available?"Hide":"Show"}
 
 </button>
-
 
 <button
 class="btn red"
-onclick="deleteMenu(${x.id})"
->
-Delete
+onclick="deleteMenu(${x.id})">
+🗑️ Delete
 </button>
 
 </div>
 
 </div>
 
-`)
-.join("")
-
+`).join("")
 ||
-'<div class="empty">No menu items</div>';
+'<div class="empty">No menu items found</div>';
 
 }
 
@@ -1612,42 +1043,17 @@ Delete
 
 function openMenu(x){
 
-$("modal")
-.classList.remove("hidden");
+$("modal").classList.remove("hidden");
 
+$("mtitle").textContent=
+x?"Edit Menu Item":"Add Menu Item";
 
-$("mtitle")
-.textContent =
-x
-?"Edit Menu Item"
-:"Add Menu Item";
-
-
-$("mid").value =
-x?.id||"";
-
-
-$("mname").value =
-x?.name||"";
-
-
-$("mprice").value =
-x?.price||"";
-
-
-$("mcat").value =
-x?.category||
-"Main Course";
-
-
-$("mdesc").value =
-x?.description||"";
-
-
-$("mavail").checked =
-x
-?x.is_available
-:true;
+$("mid").value=x?.id||"";
+$("mname").value=x?.name||"";
+$("mprice").value=x?.price||"";
+$("mcat").value=x?.category||"Main Course";
+$("mdesc").value=x?.description||"";
+$("mavail").checked=x?!!x.is_available:true;
 
 }
 
@@ -1656,12 +1062,9 @@ x
 
 function editMenu(id){
 
-let item =
-menu.find(x=>
-x.id===id
-);
+const item=menu.find(x=>x.id===id);
 
-openMenu(item);
+if(item)openMenu(item);
 
 }
 
@@ -1670,8 +1073,7 @@ openMenu(item);
 
 function closeModal(){
 
-$("modal")
-.classList.add("hidden");
+$("modal").classList.add("hidden");
 
 }
 
@@ -1680,69 +1082,54 @@ $("modal")
 
 async function saveMenu(){
 
-let id =
-$("mid").value;
+const id=$("mid").value;
 
-
-let p={
-
-pin,
-
-p_name:
-$("mname").value,
-
-p_price:
-Number(
-$("mprice").value
-),
-
-p_category:
-$("mcat").value,
-
-p_description:
-$("mdesc").value,
-
-p_is_available:
-$("mavail").checked
-
+const payload={
+pin:pin,
+p_name:$("mname").value.trim(),
+p_price:Number($("mprice").value),
+p_category:$("mcat").value,
+p_description:$("mdesc").value.trim(),
+p_is_available:$("mavail").checked
 };
 
+if(!payload.p_name){
+alert("Item name required");
+return;
+}
+
+if(!payload.p_price){
+alert("Price required");
+return;
+}
 
 let r;
 
-
 if(id){
 
-r =
-await db.rpc(
+r=await db.rpc(
 "admin_update_menu_item",
 {
-...p,
+...payload,
 p_id:Number(id)
 }
 );
 
 }else{
 
-r =
-await db.rpc(
+r=await db.rpc(
 "admin_add_menu_item",
-p
+payload
 );
 
 }
-
 
 if(r.error){
 
-alert(
-r.error.message
-);
-
+alert(r.error.message);
 return;
 
 }
-
 
 closeModal();
 
@@ -1753,15 +1140,11 @@ refresh();
 }
 
 
-/* TOGGLE MENU */
+/* TOGGLE */
 
-async function toggleMenu(
-id,
-available
-){
+async function toggleMenu(id,available){
 
-let r =
-await db.rpc(
+const r=await db.rpc(
 "admin_toggle_menu_item",
 {
 pin,
@@ -1770,38 +1153,24 @@ p_available:available
 }
 );
 
-
 if(r.error){
-
-alert(
-r.error.message
-);
-
+alert(r.error.message);
 return;
-
 }
 
-
 await loadMenu();
-
 refresh();
 
 }
 
 
-/* DELETE MENU */
+/* DELETE */
 
 async function deleteMenu(id){
 
-if(
-!confirm(
-"Delete this item?"
-)
-)return;
+if(!confirm("Delete this menu item?"))return;
 
-
-let r =
-await db.rpc(
+const r=await db.rpc(
 "admin_delete_menu_item",
 {
 pin,
@@ -1809,20 +1178,12 @@ p_id:id
 }
 );
 
-
 if(r.error){
-
-alert(
-r.error.message
-);
-
+alert(r.error.message);
 return;
-
 }
 
-
 await loadMenu();
-
 refresh();
 
 }
@@ -1832,41 +1193,19 @@ refresh();
 
 function renderGrowth(){
 
-let total =
-orders.reduce(
-(s,o)=>
-s+
-Number(
-o.total_amount||0
-),
-0
+const total=orders.reduce(
+(s,o)=>s+Number(o.total_amount||0),0
 );
 
+$("totalSales").textContent=money(total);
 
-$("totalSales")
-.textContent =
-money(total);
+$("avg").textContent=
+money(orders.length?total/orders.length:0);
 
+$("mc").textContent=menu.length;
 
-$("avg")
-.textContent =
-money(
-orders.length
-?total/orders.length
-:0
-);
-
-
-$("mc")
-.textContent =
-menu.length;
-
-
-$("ac")
-.textContent =
-menu.filter(
-x=>x.is_available
-).length;
+$("ac").textContent=
+menu.filter(x=>x.is_available).length;
 
 }
 
@@ -1875,91 +1214,38 @@ x=>x.is_available
 
 function renderFinance(){
 
-let revenue =
-orders.reduce(
-(s,o)=>
-s+
-Number(
-o.total_amount||0
-),
-0
+const revenue=orders.reduce(
+(s,o)=>s+Number(o.total_amount||0),0
 );
 
+const expenses=(data.expenses||[]).reduce(
+(s,x)=>s+Number(x.amount||0),0
+);
 
-let expenses =
-(data.expenses||[])
+const cod=orders
+.filter(o=>(o.payment_method||"COD")==="COD")
 .reduce(
-(s,x)=>
-s+
-Number(
-x.amount||0
-),
-0
+(s,o)=>s+Number(o.total_amount||0),0
 );
 
+$("rev").textContent=money(revenue);
+$("exp").textContent=money(expenses);
+$("profit").textContent=money(revenue-expenses);
+$("cod").textContent=money(cod);
 
-let cod =
-orders
-.filter(o=>
-(o.payment_method||"COD")
-==="COD"
-)
-.reduce(
-(s,o)=>
-s+
-Number(
-o.total_amount||0
-),
-0
-);
-
-
-$("rev")
-.textContent =
-money(revenue);
-
-
-$("exp")
-.textContent =
-money(expenses);
-
-
-$("profit")
-.textContent =
-money(
-revenue-expenses
-);
-
-
-$("cod")
-.textContent =
-money(cod);
-
-
-$("expenseList").innerHTML =
-
-(data.expenses||[])
-.map(x=>`
+$("expenseList").innerHTML=
+(data.expenses||[]).map(x=>`
 
 <div class="item">
 
 <div class="row">
-
-<b>
-${esc(x.name)}
-</b>
-
-<b>
-${money(x.amount)}
-</b>
-
+<b>${esc(x.name)}</b>
+<b>${money(x.amount)}</b>
 </div>
 
 </div>
 
-`)
-.join("")
-
+`).join("")
 ||
 '<div class="muted">No expenses added</div>';
 
@@ -1970,41 +1256,21 @@ ${money(x.amount)}
 
 async function addExpense(){
 
-let name =
-prompt(
-"Expense name"
-);
+const name=prompt("Expense name");
 
-if(!name)
-return;
+if(!name)return;
 
+const amount=prompt("Amount ₹");
 
-let amount =
-prompt(
-"Amount ₹"
-);
+if(!amount)return;
 
-if(!amount)
-return;
-
-
-data.expenses =
-data.expenses||[];
-
+data.expenses=data.expenses||[];
 
 data.expenses.push({
-
-name,
-
-amount:
-Number(amount),
-
-date:
-new Date()
-.toISOString()
-
+name:name,
+amount:Number(amount),
+date:new Date().toISOString()
 });
-
 
 await saveData();
 
@@ -2013,60 +1279,26 @@ renderFinance();
 }
 
 
-/* SAVE DATA */
-
-async function saveData(){
-
-let r =
-await db.rpc(
-"admin_save_data",
-{
-pin,
-payload:data
-}
-);
-
-
-if(r.error){
-
-alert(
-r.error.message
-);
-
-}
-
-}
-
-
 /* INVENTORY */
 
 function renderInventory(){
 
-$("inventoryList").innerHTML =
-
-(data.inventory||[])
-.map(x=>`
+$("inventoryList").innerHTML=
+(data.inventory||[]).map(x=>`
 
 <div class="item">
 
 <div class="row">
 
-<b>
-${esc(x.name)}
-</b>
+<b>${esc(x.name)}</b>
 
-<span>
-${esc(x.qty)}
-${esc(x.unit||"")}
-</span>
+<span>${esc(x.qty)} ${esc(x.unit||"")}</span>
 
 </div>
 
 </div>
 
-`)
-.join("")
-
+`).join("")
 ||
 '<div class="muted">No stock items</div>';
 
@@ -2077,42 +1309,44 @@ ${esc(x.unit||"")}
 
 async function addInventory(){
 
-let name =
-prompt(
-"Item name"
-);
+const name=prompt("Item name");
 
-if(!name)
-return;
+if(!name)return;
 
+const qty=prompt("Quantity");
 
-let qty =
-prompt(
-"Quantity"
-);
+if(qty===null)return;
 
-if(qty===null)
-return;
-
-
-data.inventory =
-data.inventory||[];
-
+data.inventory=data.inventory||[];
 
 data.inventory.push({
-
-name,
-
-qty,
-
+name:name,
+qty:qty,
 unit:""
-
 });
-
 
 await saveData();
 
 renderInventory();
+
+}
+
+
+/* SAVE DATA */
+
+async function saveData(){
+
+const r=await db.rpc(
+"admin_save_data",
+{
+pin:pin,
+payload:data
+}
+);
+
+if(r.error){
+alert(r.error.message);
+}
 
 }
 
@@ -2122,27 +1356,15 @@ renderInventory();
 async function saveSettings(){
 
 data.settings={
-
-name:
-$("sname").value,
-
-phone:
-$("sphone").value,
-
-address:
-$("saddress").value,
-
-hours:
-$("shours").value
-
+name:$("sname").value,
+phone:$("sphone").value,
+address:$("saddress").value,
+hours:$("shours").value
 };
-
 
 await saveData();
 
-alert(
-"Settings saved"
-);
+alert("Settings saved");
 
 }
 
@@ -2151,9 +1373,7 @@ alert(
 
 function logout(){
 
-sessionStorage.removeItem(
-"gkpin"
-);
+sessionStorage.removeItem("gkpin");
 
 location.reload();
 
@@ -2162,18 +1382,12 @@ location.reload();
 
 /* AUTO LOGIN */
 
-if(
-sessionStorage.getItem("gkpin")
-==="7869"
-){
+if(sessionStorage.getItem("gkpin")==="7869"){
 
 pin="7869";
 
-$("login")
-.classList.add("hidden");
-
-$("app")
-.classList.remove("hidden");
+$("login").classList.add("hidden");
+$("app").classList.remove("hidden");
 
 loadAll();
 
